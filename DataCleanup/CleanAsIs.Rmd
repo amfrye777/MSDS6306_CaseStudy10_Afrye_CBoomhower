@@ -6,6 +6,7 @@ output: md_document
 ---
 
 To clean our As Is Chulwar data, we need to first separate each export group (e.g. Total, Efak, Wuge, etc.) into individual vectors.
+Since the only group that has data for 2014 is "Total", we have created a separate variable for just TotalAsIs_2014 data. 
 
 ```{R CleanAsIs_toVector}
 TotalAsIsVector <- c(AsIsChulwar [2:13, 2],
