@@ -8,7 +8,7 @@ output: md_document
 To start, we need to load our As Is Chulwar Data. This data has been sourced from the SMU 2DS platform Unit 10.2 Overview page.
 
 ```{R LoadAsIs}
-AsIsChulwar<-read.csv(paste0(DataLoad,"/ImportedAsIsDataChulwalar.csv"), header = FALSE)
+AsIsChulwar<-read.csv(paste0(DataLoad,"/ImportedAsIsDataChulwalar.csv"), header = FALSE,sep = ";")
 ```
 
 With our data loaded, lets review the structure and a small subset of data from the output to give a baseline for cleanup.
@@ -25,4 +25,4 @@ formattable(tail(AsIsChulwar,30))
 
 ```
 
-After reviewing this subset of data, it is apparent we have some cleanup to do. It appears we have one variable loaded that contains a delimited list of values by semicolons(;). All export group forcasts have also been combined into this one variable by repeating month/year data for each export group. We will need to parse this data to create a data structure that is easier to analyze. 
+After reviewing this subset of data, it is apparent we have some cleanup to do. It appears we have loaded one column for each year of data by month(row). All export group forcasts have also been combined into a list by repeating month/year data for each export group in subsequent rows. We will need to parse this data to create a data structure that is easier to analyze. 
