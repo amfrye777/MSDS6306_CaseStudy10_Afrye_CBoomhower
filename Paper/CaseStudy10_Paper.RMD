@@ -7,7 +7,7 @@ output: md_document
 
 ```{r DefineDirectory, include=FALSE}
 ##Change this path per your project root directory on your machine if you wish to regen the CaseStudy10_Paper.md file
-DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+DefaultDir<-getwd()##"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
