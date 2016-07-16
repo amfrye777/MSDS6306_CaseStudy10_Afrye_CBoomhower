@@ -17,6 +17,7 @@ FILE TREE STRUCTURE DEFINED
     ##    |__LoadPlan.RMD
     ## -- MSDS6306_CaseStudy10_Afrye_CBoomhower.Rproj
     ## -- Paper
+    ##    |__CaseStudy10_Paper.md
     ##    |__CaseStudy10_Paper.RMD
     ## -- README.md
     ## -- README.rmd
