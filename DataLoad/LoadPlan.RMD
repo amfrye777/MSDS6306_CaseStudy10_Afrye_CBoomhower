@@ -6,6 +6,7 @@ output: md_document
 ---
 
 The second data set loaded is the Plan Chulwar Data. The data is sourced as follows:
+
 ```{r LoadPlan}
 CWplan <- read.csv(paste0(DataLoad, "/ImportedPlanDataChulwalar.csv"), header = FALSE, sep = ";")
 ```
