@@ -7,8 +7,9 @@ output: md_document
 
 ```{r DefineDirectory, include=FALSE}
 ##Change this path per your project root directory on your machine if you wish to regen the CaseStudy10_Paper.md file
-DefaultDir<-getwd()##"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
-
+###"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+###add you path
+DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
 DataAnalysis<-paste(DefaultDir,"/DataAnalysis",sep = "")
@@ -36,19 +37,9 @@ If you do not currently have installed any of these packages, please uncomment t
 **This list is for different project...need to clean up as we go...**
 
 ```{R Install_Load_Pkgs, message=FALSE}
-#install.packages("downloader")
-#install.packages("digest")
 #install.packages("formattable")
-#install.packages("plyr")
-#install.packages("ggplot2")
-#install.packages("dplyr")
 
-library(downloader)
-library(digest)
 library(formattable)
-library(plyr)
-library(ggplot2)
-library(dplyr)
 ```
 
 #Data Load
