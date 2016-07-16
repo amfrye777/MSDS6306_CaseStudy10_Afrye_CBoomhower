@@ -1,0 +1,8 @@
+---
+title: "CleanAsIs"
+author: "Alex Frye, Chris Boomhower"
+date: "July 16, 2016"
+output: md_document
+---
+
+**Data Clean Notes**

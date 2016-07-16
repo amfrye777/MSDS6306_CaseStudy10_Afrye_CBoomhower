@@ -1,0 +1,8 @@
+---
+title: "LoadPlan"
+author: "Alex Frye, Chris Boomhower"
+date: "July 16, 2016"
+output: md_document
+---
+
+**Data Load Notes**

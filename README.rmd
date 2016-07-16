@@ -1,0 +1,38 @@
+---
+title: "README"
+author: Alex Frye
+output: 
+  md_document
+---
+
+```{r DeclarePath, echo=  FALSE}
+##Change this path per your project root directory on your machine if you wish to regen the README.html file
+DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+
+RResourcesDir<-paste(DefaultDir,"/RResources",sep = "")
+```
+
+##Assignment Definition
+Assignment Text.....
+
+
+##FILE TREE STRUCTURE DEFINED
+```{r Twee, echo = FALSE}
+setwd(DefaultDir)
+source(paste(RResourcesDir,"/twee.R",sep = ""))
+twee()
+```
+
+**NOTE:** Project Deliverable File Located: "~/Paper/CaseStudy10_Paper.MD"
+
+##PROJECT REPRODUCIBILITY INSTRUCTIONS
+
+1. Regenerate README (If Project File Structure Changes)
+    + Open README.RMD located inside Project Root
+    + Modify DefaultDir input to your Project's Root Directory Path
+    + Knit README.Rmd
+2. Regenerate AFrye_Week6CaseStudy.MD
+    + Open CaseStudy10_Paper.RMD
+    + Modify DefaultDir input to your Project's Root Directory Path
+    + Ensure all required R Packages are installed on your machine. Uncomment any needed Install.Packages code lines
+    + Knit CaseStudy10_Paper.RMD
