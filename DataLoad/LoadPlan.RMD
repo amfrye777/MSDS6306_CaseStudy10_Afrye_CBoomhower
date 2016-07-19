@@ -5,23 +5,18 @@ date: "July 16, 2016"
 output: md_document
 ---
 
+```{r read_chunk_LoadPlan, cache=FALSE}
+knitr::read_chunk(paste0(DataLoad,'/LoadPlan.R'))
+```
+
 The second data set loaded is the Plan Chulwar Data. The data is sourced as follows:
 
 ```{r LoadPlan}
-CWplan <- read.csv(paste0(DataLoad, "/ImportedPlanDataChulwalar.csv"), header = FALSE, sep = ";")
 ```
 
 Now that the data is loaded, it is beneficial to review its content structure in preparation for cleanup.
 
 ```{r PlanStructure}
-##Review Structure
-str(CWplan)
-
-##Review first 15 rows
-formattable(head(CWplan, 30))
-
-##Review last 15 rows
-formattable(tail(CWplan, 30))
 ```
 
 The data structure, head, and tail indicate there are likely multiple groups of data within the single CSV file that need divided accordingly. In order to do so, these data will need parsed during cleanup and assigned to a data frame for efficient analysis.

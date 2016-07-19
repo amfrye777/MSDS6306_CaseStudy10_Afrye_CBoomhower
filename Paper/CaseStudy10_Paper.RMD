@@ -7,13 +7,17 @@ output: md_document
 
 ```{r DefineDirectory, include=FALSE}
 ##Change this path per your project root directory on your machine if you wish to regen the CaseStudy10_Paper.md file
+
 ###"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+
 ###"C:/Users/Owner/Documents/GitHub/MSDS_6306/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+
 DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
 DataAnalysis<-paste(DefaultDir,"/DataAnalysis",sep = "")
-
+RResources<-paste(DefaultDir,"/RResources",sep = "")
+####source(paste0(RResources,'/SourceAll.R'))
 ```
 
 
@@ -26,6 +30,7 @@ Intro Text goes here.......
 This RMD requires the following R packages to run:
 
 * formattable
+* fpp
 
 If you do not currently have installed any of these packages, please uncomment the install.packages lines below before knitting this file.
 
@@ -33,8 +38,10 @@ If you do not currently have installed any of these packages, please uncomment t
 
 ```{R Install_Load_Pkgs, message=FALSE}
 #install.packages("formattable")
+#install.packages("fpp")
 
 library(formattable)
+library(fpp)
 ```
 
 #Data Load

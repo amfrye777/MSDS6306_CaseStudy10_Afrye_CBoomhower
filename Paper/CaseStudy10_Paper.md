@@ -8,6 +8,7 @@ Intro Text goes here.......
 This RMD requires the following R packages to run:
 
 -   formattable
+-   fpp
 
 If you do not currently have installed any of these packages, please
 uncomment the install.packages lines below before knitting this file.
@@ -15,8 +16,10 @@ uncomment the install.packages lines below before knitting this file.
 **This list is for different project...need to clean up as we go...**
 
     #install.packages("formattable")
+    #install.packages("fpp")
 
     library(formattable)
+    library(fpp)
 
 Data Load
 =========
@@ -24,6 +27,8 @@ Data Load
 Data Load Intro Text goes here.....
 
 ### AsIs Chulwalar Data
+
+    knitr::read_chunk(paste0(DataLoad,'/LoadAsIs.R'))
 
 To start, we need to load our As Is Chulwar Data. This data has been
 sourced from the SMU 2DS platform Unit 10.2 Overview page.
@@ -33,7 +38,7 @@ sourced from the SMU 2DS platform Unit 10.2 Overview page.
 With our data loaded, lets review the structure and a small subset of
 data from the output to give a baseline for cleanup.
 
-      ##Review Structure
+    ##Review Structure
     str(AsIsChulwar)
 
     ## 'data.frame':    98 obs. of  8 variables:
@@ -46,7 +51,7 @@ data from the output to give a baseline for cleanup.
     ##  $ V7: int  2013 4119526 3535744 3560974 3760065 2959933 2787898 2828744 3084113 5107775 ...
     ##  $ V8: int  2014 4308161 4155378 3924332 3659121 3898758 3313891 3595106 3502426 5619059 ...
 
-      ##Review Head 15 Records
+    ##Review Head 30 Records
     formattable(head(AsIsChulwar,30))
 
 <table style="width:106%;">
@@ -376,7 +381,7 @@ data from the output to give a baseline for cleanup.
 </tbody>
 </table>
 
-      ##Review Tail 15 Records
+    ##Review Tail 30 Records
     formattable(tail(AsIsChulwar,30))
 
 <table style="width:133%;">
@@ -747,6 +752,8 @@ easier to analyze.
 
 ### Plan Chulwalar Data
 
+    knitr::read_chunk(paste0(DataLoad,'/LoadPlan.R'))
+
 The second data set loaded is the Plan Chulwar Data. The data is sourced
 as follows:
 
@@ -768,7 +775,7 @@ structure in preparation for cleanup.
     ##  $ V7: int  2013 3580325 3863212 3606083 3213575 3139128 2998610 2785453 3083654 5143757 ...
     ##  $ V8: int  2014 4474000 4185565 4278119 3985542 3605973 3515173 3269444 3656112 5637391 ...
 
-    ##Review first 15 rows
+    ##Review first 30 rows
     formattable(head(CWplan, 30))
 
 <table style="width:106%;">
@@ -1098,7 +1105,7 @@ structure in preparation for cleanup.
 </tbody>
 </table>
 
-    ##Review last 15 rows
+    ##Review last 30 rows
     formattable(tail(CWplan, 30))
 
 <table style="width:129%;">
