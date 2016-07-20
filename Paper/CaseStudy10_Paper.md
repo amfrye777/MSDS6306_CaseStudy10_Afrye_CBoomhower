@@ -1482,17 +1482,249 @@ through cleaning the data to prep for analysis.
 
 ### AsIs Data Cleanup
 
-    knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
+    knitr::read_chunk(paste0(DataCleanup,'/CleanAsIs.R'))
 
 To clean our As Is Chulwar data, we need to first separate each export
 group (e.g. Total, Efak, Wuge, etc.) into individual vectors. Since the
 only group that has data for 2014 is "Total", we have created a separate
 variable for just TotalAsIs\_2014 data.
 
+    TotalAsIsVector <- c(AsIsChulwar [2:13, 2],
+                         AsIsChulwar [2:13, 3],
+                         AsIsChulwar [2:13, 4],
+                         AsIsChulwar [2:13, 5],
+                         AsIsChulwar [2:13, 6],
+                         AsIsChulwar [2:13, 7])
+
+    EfakAsIsVector <- c(AsIsChulwar [16:27, 2],
+                        AsIsChulwar [16:27, 3],
+                        AsIsChulwar [16:27, 4],
+                        AsIsChulwar [16:27, 5],
+                        AsIsChulwar [16:27, 6],
+                        AsIsChulwar [16:27, 7])
+
+    WugeAsIsVector <- c(AsIsChulwar [30:41, 2],
+                        AsIsChulwar [30:41, 3],
+                        AsIsChulwar [30:41, 4],
+                        AsIsChulwar [30:41, 5],
+                        AsIsChulwar [30:41, 6],
+                        AsIsChulwar [30:41, 7])
+
+    TotalEtelAsIsVector <- c(AsIsChulwar [44:55, 2],
+                             AsIsChulwar [44:55, 3],
+                             AsIsChulwar [44:55, 4],
+                             AsIsChulwar [44:55, 5],
+                             AsIsChulwar [44:55, 6],
+                             AsIsChulwar [44:55, 7])
+
+    BlueEtelAsIsVector <- c(AsIsChulwar [58:69, 2],
+                            AsIsChulwar [58:69, 3],
+                            AsIsChulwar [58:69, 4],
+                            AsIsChulwar [58:69, 5],
+                            AsIsChulwar [58:69, 6],
+                            AsIsChulwar [58:69, 7])
+
+    RedEtelAsIsVector <- c(AsIsChulwar [72:83, 2],
+                           AsIsChulwar [72:83, 3],
+                           AsIsChulwar [72:83, 4],
+                           AsIsChulwar [72:83, 5],
+                           AsIsChulwar [72:83, 6],
+                           AsIsChulwar [72:83, 7])
+
+    YearAsIsVector <- c(AsIsChulwar [86, 2],
+                        AsIsChulwar [86, 3],
+                        AsIsChulwar [86, 4],
+                        AsIsChulwar [86, 5],
+                        AsIsChulwar [86, 6],
+                        AsIsChulwar [86, 7])
+
+    TotalAsIsVector_2014 <- c(AsIsChulwar[2:13, 8])
+
 Second, we need to convert each new vector into a time series.
+
+    # The data is saved as a vector and needs to be converted into a time series
+    TotalAsIs <- ts(
+      TotalAsIsVector,
+      start             = c(2008, 1),
+      end               = c(2013, 12),
+      frequency         = 12
+    )
+
+    EfakAsIs <- ts(
+      EfakAsIsVector ,
+      start              = c(2008, 1),
+      end                = c(2013, 12),
+      frequency          = 12
+    )
+
+    WugeAsIs <- ts(
+      WugeAsIsVector,
+      start              = c(2008, 1),
+      end                = c(2013, 12),
+      frequency          = 12
+    )
+
+    TotalEtelAsIs <- ts(
+      TotalEtelAsIsVector,
+      start         = c(2008, 1),
+      end           = c(2013, 12),
+      frequency     = 12
+    )
+
+    BlueEtelAsIs <- ts(
+      BlueEtelAsIsVector,
+      start          = c(2008, 1),
+      end            = c(2013, 12),
+      frequency      = 12
+    )
+    RedEtelAsIs <- ts(
+      RedEtelAsIsVector,
+      start           = c(2008, 1),
+      end             = c(2013, 12),
+      frequency       = 12
+    )
+    YearAsIs <- ts(
+      YearAsIsVector,
+      start              = c(2008, 1),
+      end                = c(2013, 12),
+      frequency          = 12
+    )
+
+    TotalAsIs_2014 <- ts(
+      TotalAsIsVector_2014,
+      start        = c(2014, 1),
+      end          = c(2014, 12),
+      frequency    = 12
+    )
 
 With our time series variables created for each export group, lets
 review the data for each to ensure it matches our expectations.
+
+    TotalAsIs
+
+    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
+    ## 2008 2313221 1950131 2346635 2039787 1756964 1458302 1679637 1639670
+    ## 2009 2610573 2371327 2743786 2125308 1850073 1836222 1797311 1851968
+    ## 2010 2760688 2918333 3227041 1613888 2550157 2317645 1474144 2148521
+    ## 2011 3112861 2926663 3294784 2577079 2774068 2378227 2222900 2991787
+    ## 2012 3093088 3679308 3433364 2714899 3011767 2726028 2483834 3055655
+    ## 2013 4119526 3535744 3560974 3760065 2959933 2787898 2828744 3084113
+    ##          Sep     Oct     Nov     Dec
+    ## 2008 2882886 2959716 2596494 2656568
+    ## 2009 3271171 2818888 3310776 3022513
+    ## 2010 3898571 3348953 3135945 3332886
+    ## 2011 4151531 3318684 4037076 3429843
+    ## 2012 4200796 4228724 4618540 3383673
+    ## 2013 5107775 4562144 4729313 4372181
+
+    EfakAsIs
+
+    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
+    ## 2008  416589  472565  466539  370774  457741  384817  464502  389013
+    ## 2009  430055  468187  648582  414990  466329  465775  430988  502499
+    ## 2010  508177  601115  775996  323532  672011  589895  438340  483363
+    ## 2011  778643  726254  943274  845136 1030397  829198  741981  820385
+    ## 2012  849409 1021474 1034025  904449  986452 1011487  862239 1026357
+    ## 2013 1065097  952195 1062892 1057988 1127932  933365 1069867 1020078
+    ##          Sep     Oct     Nov     Dec
+    ## 2008  508370  495598  529191  441545
+    ## 2009  584983  506877  593705  641582
+    ## 2010  630064  608942  688055  693058
+    ## 2011  851428  873895  996616  941611
+    ## 2012  898892 1079994 1259730  986962
+    ## 2013 1049970 1197452 1283970 1280835
+
+    WugeAsIs
+
+    ##         Jan    Feb    Mar    Apr    May    Jun    Jul    Aug    Sep    Oct
+    ## 2008 414571 344579 429907 379606 305697 314582 346800 323618 578252 510031
+    ## 2009 462768 393940 458486 401535 367847 373210 351526 358676 589599 501149
+    ## 2010 525307 515202 581672 340651 565867 450257 378953 459746 792018 616164
+    ## 2011 507281 564342 684259 487103 601078 507467 504952 655479 864312 636096
+    ## 2012 545966 632103 619301 602511 609931 574084 510154 663220 827807 824506
+    ## 2013 752685 708242 719168 787368 574721 643629 628135 718542 923583 934234
+    ##         Nov    Dec
+    ## 2008 431480 489935
+    ## 2009 586040 659757
+    ## 2010 620973 750844
+    ## 2011 787231 712204
+    ## 2012 855732 691108
+    ## 2013 886772 948935
+
+    TotalEtelAsIs
+
+    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
+    ## 2008 1279668 1053325 1367520 1090725  873568  644479  772658  806741
+    ## 2009 1583216 1407388 1420801 1141100  919860  858876  910134  843050
+    ## 2010 1637464 1676161 1549560  813469 1198401 1140024  551268 1012542
+    ## 2011 1595267 1473528 1469728 1034650  952553  819303  802076 1222812
+    ## 2012 1519748 1812897 1607280 1008022 1291983  940158  945929 1235146
+    ## 2013 2109497 1738197 1633944 1745092 1039449 1054201 1003166 1154675
+    ##          Sep     Oct     Nov     Dec
+    ## 2008 1715265 1795751 1518288 1601324
+    ## 2009 1981563 1647934 1857836 1615091
+    ## 2010 2335488 1856264 1678123 1699063
+    ## 2011 2303271 1591584 1960675 1713991
+    ## 2012 2330334 2177895 2306324 1618147
+    ## 2013 3000929 2305605 2284672 2062160
+
+    BlueEtelAsIs
+
+    ##         Jan    Feb    Mar    Apr    May    Jun    Jul    Aug    Sep    Oct
+    ## 2008 425892 316631 353512 278711 212940 187849 206285 195810 448733 403327
+    ## 2009 407424 287654 305158 255687 200068 210118 211668 198472 361703 366410
+    ## 2010 369783 345144 322695 223841 239441 240316 138604 231179 329090 368584
+    ## 2011 308893 282106 347124 261498 217606 208258 174878 247714 312012 331926
+    ## 2012 285207 450874 360034 252674 247734 221676 216918 254993 299658 457595
+    ## 2013 387497 349013 334274 325052 255416 237019 239047 358552 359703 427681
+    ##         Nov    Dec
+    ## 2008 306171 345955
+    ## 2009 350196 351651
+    ## 2010 320947 373302
+    ## 2011 389858 299115
+    ## 2012 388917 303450
+    ## 2013 434561 348558
+
+    RedEtelAsIs
+
+    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
+    ## 2008  853776  736694 1014008  812014  660628  456630  566373  610931
+    ## 2009 1175792 1119734 1115643  885413  719792  648758  698466  644578
+    ## 2010 1267682 1331017 1226866  589628  958960  899709  412664  781363
+    ## 2011 1286374 1191422 1122604  773151  734947  611045  627198  975098
+    ## 2012 1234541 1362023 1247246  755347 1044249  718482  729011  980154
+    ## 2013 1722000 1389184 1299670 1420039  784033  817182  764120  796123
+    ##          Sep     Oct     Nov     Dec
+    ## 2008 1266532 1392424 1212117 1255369
+    ## 2009 1619860 1281524 1507640 1263440
+    ## 2010 2006398 1487680 1357176 1325761
+    ## 2011 1991259 1259658 1570817 1414876
+    ## 2012 2030676 1720301 1917408 1314697
+    ## 2013 2641226 1877924 1850111 1713603
+
+    YearAsIs
+
+    ##           Jan      Feb      Mar      Apr      May      Jun      Jul
+    ## 2008 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ## 2009 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ## 2010 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ## 2011 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ## 2012 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ## 2013 26280011 29609916 32726772 37215503 40629676 45408410 26280011
+    ##           Aug      Sep      Oct      Nov      Dec
+    ## 2008 29609916 32726772 37215503 40629676 45408410
+    ## 2009 29609916 32726772 37215503 40629676 45408410
+    ## 2010 29609916 32726772 37215503 40629676 45408410
+    ## 2011 29609916 32726772 37215503 40629676 45408410
+    ## 2012 29609916 32726772 37215503 40629676 45408410
+    ## 2013 29609916 32726772 37215503 40629676 45408410
+
+    TotalAsIs_2014
+
+    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
+    ## 2014 4308161 4155378 3924332 3659121 3898758 3313891 3595106 3502426
+    ##          Sep     Oct     Nov     Dec
+    ## 2014 5619059 5274287 4841693 4664854
 
 ### Plan Data Cleanup
 
@@ -1766,6 +1998,205 @@ Analysis text...
 
 Add RMD files for analysis...did not create these yet so left out of
 paper for now.
+
+### Efak Correlation
+
+    knitr::read_chunk(paste0(DataAnalysis,'/EfakCorrelation.R'))
+
+*Discuss AsIs and Plan plots*
+
+    par(mfrow=c(2,1))
+
+    plot(EfakAsIs , col="red",main="EfakAsIs")
+    plot(EfakPlan , col="red",main="EfakPlan")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakCor_Business-1.png)<!-- -->
+
+*Discuss Correlation*
+
+    cor(EfakAsIs , EfakPlan)
+
+    ## [1] 0.9055081
+
+*Discuss correlation accuracy*
+
+    EfakAsIs_lm <- lm(EfakAsIs ~ EfakPlan , data = EfakAsIs)
+    summary(EfakAsIs_lm)
+
+    ## 
+    ## Call:
+    ## lm(formula = EfakAsIs ~ EfakPlan, data = EfakAsIs)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -223437  -90637    8593   83869  322479 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) 7.555e+04  4.005e+04   1.886   0.0634 .  
+    ## EfakPlan    9.236e-01  5.173e-02  17.854   <2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 113600 on 70 degrees of freedom
+    ## Multiple R-squared:  0.8199, Adjusted R-squared:  0.8174 
+    ## F-statistic: 318.8 on 1 and 70 DF,  p-value: < 2.2e-16
+
+    EfakAsIs_tslm <- tslm(EfakAsIs ~ EfakPlan )
+    summary(EfakAsIs_tslm)
+
+    ## 
+    ## Call:
+    ## tslm(formula = EfakAsIs ~ EfakPlan)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -223437  -90637    8593   83869  322479 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) 7.555e+04  4.005e+04   1.886   0.0634 .  
+    ## EfakPlan    9.236e-01  5.173e-02  17.854   <2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 113600 on 70 degrees of freedom
+    ## Multiple R-squared:  0.8199, Adjusted R-squared:  0.8174 
+    ## F-statistic: 318.8 on 1 and 70 DF,  p-value: < 2.2e-16
+
+### Efak STL
+
+    knitr::read_chunk(paste0(DataAnalysis,'/EfakSTL.R'))
+
+*Discuss STL plot and extract comments from .R code chunk*
+
+    # The time series can be analysed using the stl function in order to seperate
+    # the trend, seasonality and remainder (remaining coincidential) components from
+    # one another.
+
+    EfakAsIs_stl <- stl(EfakAsIs , s.window=9)
+
+    # Thus the individual time series can be shown graphically and tabularly.
+
+    # The trend of the total exports is almost linear. A relatively uniform 
+    # seaonality can be seen.
+
+    par(mfrow=c(3,2))
+
+    plot(EfakAsIs_stl, col="black", main="EfakAsIs_stl")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSTL_toSTL-1.png)<!-- -->
+
+    EfakAsIs_stl
+
+    ##  Call:
+    ##  stl(x = EfakAsIs, s.window = 9)
+    ## 
+    ## Components
+    ##              seasonal     trend   remainder
+    ## Jan 2008  -24764.2935  424215.0   17138.327
+    ## Feb 2008   15831.0144  428674.2   28059.806
+    ## Mar 2008  130207.7627  433133.4  -96802.155
+    ## Apr 2008  -89604.2059  437592.6   22785.601
+    ## May 2008   53655.4937  441695.6  -37610.070
+    ## Jun 2008  -28168.2633  445798.5  -32813.285
+    ## Jul 2008  -85516.1259  449901.5  100116.605
+    ## Aug 2008  -60069.0943  454145.5   -5063.426
+    ## Sep 2008    7943.2490  458389.5   42037.232
+    ## Oct 2008   -7071.1329  462633.5   40035.615
+    ## Nov 2008   68795.5412  467722.8   -7327.353
+    ## Dec 2008   16445.8636  472812.1  -47712.969
+    ## Jan 2009  -24517.4534  477901.4  -23328.946
+    ## Feb 2009   15030.7380  483130.9  -29974.653
+    ## Mar 2009  130489.6277  488360.4   29731.942
+    ## Apr 2009  -86832.2848  493589.9    8232.339
+    ## May 2009   57869.0651  500738.5  -92278.532
+    ## Jun 2009  -27027.1196  507887.0  -15084.868
+    ## Jul 2009  -90206.2474  515035.5    6158.739
+    ## Aug 2009  -59589.5620  522438.5   39650.014
+    ## Sep 2009     851.7679  529841.6   54289.645
+    ## Oct 2009   -6909.8449  537244.6  -23457.782
+    ## Nov 2009   73045.0669  543205.7  -22545.787
+    ## Dec 2009   14833.5303  549166.8   77581.656
+    ## Jan 2010  -24755.0398  555127.9  -22195.867
+    ## Feb 2010   13032.2054  561076.6   27006.164
+    ## Mar 2010  134008.6158  567025.4   74962.029
+    ## Apr 2010  -82897.5582  572974.1 -166544.521
+    ## May 2010   64095.2734  583594.9   24320.793
+    ## Jun 2010  -24238.1669  594215.8   19917.379
+    ## Jul 2010  -99942.9436  604836.6  -66553.698
+    ## Aug 2010  -57381.4168  624421.3  -83676.912
+    ## Sep 2010  -10865.7682  644006.0   -3076.248
+    ## Oct 2010   -6769.0932  663590.7  -47879.610
+    ## Nov 2010   81404.4940  687749.1  -81098.578
+    ## Dec 2010   15859.6431  711907.5  -34709.109
+    ## Jan 2011  -20725.1613  736065.8   63302.314
+    ## Feb 2011    4640.5850  758789.4  -37175.952
+    ## Mar 2011  126506.6073  781512.9   35254.505
+    ## Apr 2011  -71671.1699  804236.4  112570.762
+    ## May 2011   72609.2532  823426.4  134361.369
+    ## Jun 2011  -29542.5598  842616.3   16124.211
+    ## Jul 2011 -106957.2985  861806.3  -12868.021
+    ## Aug 2011  -56180.8353  874743.3    1822.494
+    ## Sep 2011  -34706.0440  887680.4   -1546.319
+    ## Oct 2011    2834.9631  900617.4  -29557.348
+    ## Nov 2011  102441.1450  909955.8  -15780.975
+    ## Dec 2011   24243.0806  919294.3   -1926.356
+    ## Jan 2012  -18009.0673  928632.7  -61214.654
+    ## Feb 2012   -3670.4398  940136.7   85007.773
+    ## Mar 2012  113699.8439  951640.6  -31315.457
+    ## Apr 2012  -63397.5364  963144.6    4701.978
+    ## May 2012   73612.6954  973444.0  -60604.672
+    ## Jun 2012  -38582.2807  983743.4   66325.886
+    ## Jul 2012 -103993.5049  994042.8  -27810.308
+    ## Aug 2012  -57435.0433 1001328.7   82463.345
+    ## Sep 2012  -44905.1318 1008614.6  -64817.451
+    ## Oct 2012    9879.7360 1015900.5   54213.796
+    ## Nov 2012  111936.5697 1022987.5  124805.940
+    ## Dec 2012   29331.9995 1030074.5  -72444.513
+    ## Jan 2013  -18049.2165 1037161.5   45984.680
+    ## Feb 2013   -6901.6162 1048193.9  -89097.308
+    ## Mar 2013  106628.4564 1059226.3 -102962.768
+    ## Apr 2013  -58865.3148 1070258.7   46594.616
+    ## May 2013   73499.4031 1082162.2  -27729.613
+    ## Jun 2013  -41914.5970 1094065.7 -118786.124
+    ## Jul 2013 -103470.7481 1105969.2   67368.515
+    ## Aug 2013  -56721.4519 1118541.3  -41741.860
+    ## Sep 2013  -51170.4991 1131113.4  -29972.893
+    ## Oct 2013   13783.1826 1143685.5   39983.346
+    ## Nov 2013  118472.3596 1157162.1    8335.554
+    ## Dec 2013   30102.5772 1170638.7   80093.721
+
+    # It is interesting to note that the almost linear trend is not seen in the 
+    # individual segments. The individual trends run partially in opposite 
+    # directions in the middle of the time scale, which causes the linear trend 
+    # in the total As Is data.
+
+*Discuss Trend*
+
+    par(mfrow=c(1,1))
+
+    plot(EfakAsIs_stl$time.series[,"trend"], col="red")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSTL_Trend-1.png)<!-- -->
+
+### Efak Monthly Seasonal
+
+    knitr::read_chunk(paste0(DataAnalysis,'/EfakSeasonal.R'))
+
+*Discuss and extract comments*
+
+    # The modification of the seasonlity component can also be changed into a
+    # monthly view. It only makes sense to do this if the seasonality componant as
+    # the trend looks almost identical and the remainder is then randomly spread. 
+
+    monthplot(EfakAsIs_stl$time.series[,"seasonal"], main="", ylab="Seasonal")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSeasonal_Monthly-1.png)<!-- -->
+
+### Efak External Indicator Correlation
+
+    knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
 
 Conclusion
 ==========

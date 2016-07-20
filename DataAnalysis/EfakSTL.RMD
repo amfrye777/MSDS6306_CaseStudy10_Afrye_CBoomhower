@@ -1,12 +1,19 @@
 ---
-title: "DataAnalysis"
+title: "EfakSTL"
 author: "Alex Frye, Chris Boomhower"
 date: "July 19, 2016"
 output: md_document
 ---
 
 ```{r read_chunk_DataAnalysis, cache=FALSE}
-knitr::read_chunk(paste0(DataAnalysis,'/DataAnalysis.R'))
+knitr::read_chunk(paste0(DataAnalysis,'/EfakSTL.R'))
 ```
 
+*Discuss STL plot and extract comments from .R code chunk*
 
+```{r EfakSTL_toSTL}
+```
+
+*Discuss Trend*
+
+```{r EfakSTL_Trend}
