@@ -6,7 +6,7 @@ output: md_document
 ---
 
 ```{r read_chunk_CleanAsis, cache=FALSE}
-knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
+knitr::read_chunk(paste0(DataCleanup,'/CleanAsIs.R'))
 ```
 
 To clean our As Is Chulwar data, we need to first separate each export group (e.g. Total, Efak, Wuge, etc.) into individual vectors.
