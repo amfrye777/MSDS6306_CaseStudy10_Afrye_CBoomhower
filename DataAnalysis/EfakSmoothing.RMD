@@ -12,6 +12,12 @@ knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
 ```{r ExecAllSmooth}
 ```
 
+```{r ComputeModelMLE}
+```
+
+```{r ComputeModelError}
+```
+
 ```{r SimpleExponential}
 ```
 
