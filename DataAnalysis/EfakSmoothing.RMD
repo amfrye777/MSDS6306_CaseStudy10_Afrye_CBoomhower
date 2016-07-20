@@ -1,12 +1,35 @@
 ---
-title: "DataAnalysis"
+title: "EfakSmoothing"
 author: "Alex Frye, Chris Boomhower"
 date: "July 19, 2016"
 output: md_document
 ---
 
-```{r read_chunk_DataAnalysis, cache=FALSE}
-knitr::read_chunk(paste0(DataAnalysis,'/DataAnalysis.R'))
+```{r read_chunk_EfakSmoothing, cache=FALSE}
+knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
 ```
 
+```{r ExecAllSmooth}
+```
+
+```{r SimpleExponential}
+```
+
+```{r HoltLinear}
+```
+
+```{r HoltExponential}
+```
+
+```{r HoltDampedLinear}
+```
+
+```{r HoltDampedExponential}
+```
+
+```{r HoltWinterSeasonalAdd}
+```
+
+```{r HoltWinterSeasonalMult}
+```
 
