@@ -1482,249 +1482,21 @@ through cleaning the data to prep for analysis.
 
 ### AsIs Data Cleanup
 
+    knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
+
 To clean our As Is Chulwar data, we need to first separate each export
 group (e.g. Total, Efak, Wuge, etc.) into individual vectors. Since the
 only group that has data for 2014 is "Total", we have created a separate
 variable for just TotalAsIs\_2014 data.
 
-    TotalAsIsVector <- c(AsIsChulwar [2:13, 2],
-                         AsIsChulwar [2:13, 3],
-                         AsIsChulwar [2:13, 4],
-                         AsIsChulwar [2:13, 5],
-                         AsIsChulwar [2:13, 6],
-                         AsIsChulwar [2:13, 7])
-
-    EfakAsIsVector <- c(AsIsChulwar [16:27, 2],
-                        AsIsChulwar [16:27, 3],
-                        AsIsChulwar [16:27, 4],
-                        AsIsChulwar [16:27, 5],
-                        AsIsChulwar [16:27, 6],
-                        AsIsChulwar [16:27, 7])
-
-    WugeAsIsVector <- c(AsIsChulwar [30:41, 2],
-                        AsIsChulwar [30:41, 3],
-                        AsIsChulwar [30:41, 4],
-                        AsIsChulwar [30:41, 5],
-                        AsIsChulwar [30:41, 6],
-                        AsIsChulwar [30:41, 7])
-
-    TotalEtelAsIsVector <- c(AsIsChulwar [44:55, 2],
-                             AsIsChulwar [44:55, 3],
-                             AsIsChulwar [44:55, 4],
-                             AsIsChulwar [44:55, 5],
-                             AsIsChulwar [44:55, 6],
-                             AsIsChulwar [44:55, 7])
-
-    BlueEtelAsIsVector <- c(AsIsChulwar [58:69, 2],
-                            AsIsChulwar [58:69, 3],
-                            AsIsChulwar [58:69, 4],
-                            AsIsChulwar [58:69, 5],
-                            AsIsChulwar [58:69, 6],
-                            AsIsChulwar [58:69, 7])
-
-    RedEtelAsIsVector <- c(AsIsChulwar [72:83, 2],
-                           AsIsChulwar [72:83, 3],
-                           AsIsChulwar [72:83, 4],
-                           AsIsChulwar [72:83, 5],
-                           AsIsChulwar [72:83, 6],
-                           AsIsChulwar [72:83, 7])
-
-    YearAsIsVector <- c(AsIsChulwar [86, 2],
-                        AsIsChulwar [86, 3],
-                        AsIsChulwar [86, 4],
-                        AsIsChulwar [86, 5],
-                        AsIsChulwar [86, 6],
-                        AsIsChulwar [86, 7])
-
-    TotalAsIsVector_2014 <- c(AsIsChulwar[2:13, 8])
-
 Second, we need to convert each new vector into a time series.
-
-    # The data is saved as a vector and needs to be converted into a time series
-    TotalAsIs <- ts(
-                    TotalAsIsVector,
-                    start             = c(2008, 1),
-                    end               = c(2013, 12),
-                    frequency         = 12
-                   )
-
-    EfakAsIs <- ts(
-                   EfakAsIsVector ,
-                   start              = c(2008, 1),
-                   end                = c(2013, 12),
-                   frequency          = 12
-                  )
-
-    WugeAsIs <- ts(
-                   WugeAsIsVector,
-                   start              = c(2008, 1),
-                   end                = c(2013, 12),
-                   frequency          = 12
-                  )
-
-    TotalEtelAsIs <- ts(
-                        TotalEtelAsIsVector,
-                        start         = c(2008, 1),
-                        end           = c(2013, 12),
-                        frequency     = 12
-                       )
-
-    BlueEtelAsIs <- ts(
-                       BlueEtelAsIsVector,
-                       start          = c(2008, 1),
-                       end            = c(2013, 12),
-                       frequency      = 12
-                      )
-    RedEtelAsIs <- ts(
-                      RedEtelAsIsVector,
-                      start           = c(2008, 1),
-                      end             = c(2013, 12),
-                      frequency       = 12
-                    )
-    YearAsIs <- ts(
-                   YearAsIsVector,
-                   start              = c(2008, 1),
-                   end                = c(2013, 12),
-                   frequency          = 12
-                  )
-
-    TotalAsIs_2014 <- ts(
-                         TotalAsIsVector_2014,
-                         start        = c(2014, 1),
-                         end          = c(2014, 12),
-                         frequency    = 12
-                        )
 
 With our time series variables created for each export group, lets
 review the data for each to ensure it matches our expectations.
 
-    TotalAsIs
-
-    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
-    ## 2008 2313221 1950131 2346635 2039787 1756964 1458302 1679637 1639670
-    ## 2009 2610573 2371327 2743786 2125308 1850073 1836222 1797311 1851968
-    ## 2010 2760688 2918333 3227041 1613888 2550157 2317645 1474144 2148521
-    ## 2011 3112861 2926663 3294784 2577079 2774068 2378227 2222900 2991787
-    ## 2012 3093088 3679308 3433364 2714899 3011767 2726028 2483834 3055655
-    ## 2013 4119526 3535744 3560974 3760065 2959933 2787898 2828744 3084113
-    ##          Sep     Oct     Nov     Dec
-    ## 2008 2882886 2959716 2596494 2656568
-    ## 2009 3271171 2818888 3310776 3022513
-    ## 2010 3898571 3348953 3135945 3332886
-    ## 2011 4151531 3318684 4037076 3429843
-    ## 2012 4200796 4228724 4618540 3383673
-    ## 2013 5107775 4562144 4729313 4372181
-
-    EfakAsIs
-
-    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
-    ## 2008  416589  472565  466539  370774  457741  384817  464502  389013
-    ## 2009  430055  468187  648582  414990  466329  465775  430988  502499
-    ## 2010  508177  601115  775996  323532  672011  589895  438340  483363
-    ## 2011  778643  726254  943274  845136 1030397  829198  741981  820385
-    ## 2012  849409 1021474 1034025  904449  986452 1011487  862239 1026357
-    ## 2013 1065097  952195 1062892 1057988 1127932  933365 1069867 1020078
-    ##          Sep     Oct     Nov     Dec
-    ## 2008  508370  495598  529191  441545
-    ## 2009  584983  506877  593705  641582
-    ## 2010  630064  608942  688055  693058
-    ## 2011  851428  873895  996616  941611
-    ## 2012  898892 1079994 1259730  986962
-    ## 2013 1049970 1197452 1283970 1280835
-
-    WugeAsIs
-
-    ##         Jan    Feb    Mar    Apr    May    Jun    Jul    Aug    Sep    Oct
-    ## 2008 414571 344579 429907 379606 305697 314582 346800 323618 578252 510031
-    ## 2009 462768 393940 458486 401535 367847 373210 351526 358676 589599 501149
-    ## 2010 525307 515202 581672 340651 565867 450257 378953 459746 792018 616164
-    ## 2011 507281 564342 684259 487103 601078 507467 504952 655479 864312 636096
-    ## 2012 545966 632103 619301 602511 609931 574084 510154 663220 827807 824506
-    ## 2013 752685 708242 719168 787368 574721 643629 628135 718542 923583 934234
-    ##         Nov    Dec
-    ## 2008 431480 489935
-    ## 2009 586040 659757
-    ## 2010 620973 750844
-    ## 2011 787231 712204
-    ## 2012 855732 691108
-    ## 2013 886772 948935
-
-    TotalEtelAsIs
-
-    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
-    ## 2008 1279668 1053325 1367520 1090725  873568  644479  772658  806741
-    ## 2009 1583216 1407388 1420801 1141100  919860  858876  910134  843050
-    ## 2010 1637464 1676161 1549560  813469 1198401 1140024  551268 1012542
-    ## 2011 1595267 1473528 1469728 1034650  952553  819303  802076 1222812
-    ## 2012 1519748 1812897 1607280 1008022 1291983  940158  945929 1235146
-    ## 2013 2109497 1738197 1633944 1745092 1039449 1054201 1003166 1154675
-    ##          Sep     Oct     Nov     Dec
-    ## 2008 1715265 1795751 1518288 1601324
-    ## 2009 1981563 1647934 1857836 1615091
-    ## 2010 2335488 1856264 1678123 1699063
-    ## 2011 2303271 1591584 1960675 1713991
-    ## 2012 2330334 2177895 2306324 1618147
-    ## 2013 3000929 2305605 2284672 2062160
-
-    BlueEtelAsIs
-
-    ##         Jan    Feb    Mar    Apr    May    Jun    Jul    Aug    Sep    Oct
-    ## 2008 425892 316631 353512 278711 212940 187849 206285 195810 448733 403327
-    ## 2009 407424 287654 305158 255687 200068 210118 211668 198472 361703 366410
-    ## 2010 369783 345144 322695 223841 239441 240316 138604 231179 329090 368584
-    ## 2011 308893 282106 347124 261498 217606 208258 174878 247714 312012 331926
-    ## 2012 285207 450874 360034 252674 247734 221676 216918 254993 299658 457595
-    ## 2013 387497 349013 334274 325052 255416 237019 239047 358552 359703 427681
-    ##         Nov    Dec
-    ## 2008 306171 345955
-    ## 2009 350196 351651
-    ## 2010 320947 373302
-    ## 2011 389858 299115
-    ## 2012 388917 303450
-    ## 2013 434561 348558
-
-    RedEtelAsIs
-
-    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
-    ## 2008  853776  736694 1014008  812014  660628  456630  566373  610931
-    ## 2009 1175792 1119734 1115643  885413  719792  648758  698466  644578
-    ## 2010 1267682 1331017 1226866  589628  958960  899709  412664  781363
-    ## 2011 1286374 1191422 1122604  773151  734947  611045  627198  975098
-    ## 2012 1234541 1362023 1247246  755347 1044249  718482  729011  980154
-    ## 2013 1722000 1389184 1299670 1420039  784033  817182  764120  796123
-    ##          Sep     Oct     Nov     Dec
-    ## 2008 1266532 1392424 1212117 1255369
-    ## 2009 1619860 1281524 1507640 1263440
-    ## 2010 2006398 1487680 1357176 1325761
-    ## 2011 1991259 1259658 1570817 1414876
-    ## 2012 2030676 1720301 1917408 1314697
-    ## 2013 2641226 1877924 1850111 1713603
-
-    YearAsIs
-
-    ##           Jan      Feb      Mar      Apr      May      Jun      Jul
-    ## 2008 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ## 2009 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ## 2010 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ## 2011 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ## 2012 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ## 2013 26280011 29609916 32726772 37215503 40629676 45408410 26280011
-    ##           Aug      Sep      Oct      Nov      Dec
-    ## 2008 29609916 32726772 37215503 40629676 45408410
-    ## 2009 29609916 32726772 37215503 40629676 45408410
-    ## 2010 29609916 32726772 37215503 40629676 45408410
-    ## 2011 29609916 32726772 37215503 40629676 45408410
-    ## 2012 29609916 32726772 37215503 40629676 45408410
-    ## 2013 29609916 32726772 37215503 40629676 45408410
-
-    TotalAsIs_2014
-
-    ##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug
-    ## 2014 4308161 4155378 3924332 3659121 3898758 3313891 3595106 3502426
-    ##          Sep     Oct     Nov     Dec
-    ## 2014 5619059 5274287 4841693 4664854
-
 ### Plan Data Cleanup
+
+    knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
 
 Upon completing basic EDA to gain understanding for how many groups of
 export item data there are in the Chulwalar plan data, the first order
@@ -1733,127 +1505,127 @@ content into separate vectors to be used during the analysis
 
     PlanVector <-
       c(
-      CWplan[2:13, 2],
-      CWplan[2:13, 3],
-      CWplan[2:13, 4],
-      CWplan[2:13, 5],
-      CWplan[2:13, 6],
-      CWplan[2:13, 7]
+        CWplan[2:13, 2],
+        CWplan[2:13, 3],
+        CWplan[2:13, 4],
+        CWplan[2:13, 5],
+        CWplan[2:13, 6],
+        CWplan[2:13, 7]
       )
-      EfakPlanVector <-
+    EfakPlanVector <-
       c(
-      CWplan[16:27, 2],
-      CWplan[16:27, 3],
-      CWplan[16:27, 4],
-      CWplan[16:27, 5],
-      CWplan[16:27, 6],
-      CWplan[16:27, 7]
+        CWplan[16:27, 2],
+        CWplan[16:27, 3],
+        CWplan[16:27, 4],
+        CWplan[16:27, 5],
+        CWplan[16:27, 6],
+        CWplan[16:27, 7]
       )
-      WugePlanVector <-
+    WugePlanVector <-
       c(
-      CWplan[30:41, 2],
-      CWplan[30:41, 3],
-      CWplan[30:41, 4],
-      CWplan[30:41, 5],
-      CWplan[30:41, 6],
-      CWplan[30:41, 7]
+        CWplan[30:41, 2],
+        CWplan[30:41, 3],
+        CWplan[30:41, 4],
+        CWplan[30:41, 5],
+        CWplan[30:41, 6],
+        CWplan[30:41, 7]
       )
-      TotalEtelPlanVector <-
+    TotalEtelPlanVector <-
       c(
-      CWplan[44:55, 2],
-      CWplan[44:55, 3],
-      CWplan[44:55, 4],
-      CWplan[44:55, 5],
-      CWplan[44:55, 6],
-      CWplan[44:55, 7]
+        CWplan[44:55, 2],
+        CWplan[44:55, 3],
+        CWplan[44:55, 4],
+        CWplan[44:55, 5],
+        CWplan[44:55, 6],
+        CWplan[44:55, 7]
       )
-      BlueEtelPlanVector <-
+    BlueEtelPlanVector <-
       c(
-      CWplan[58:69, 2],
-      CWplan[58:69, 3],
-      CWplan[58:69, 4],
-      CWplan[58:69, 5],
-      CWplan[58:69, 6],
-      CWplan[58:69, 7]
+        CWplan[58:69, 2],
+        CWplan[58:69, 3],
+        CWplan[58:69, 4],
+        CWplan[58:69, 5],
+        CWplan[58:69, 6],
+        CWplan[58:69, 7]
       )
-      RedEtelPlanVector <-
+    RedEtelPlanVector <-
       c(
-      CWplan[72:83, 2],
-      CWplan[72:83, 3],
-      CWplan[72:83, 4],
-      CWplan[72:83, 5],
-      CWplan[72:83, 6],
-      CWplan[72:83, 7]
+        CWplan[72:83, 2],
+        CWplan[72:83, 3],
+        CWplan[72:83, 4],
+        CWplan[72:83, 5],
+        CWplan[72:83, 6],
+        CWplan[72:83, 7]
       )
-      YearPlanVector <-
+    YearPlanVector <-
       c(
-      CWplan[86, 2],
-      CWplan[86, 3],
-      CWplan[86, 4],
-      CWplan[86, 5],
-      CWplan[86, 6],
-      CWplan[86, 7]
+        CWplan[86, 2],
+        CWplan[86, 3],
+        CWplan[86, 4],
+        CWplan[86, 5],
+        CWplan[86, 6],
+        CWplan[86, 7]
       )
-      PlanVector_2014 <- c(CWplan[2:13, 8])
+    PlanVector_2014 <- c(CWplan[2:13, 8])
 
 With the various planned export groups' data being divided into unique
 vectors, the next step is to convert the vectors to time-series format.
 
     TotalPlan <-
       ts(
-      PlanVector ,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        PlanVector ,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      EfakPlan <-
+    EfakPlan <-
       ts(
-      EfakPlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        EfakPlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      WugePlan <-
+    WugePlan <-
       ts(
-      WugePlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        WugePlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      TotalEtelPlan <-
+    TotalEtelPlan <-
       ts(
-      TotalEtelPlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        TotalEtelPlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      BlueEtelPlan <-
+    BlueEtelPlan <-
       ts(
-      BlueEtelPlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        BlueEtelPlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      RedEtelPlan <-
+    RedEtelPlan <-
       ts(
-      RedEtelPlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        RedEtelPlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      YearPlan <-
+    YearPlan <-
       ts(
-      YearPlanVector,
-      start = c(2008, 1),
-      end = c(2013, 12),
-      frequency = 12
+        YearPlanVector,
+        start = c(2008, 1),
+        end = c(2013, 12),
+        frequency = 12
       )
-      TotalPlan_2014 <-
+    TotalPlan_2014 <-
       ts(
-      PlanVector_2014,
-      start = c(2014, 1),
-      end = c(2014, 12),
-      frequency = 12
+        PlanVector_2014,
+        start = c(2014, 1),
+        end = c(2014, 12),
+        frequency = 12
       )
 
 Now that the data have been converted to time-series format, it is
