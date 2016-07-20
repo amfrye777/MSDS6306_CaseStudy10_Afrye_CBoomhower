@@ -1,5 +1,5 @@
 # ---- ExecAllSmooth ----
-library(dplyr)
+
   # Simple Exponential Smoothing
 Model_ses <- ses(EfakAsIs, h=12)
 
