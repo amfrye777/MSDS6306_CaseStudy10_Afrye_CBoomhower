@@ -1,0 +1,22 @@
+---
+title: "LoadIndicators"
+author: "Alex Frye, Chris Boomhower"
+date: "July 20, 2016"
+output: md_document
+---
+
+```{r read_chunk_LoadIndicators, cache=FALSE}
+knitr::read_chunk(paste0(DataLoad,'/LoadIndicators.R'))
+```
+
+The third data set loaded is the Chulwar External Indicator Data. The data is sourced as follows:
+
+```{r LoadIndicators}
+```
+
+Now that the data is loaded, we will review its content structure in preparation for cleanup.
+
+```{r IndicatorsStructure}
+```
+
+The data structure, head, and tail indicate there are likely multiple groups of data within the single CSV file that need divided accordingly. In order to do so, these data will need parsed during cleanup and assigned to a data frame for efficient analysis.
