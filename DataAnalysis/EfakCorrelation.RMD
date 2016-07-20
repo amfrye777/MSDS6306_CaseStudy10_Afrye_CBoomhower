@@ -1,12 +1,25 @@
 ---
-title: "DataAnalysis"
+title: "EfakCorrelation"
 author: "Alex Frye, Chris Boomhower"
 date: "July 19, 2016"
 output: md_document
 ---
 
-```{r read_chunk_DataAnalysis, cache=FALSE}
-knitr::read_chunk(paste0(DataAnalysis,'/DataAnalysis.R'))
+```{r read_chunk_EfakCorrelation, cache=FALSE}
+knitr::read_chunk(paste0(DataAnalysis,'/EfakCorrelation.R'))
 ```
 
+*Discuss AsIs and Plan plots*
 
+```{r EfakCor_Business}
+```
+
+*Discuss Correlation*
+
+```{r EfakCor_Correlation}
+```
+
+*Discuss correlation accuracy*
+
+```{r EfakCor_Accuracy}
+```

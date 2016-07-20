@@ -75,6 +75,22 @@ Analysis text...
 
 Add RMD files for analysis...did not create these yet so left out of paper for now.
 
+###Efak Correlation
+``` {r data, child = paste(DataAnalysis,"/EfakCorrelation.rmd",sep = "")}
+```
+
+###Efak STL
+``` {r data, child = paste(DataAnalysis,"/EfakSTL.rmd",sep = "")}
+```
+
+###Efak Monthly Seasonal
+``` {r data, child = paste(DataAnalysis,"/EfakSeasonal.rmd",sep = "")}
+```
+
+###Efak External Indicator Correlation
+``` {r data, child = paste(DataAnalysis,"/EfakExtCorrelation.rmd",sep = "")}
+```
+
 #Conclusion
 
 Conclusion Text Goes Here....
