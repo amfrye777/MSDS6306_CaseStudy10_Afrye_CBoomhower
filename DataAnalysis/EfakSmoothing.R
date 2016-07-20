@@ -15,15 +15,29 @@ Model_holt_3 <- holt(EfakAsIs, damped=TRUE,h=12)
   # Holt's Damped Exponential Trend
 Model_holt_4 <- holt(EfakAsIs, exponential=TRUE, damped=TRUE,h=12)
 
-  # Holt Winter's Seasonal Additive Model
+  # Holt Winters' Seasonal Additive Model
 Model_hw_1 <- hw(EfakAsIs ,seasonal="additive",h=12)
 
-  # Holt Winter's Seasonal Additive Model
+  # Holt Winters' Seasonal Multiplicative Model
 Model_hw_2 <- hw(EfakAsIs ,seasonal="multiplicative",h=12)
 
-
+# ---- ComputeModelMLE ----
   ## Compute Maximum Likelihood Estimation (AIC/AICc/BIC) Values for All Models
 
+
+# ---- ComputeModelError ----
+  ## Compute Error Values for All Models
+ModelError<- rbind(
+                       cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(accuracy(Model_ses))),
+                       cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(accuracy(Model_holt_1))),
+                       cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(accuracy(Model_holt_2))),
+                       cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(accuracy(Model_holt_3))),
+                       cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(accuracy(Model_holt_4))),
+                       cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(accuracy(Model_hw_1))),
+                       cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(accuracy(Model_hw_2)))
+                      )
+row.names(ModelError)<-NULL
+formattable(ModelError)
 
 # ---- SimpleExponential ----
 summary(Model_ses)

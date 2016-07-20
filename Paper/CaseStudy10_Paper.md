@@ -2198,6 +2198,508 @@ paper for now.
 
     knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
 
+### Forecasting Efak models with smoothing and related approaches
+
+    knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
+
+    library(dplyr)
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+      # Simple Exponential Smoothing
+    Model_ses <- ses(EfakAsIs, h=12)
+
+      # Holt's Linear Trend
+    Model_holt_1 <- holt(EfakAsIs,h=12)
+
+      # Holt's Exponential Trend
+    Model_holt_2<- holt(EfakAsIs, exponential=TRUE,h=12)
+
+      # Holt's Damped Linear Trend
+    Model_holt_3 <- holt(EfakAsIs, damped=TRUE,h=12)
+
+      # Holt's Damped Exponential Trend
+    Model_holt_4 <- holt(EfakAsIs, exponential=TRUE, damped=TRUE,h=12)
+
+      # Holt Winters' Seasonal Additive Model
+    Model_hw_1 <- hw(EfakAsIs ,seasonal="additive",h=12)
+
+      # Holt Winters' Seasonal Multiplicative Model
+    Model_hw_2 <- hw(EfakAsIs ,seasonal="multiplicative",h=12)
+
+      ## Compute Maximum Likelihood Estimation (AIC/AICc/BIC) Values for All Models
+
+      ## Compute Error Values for All Models
+    ModelError<- rbind(
+                           cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(accuracy(Model_ses))),
+                           cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(accuracy(Model_holt_1))),
+                           cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(accuracy(Model_holt_2))),
+                           cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(accuracy(Model_holt_3))),
+                           cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(accuracy(Model_holt_4))),
+                           cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(accuracy(Model_hw_1))),
+                           cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(accuracy(Model_hw_2)))
+                          )
+    row.names(ModelError)<-NULL
+    formattable(ModelError)
+
+<table style="width:171%;">
+<colgroup>
+<col width="62%" />
+<col width="15%" />
+<col width="15%" />
+<col width="13%" />
+<col width="16%" />
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">ModelType</th>
+<th align="right">ME</th>
+<th align="right">RMSE</th>
+<th align="right">MAE</th>
+<th align="right">MPE</th>
+<th align="right">MAPE</th>
+<th align="right">MASE</th>
+<th align="right">ACF1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Simple Exponential Smoothing</td>
+<td align="right">28255.569</td>
+<td align="right">105746.36</td>
+<td align="right">83785.28</td>
+<td align="right">1.6185322</td>
+<td align="right">12.240714</td>
+<td align="right">0.5987073</td>
+<td align="right">-0.1644141</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Linear Trend</td>
+<td align="right">12981.243</td>
+<td align="right">101278.19</td>
+<td align="right">78180.91</td>
+<td align="right">-0.3405668</td>
+<td align="right">11.623790</td>
+<td align="right">0.5586599</td>
+<td align="right">-0.0379501</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Exponential Trend</td>
+<td align="right">1027.787</td>
+<td align="right">99625.50</td>
+<td align="right">76933.69</td>
+<td align="right">-2.0695411</td>
+<td align="right">11.565285</td>
+<td align="right">0.5497476</td>
+<td align="right">-0.0136902</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Damped Linear Trend</td>
+<td align="right">15606.578</td>
+<td align="right">102291.45</td>
+<td align="right">78689.55</td>
+<td align="right">0.0337458</td>
+<td align="right">11.662257</td>
+<td align="right">0.5622945</td>
+<td align="right">-0.0341930</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">3135.947</td>
+<td align="right">101334.43</td>
+<td align="right">77773.93</td>
+<td align="right">-2.4240518</td>
+<td align="right">11.858425</td>
+<td align="right">0.5557518</td>
+<td align="right">-0.0744258</td>
+</tr>
+<tr class="even">
+<td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">8710.859</td>
+<td align="right">76350.81</td>
+<td align="right">61147.93</td>
+<td align="right">-0.2519017</td>
+<td align="right">8.973478</td>
+<td align="right">0.4369468</td>
+<td align="right">-0.0912664</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">6211.726</td>
+<td align="right">83390.08</td>
+<td align="right">64171.99</td>
+<td align="right">-0.6174998</td>
+<td align="right">9.086466</td>
+<td align="right">0.4585560</td>
+<td align="right">-0.1381724</td>
+</tr>
+</tbody>
+</table>
+
+    summary(Model_ses)
+
+    ## 
+    ## Forecast method: Simple exponential smoothing
+    ## 
+    ## Model Information:
+    ## Simple exponential smoothing 
+    ## 
+    ## Call:
+    ##  ses(x = EfakAsIs, h = 12) 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.3812 
+    ## 
+    ##   Initial states:
+    ##     l = 436566.8792 
+    ## 
+    ##   sigma:  105746.4
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1977.827 1978.001 1982.380 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE      MPE     MAPE      MASE
+    ## Training set 28255.57 105746.4 83785.28 1.618532 12.24071 0.5987073
+    ##                    ACF1
+    ## Training set -0.1644141
+    ## 
+    ## Forecasts:
+    ##          Point Forecast     Lo 80   Hi 80     Lo 95   Hi 95
+    ## Jan 2014        1212130 1076610.7 1347650 1004871.1 1419389
+    ## Feb 2014        1212130 1067097.0 1357163  990321.1 1433939
+    ## Mar 2014        1212130 1058170.0 1366090  976668.5 1447592
+    ## Apr 2014        1212130 1049733.1 1374527  963765.3 1460495
+    ## May 2014        1212130 1041713.3 1382547  951500.1 1472760
+    ## Jun 2014        1212130 1034054.3 1390206  939786.7 1484474
+    ## Jul 2014        1212130 1026711.4 1397549  928556.7 1495704
+    ## Aug 2014        1212130 1019648.5 1404612  917754.8 1506505
+    ## Sep 2014        1212130 1012835.6 1411425  907335.5 1516925
+    ## Oct 2014        1212130 1006248.2 1418012  897260.8 1526999
+    ## Nov 2014        1212130  999865.0 1424395  887498.6 1536762
+    ## Dec 2014        1212130  993668.3 1430592  878021.6 1546239
+
+    plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")
+    lines(fitted(Model_ses), col="green", type="o")
+    lines(Model_ses$mean, col="blue", type="o")
+    legend("topleft",lty=1, col=c(1,"green"), c("data", expression(alpha == 0.671)),pch=1)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/SimpleExponential-1.png)<!-- -->
+
+    summary(Model_holt_1)
+
+    ## 
+    ## Forecast method: Holt's method
+    ## 
+    ## Model Information:
+    ## Holt's method 
+    ## 
+    ## Call:
+    ##  holt(x = EfakAsIs, h = 12) 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.2328 
+    ##     beta  = 0.0078 
+    ## 
+    ##   Initial states:
+    ##     l = 425900.4523 
+    ##     b = 4742.0491 
+    ## 
+    ##   sigma:  101278.2
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1975.610 1976.207 1984.717 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE        MPE     MAPE      MASE
+    ## Training set 12981.24 101278.2 78180.91 -0.3405668 11.62379 0.5586599
+    ##                     ACF1
+    ## Training set -0.03795009
+    ## 
+    ## Forecasts:
+    ##          Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+    ## Jan 2014        1205502 1075709 1335295 1007000 1404003
+    ## Feb 2014        1217500 1083765 1351234 1012971 1422029
+    ## Mar 2014        1229497 1091695 1367300 1018747 1440248
+    ## Apr 2014        1241495 1099502 1383488 1024336 1458655
+    ## May 2014        1253493 1107190 1399796 1029742 1477244
+    ## Jun 2014        1265491 1114762 1416220 1034971 1496011
+    ## Jul 2014        1277488 1122221 1432756 1040028 1514949
+    ## Aug 2014        1289486 1129571 1449401 1044918 1534055
+    ## Sep 2014        1301484 1136816 1466152 1049645 1553323
+    ## Oct 2014        1313482 1143956 1483007 1054215 1572748
+    ## Nov 2014        1325480 1150997 1499962 1058631 1592328
+    ## Dec 2014        1337477 1157940 1517015 1062898 1612056
+
+    plot(Model_holt_1)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltLinear-1.png)<!-- -->
+
+    summary(Model_holt_2)
+
+    ## 
+    ## Forecast method: Holt's method with exponential trend
+    ## 
+    ## Model Information:
+    ## Holt's method with exponential trend 
+    ## 
+    ## Call:
+    ##  holt(x = EfakAsIs, h = 12, exponential = TRUE) 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.1988 
+    ##     beta  = 1e-04 
+    ## 
+    ##   Initial states:
+    ##     l = 432241.4578 
+    ##     b = 1.0143 
+    ## 
+    ##   sigma:  0.1426
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1975.029 1975.626 1984.136 
+    ## 
+    ## Error measures:
+    ##                    ME    RMSE      MAE       MPE     MAPE      MASE
+    ## Training set 1027.787 99625.5 76933.69 -2.069541 11.56529 0.5497476
+    ##                    ACF1
+    ## Training set -0.0136902
+    ## 
+    ## Forecasts:
+    ##          Point Forecast   Lo 80   Hi 80    Lo 95   Hi 95
+    ## Jan 2014        1225942 1004084 1448711 894280.0 1567483
+    ## Feb 2014        1243531 1006676 1470458 887101.2 1594885
+    ## Mar 2014        1261373 1026568 1504709 909217.1 1632464
+    ## Apr 2014        1279471 1035439 1522002 915071.6 1664399
+    ## May 2014        1297828 1048563 1558100 906971.6 1699096
+    ## Jun 2014        1316449 1050801 1577800 916600.2 1726577
+    ## Jul 2014        1335337 1073852 1607484 940918.3 1752828
+    ## Aug 2014        1354496 1076856 1647985 942022.5 1806417
+    ## Sep 2014        1373930 1098087 1672711 956933.9 1822118
+    ## Oct 2014        1393643 1105440 1691969 957845.9 1863397
+    ## Nov 2014        1413638 1117663 1733754 971118.6 1902006
+    ## Dec 2014        1433921 1133998 1762481 984919.7 1964980
+
+    plot(Model_holt_2)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltExponential-1.png)<!-- -->
+
+    summary(Model_holt_3)
+
+    ## 
+    ## Forecast method: Damped Holt's method
+    ## 
+    ## Model Information:
+    ## Damped Holt's method 
+    ## 
+    ## Call:
+    ##  holt(x = EfakAsIs, h = 12, damped = TRUE) 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.2346 
+    ##     beta  = 0.0143 
+    ##     phi   = 0.98 
+    ## 
+    ##   Initial states:
+    ##     l = 425882.4312 
+    ##     b = 4741.1614 
+    ## 
+    ##   sigma:  102291.5
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1979.044 1979.953 1990.427 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE        MPE     MAPE      MASE
+    ## Training set 15606.58 102291.5 78689.55 0.03374579 11.66226 0.5622945
+    ##                     ACF1
+    ## Training set -0.03419302
+    ## 
+    ## Forecasts:
+    ##          Point Forecast   Lo 80   Hi 80     Lo 95   Hi 95
+    ## Jan 2014        1194414 1063322 1325505  993926.0 1394901
+    ## Feb 2014        1204737 1069207 1340267  997461.1 1412013
+    ## Mar 2014        1214854 1074580 1355128 1000324.1 1429384
+    ## Apr 2014        1224769 1079465 1370072 1002545.8 1446991
+    ## May 2014        1234485 1083882 1385088 1004157.9 1464812
+    ## Jun 2014        1244007 1087854 1400160 1005191.7 1482822
+    ## Jul 2014        1253339 1091402 1415275 1005677.8 1500999
+    ## Aug 2014        1262483 1094547 1430420 1005646.1 1519321
+    ## Sep 2014        1271446 1097308 1445583 1005124.9 1537766
+    ## Oct 2014        1280228 1099705 1460752 1004141.5 1556315
+    ## Nov 2014        1288835 1101755 1475915 1002721.3 1574950
+    ## Dec 2014        1297270 1103477 1491064 1000888.7 1593652
+
+    plot(Model_holt_3)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltDampedLinear-1.png)<!-- -->
+
+    summary(Model_holt_4)
+
+    ## 
+    ## Forecast method: Damped Holt's method with exponential trend
+    ## 
+    ## Model Information:
+    ## Damped Holt's method with exponential trend 
+    ## 
+    ## Call:
+    ##  holt(x = EfakAsIs, h = 12, damped = TRUE, exponential = TRUE) 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.286 
+    ##     beta  = 1e-04 
+    ##     phi   = 0.98 
+    ## 
+    ##   Initial states:
+    ##     l = 429814.7562 
+    ##     b = 1.0293 
+    ## 
+    ##   sigma:  0.1439
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1978.710 1979.619 1990.093 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE       MPE     MAPE      MASE
+    ## Training set 3135.947 101334.4 77773.93 -2.424052 11.85843 0.5557518
+    ##                     ACF1
+    ## Training set -0.07442583
+    ## 
+    ## Forecasts:
+    ##          Point Forecast    Lo 80   Hi 80    Lo 95   Hi 95
+    ## Jan 2014        1208696 993388.1 1427972 876378.5 1539724
+    ## Feb 2014        1216762 979989.6 1456034 854716.7 1598012
+    ## Mar 2014        1224718 984926.4 1480146 870800.2 1620123
+    ## Apr 2014        1232566 984022.5 1488216 863102.5 1642360
+    ## May 2014        1240306 984321.2 1505911 862361.2 1678731
+    ## Jun 2014        1247938 984042.1 1516985 849594.9 1695789
+    ## Jul 2014        1255463 973115.0 1543319 847091.7 1706369
+    ## Aug 2014        1262882 975753.1 1551968 846332.6 1749298
+    ## Sep 2014        1270195 976054.1 1582503 846965.6 1767262
+    ## Oct 2014        1277402 974816.4 1590345 847494.4 1786112
+    ## Nov 2014        1284505 976018.7 1609076 838190.3 1811426
+    ## Dec 2014        1291505 970858.4 1622449 844663.7 1849286
+
+    plot(Model_holt_4)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltDampedExponential-1.png)<!-- -->
+
+    summary(Model_hw_1)
+
+    ## 
+    ## Forecast method: Holt-Winters' additive method
+    ## 
+    ## Model Information:
+    ## Holt-Winters' additive method 
+    ## 
+    ## Call:
+    ##  hw(x = EfakAsIs, h = 12, seasonal = "additive") 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.2943 
+    ##     beta  = 1e-04 
+    ##     gamma = 1e-04 
+    ## 
+    ##   Initial states:
+    ##     l = 405567.2251 
+    ##     b = 8367.7434 
+    ##     s=7026.812 87155.99 -1930.409 -9548.151 -51005.53 -98317.22
+    ##            -35992.06 67972.02 -67294.41 126802.4 -2307.904 -22561.48
+    ## 
+    ##   sigma:  76350.81
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1958.925 1968.816 1995.352 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE        MPE     MAPE      MASE
+    ## Training set 8710.859 76350.81 61147.93 -0.2519017 8.973478 0.4369468
+    ##                     ACF1
+    ## Training set -0.09126643
+    ## 
+    ## Forecasts:
+    ##          Point Forecast   Lo 80   Hi 80     Lo 95   Hi 95
+    ## Jan 2014        1179238 1081391 1277086 1029593.4 1328883
+    ## Feb 2014        1207922 1105920 1309925 1051922.8 1363922
+    ## Mar 2014        1345448 1239450 1451445 1183338.0 1507557
+    ## Apr 2014        1159794 1049944 1269644  991792.5 1327795
+    ## May 2014        1303486 1189911 1417061 1129788.6 1477183
+    ## Jun 2014        1207957 1090774 1325140 1028741.5 1387173
+    ## Jul 2014        1154073 1033387 1274759  969500.1 1338647
+    ## Aug 2014        1209801 1085709 1333894 1020018.5 1399584
+    ## Sep 2014        1259688 1132278 1387097 1064830.9 1454544
+    ## Oct 2014        1275751 1145105 1406396 1075945.7 1475556
+    ## Nov 2014        1373264 1239459 1507069 1168627.3 1577901
+    ## Dec 2014        1301569 1164674 1438465 1092205.5 1510933
+
+    plot(Model_hw_1)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalAdd-1.png)<!-- -->
+
+    summary(Model_hw_2)
+
+    ## 
+    ## Forecast method: Holt-Winters' multiplicative method
+    ## 
+    ## Model Information:
+    ## Holt-Winters' multiplicative method 
+    ## 
+    ## Call:
+    ##  hw(x = EfakAsIs, h = 12, seasonal = "multiplicative") 
+    ## 
+    ##   Smoothing parameters:
+    ##     alpha = 0.2645 
+    ##     beta  = 6e-04 
+    ##     gamma = 1e-04 
+    ## 
+    ##   Initial states:
+    ##     l = 407626.9169 
+    ##     b = 8816.4357 
+    ##     s=1.0252 1.0791 0.9862 0.9876 0.9242 0.8486
+    ##            0.9579 1.086 0.8893 1.2333 1.0148 0.968
+    ## 
+    ##   sigma:  0.1132
+    ## 
+    ##      AIC     AICc      BIC 
+    ## 1964.418 1974.309 2000.844 
+    ## 
+    ## Error measures:
+    ##                    ME     RMSE      MAE        MPE     MAPE     MASE
+    ## Training set 6211.726 83390.08 64171.99 -0.6174998 9.086466 0.458556
+    ##                    ACF1
+    ## Training set -0.1381724
+    ## 
+    ## Forecasts:
+    ##          Point Forecast     Lo 80   Hi 80     Lo 95   Hi 95
+    ## Jan 2014        1161998  993468.6 1330528  904254.3 1419743
+    ## Feb 2014        1227489 1043325.9 1411653  945835.7 1509143
+    ## Mar 2014        1503094 1270376.8 1735812 1147183.6 1859005
+    ## Apr 2014        1091968  917871.8 1266064  825711.0 1358225
+    ## May 2014        1343480 1123320.5 1563639 1006775.1 1680185
+    ## Jun 2014        1193814  993065.1 1394564  886794.8 1500834
+    ## Jul 2014        1065390  881821.1 1248959  784645.6 1346134
+    ## Aug 2014        1168831  962747.5 1374915  853653.4 1484009
+    ## Sep 2014        1258050 1031337.2 1484762  911322.9 1604777
+    ## Oct 2014        1265240 1032446.9 1498033  909213.8 1621266
+    ## Nov 2014        1394327 1132655.4 1655998  994135.0 1794518
+    ## Dec 2014        1334148 1078993.9 1589302  943923.6 1724372
+
+    plot(Model_hw_2)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalMult-1.png)<!-- -->
+
 Conclusion
 ==========
 

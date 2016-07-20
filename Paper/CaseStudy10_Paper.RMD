@@ -12,7 +12,7 @@ output: md_document
 
 ###"C:/Users/Owner/Documents/GitHub/MSDS_6306/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 
-DefaultDir<-"C:/Users/Owner/Documents/GitHub/MSDS_6306/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
 DataAnalysis<-paste(DefaultDir,"/DataAnalysis",sep = "")
@@ -89,6 +89,10 @@ Add RMD files for analysis...did not create these yet so left out of paper for n
 
 ###Efak External Indicator Correlation
 ``` {r data, child = paste(DataAnalysis,"/EfakExtCorrelation.rmd",sep = "")}
+```
+
+###Forecasting Efak models with smoothing and related approaches
+``` {r data, child = paste(DataAnalysis,"/EfakSmoothing.rmd",sep = "")}
 ```
 
 #Conclusion
