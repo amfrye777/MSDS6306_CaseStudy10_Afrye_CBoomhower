@@ -14,9 +14,6 @@ To start, we need to load our As Is Chulwar Data. This data has been sourced fro
 ```{R LoadAsIs}
 ```
 
-With our data loaded, lets review the structure and a small subset of data from the output to give a baseline for cleanup.
+With our data loaded, we reviewed the structure and a small subset of the data to confirm successful import.
 
-```{R AsIsLoadStructure}
-```
-
-After reviewing this subset of data, it is apparent we have some cleanup to do. It appears we have loaded one column for each year of data by month(row). All export group forcasts have also been combined into a list by repeating month/year data for each export group in subsequent rows. We will need to parse this data to create a data structure that is easier to analyze. 
+After reviewing this subset of data, we discovered we have some cleanup to do. It appears we have loaded one column for each year of data by month(row). All export group information (TotalAsIs, Efak, Wuge, TotalEtel, BlueEtel, RedEtel, and TotalYearly) has also been combined into a list by repeating month/year data for each export group in subsequent rows. We will need to parse this data to create a data structure that is easier to analyze. 

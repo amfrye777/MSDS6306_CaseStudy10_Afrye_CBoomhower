@@ -9,18 +9,10 @@ output: md_document
 knitr::read_chunk(paste0(DataCleanup,'/CleanAsIs.R'))
 ```
 
-To clean our As Is Chulwar data, we need to first separate each export group (e.g. Total, Efak, Wuge, etc.) into individual vectors.
-Since the only group that has data for 2014 is "Total", we have created a separate variable for just TotalAsIs_2014 data. 
+To clean our as-is Chulwar data, we first separate each export group (e.g. TotalAsIs, Efak, Wuge, etc.) into individual vectors. Following this, we convert each new vector into a time series. Finally, we review each time series output to ensure they match our expectations.
 
-```{R CleanAsIs_toVector}
+```{R CleanAsIs_toVector, include = FALSE}
 ```
 
-Second, we need to convert each new vector into a time series.
-
-```{r CleanAsIs_toTimeSeries}
-```
-
-With our time series variables created for each export group, lets review the data for each to ensure it matches our expectations.
-
-```{r CleanAsIs_ReviewData}
+```{r CleanAsIs_toTimeSeries, include = FALSE}
 ```

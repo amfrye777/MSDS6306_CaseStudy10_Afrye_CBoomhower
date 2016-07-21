@@ -9,14 +9,11 @@ output: md_document
 knitr::read_chunk(paste0(DataLoad,'/LoadIndicators.R'))
 ```
 
-The third data set loaded is the Chulwar External Indicator Data. The data is sourced as follows:
+Finally, the third data set loaded is the Chulwar external indicator data. Again, the data set has been sourced from the SMU 2DS platform Unit 10.2 Overview page:
 
 ```{r LoadIndicators}
 ```
 
-Now that the data is loaded, we will review its content structure in preparation for cleanup.
+Reviewing the external indicator data post-import confirms successful loading.
 
-```{r IndicatorsStructure}
-```
-
-The data structure, head, and tail indicate there are likely multiple groups of data within the single CSV file that need divided accordingly. In order to do so, these data will need parsed during cleanup and assigned to a data frame for efficient analysis.
+As before, review indicates there are multiple groups (Export Price Changes, Satisfaction Index (Gov), Average Temperature, Births, Satisfaction Index (Independent), Total Exports from Urbano, Globalization Party Members, Average Export Price, Etel Production Price Index, Chulwalar Index, Inflation, Spending for Chulwalar Days, Chulwalar Days, and Influence of Chulwalar Days) of data within the single CSV file that need split by group. In order to do so, these data once again need parsed during cleanup and assigned to a data frame before analysis.

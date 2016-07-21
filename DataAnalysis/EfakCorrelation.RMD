@@ -9,17 +9,19 @@ output: md_document
 knitr::read_chunk(paste0(DataAnalysis,'/EfakCorrelation.R'))
 ```
 
-*Discuss AsIs and Plan plots*
+The first approach to EDA is to review historical exports against Chulwalar's planned exports. This correlation will validate the prime minister's planning committee estimates for previous years, identify gaps in planning efforts, and will help us to better forecast 2014 exports. This will essentially provide a baseline by which we may measure our own estimate accuracy.
+
+Based on the as-is and planned export data plotted below, it appears there may be inconsistencies regarding planning methodology. It looks as though extreme adjustments were made between 2011 and 2012 to realign plans with true exports. The plots suggest adjustments were too extreme, resulting in some oscillations through the end of 2013.
 
 ```{r EfakCor_Business}
 ```
 
-*Discuss Correlation*
+The next step is to observe the association between planned and as-is exports. Pearson's r is therefore calculated and the resulting r value is `0.906`. This indicates there is a strong, positive correlation between both types of Efak exports. We aknowledge that `0.906`, though strong, presents some room for improvement.
 
 ```{r EfakCor_Correlation}
 ```
 
-*Discuss correlation accuracy*
+Though Pearson's r does suggest a strong association between planned and as-is exports, a hypostheses test provides added insight into the correlation's statistical significance. Our null hypotheis is that the slope of our linear model is 0, whereas our alternative hypothesis is that it is not 0. Based on the results presented below, the p-value is equal to <2e-16, meaning we reject the null hypothesis. There is sufficient evidence to suggest the slope of the linear model between planned and as-is exports is not equal to 0.
 
 ```{r EfakCor_Accuracy}
 ```

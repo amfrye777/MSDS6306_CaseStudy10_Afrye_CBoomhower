@@ -9,19 +9,10 @@ output: md_document
 knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
 ```
 
-Upon completing basic EDA to gain understanding for how many groups of export item data there are in the Chulwalar plan data, the first order of business is to parse the data and to divide each export item's content into separate vectors to be used during the analysis
+To clean our planned Chulwar data, we once again separate each planned export group into individual vectors. After this, we convert each new vector into a time series and then review each time series output to ensure they match our expectations. The time series output was as expected.
 
 ```{r CleanPlan_Vectors}
 ```
 
-With the various planned export groups' data being divided into unique vectors, the next step is to convert the vectors to time-series format.
-
 ```{r CleanPlan_TimeSeries}
 ```
-
-Now that the data have been converted to time-series format, it is important to verify the conversion was made correctly.
-
-```{r CleanPlan_TSverify}
-```
-
-The data is now clean and ready for further analysis.
