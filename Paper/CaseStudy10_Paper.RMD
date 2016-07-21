@@ -42,6 +42,8 @@ If you do not currently have installed any of these packages, please uncomment t
 
 library(formattable)
 library(fpp)
+library(ggplot2)
+library(reshape2)
 ```
 
 #Data Load

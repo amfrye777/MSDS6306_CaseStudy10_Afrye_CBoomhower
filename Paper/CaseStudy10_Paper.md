@@ -20,6 +20,8 @@ uncomment the install.packages lines below before knitting this file.
 
     library(formattable)
     library(fpp)
+    library(ggplot2)
+    library(reshape2)
 
 Data Load
 =========
@@ -2250,21 +2252,22 @@ paper for now.
 
 
     ModelMLE<- rbind(
-                     cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
-                     cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
-                     cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
-                     cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
-                     cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
-                     cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
-                     cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
+                     cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
+                     cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
+                     cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
+                     cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
+                     cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
+                     cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
+                     cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
                     )
     row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
-    names(ModelMLE)<-c("ModelType","AIC", "AICc", "BIC")
+    names(ModelMLE)<-c("ModelType","ModelTypeAbbr","AIC", "AICc", "BIC")
     formattable(ModelMLE)
 
-<table style="width:104%;">
+<table style="width:125%;">
 <colgroup>
 <col width="62%" />
+<col width="20%" />
 <col width="13%" />
 <col width="13%" />
 <col width="13%" />
@@ -2272,6 +2275,7 @@ paper for now.
 <thead>
 <tr class="header">
 <th align="right">ModelType</th>
+<th align="right">ModelTypeAbbr</th>
 <th align="right">AIC</th>
 <th align="right">AICc</th>
 <th align="right">BIC</th>
@@ -2280,42 +2284,49 @@ paper for now.
 <tbody>
 <tr class="odd">
 <td align="right">Simple Exponential Smoothing</td>
+<td align="right">SES</td>
 <td align="right">1977.827</td>
 <td align="right">1978.001</td>
 <td align="right">1982.380</td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
+<td align="right">HLT</td>
 <td align="right">1975.610</td>
 <td align="right">1976.207</td>
 <td align="right">1984.717</td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
+<td align="right">HET</td>
 <td align="right">1975.029</td>
 <td align="right">1975.626</td>
 <td align="right">1984.136</td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
+<td align="right">HDLT</td>
 <td align="right">1979.044</td>
 <td align="right">1979.953</td>
 <td align="right">1990.427</td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">HDET</td>
 <td align="right">1978.710</td>
 <td align="right">1979.619</td>
 <td align="right">1990.093</td>
 </tr>
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">HWSA</td>
 <td align="right">1958.925</td>
 <td align="right">1968.816</td>
 <td align="right">1995.352</td>
 </tr>
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">HWSM</td>
 <td align="right">1964.418</td>
 <td align="right">1974.309</td>
 <td align="right">2000.844</td>
@@ -2325,22 +2336,27 @@ paper for now.
 
       ## Compute Error Values for All Models
     ModelError<- rbind(
-                       cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(accuracy(Model_ses))),
-                       cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(accuracy(Model_holt_1))),
-                       cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(accuracy(Model_holt_2))),
-                       cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(accuracy(Model_holt_3))),
-                       cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(accuracy(Model_holt_4))),
-                       cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(accuracy(Model_hw_1))),
-                       cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(accuracy(Model_hw_2)))
+                       cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(accuracy(Model_ses))),
+                       cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(accuracy(Model_holt_1))),
+                       cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(accuracy(Model_holt_2))),
+                       cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(accuracy(Model_holt_3))),
+                       cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(accuracy(Model_holt_4))),
+                       cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(accuracy(Model_hw_1))),
+                       cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(accuracy(Model_hw_2)))
                       )
     row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
-    formattable(ModelError)
 
-<table style="width:171%;">
+    MEFORMAT<-formatter("span", style = ~ ifelse(ME < 10000, "background-color:LightGreen", NA))
+    RMSEFORMAT<-formatter("span", style = ~ ifelse(RMSE < 100000, "background-color:LightGreen", NA))
+
+    formattable(ModelError,list(ME=MEFORMAT, RMSE=RMSEFORMAT))       
+
+<table style="width:347%;">
 <colgroup>
 <col width="62%" />
-<col width="15%" />
-<col width="15%" />
+<col width="20%" />
+<col width="93%" />
+<col width="93%" />
 <col width="13%" />
 <col width="16%" />
 <col width="15%" />
@@ -2350,6 +2366,7 @@ paper for now.
 <thead>
 <tr class="header">
 <th align="right">ModelType</th>
+<th align="right">ModelTypeAbbr</th>
 <th align="right">ME</th>
 <th align="right">RMSE</th>
 <th align="right">MAE</th>
@@ -2362,8 +2379,9 @@ paper for now.
 <tbody>
 <tr class="odd">
 <td align="right">Simple Exponential Smoothing</td>
-<td align="right">28255.569</td>
-<td align="right">105746.36</td>
+<td align="right">SES</td>
+<td align="right"><span>28255.5686974526</span></td>
+<td align="right"><span>105746.360129531</span></td>
 <td align="right">83785.28</td>
 <td align="right">1.6185322</td>
 <td align="right">12.240714</td>
@@ -2372,8 +2390,9 @@ paper for now.
 </tr>
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
-<td align="right">12981.243</td>
-<td align="right">101278.19</td>
+<td align="right">HLT</td>
+<td align="right"><span>12981.2433596182</span></td>
+<td align="right"><span>101278.188624904</span></td>
 <td align="right">78180.91</td>
 <td align="right">-0.3405668</td>
 <td align="right">11.623790</td>
@@ -2382,8 +2401,9 @@ paper for now.
 </tr>
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
-<td align="right">1027.787</td>
-<td align="right">99625.50</td>
+<td align="right">HET</td>
+<td align="right"><span style="background-color:LightGreen">1027.78652647737</span></td>
+<td align="right"><span style="background-color:LightGreen">99625.5017561852</span></td>
 <td align="right">76933.69</td>
 <td align="right">-2.0695411</td>
 <td align="right">11.565285</td>
@@ -2392,8 +2412,9 @@ paper for now.
 </tr>
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
-<td align="right">15606.578</td>
-<td align="right">102291.45</td>
+<td align="right">HDLT</td>
+<td align="right"><span>15606.5778392227</span></td>
+<td align="right"><span>102291.450636505</span></td>
 <td align="right">78689.55</td>
 <td align="right">0.0337458</td>
 <td align="right">11.662257</td>
@@ -2402,8 +2423,9 @@ paper for now.
 </tr>
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
-<td align="right">3135.947</td>
-<td align="right">101334.43</td>
+<td align="right">HDET</td>
+<td align="right"><span style="background-color:LightGreen">3135.94744889523</span></td>
+<td align="right"><span>101334.425371825</span></td>
 <td align="right">77773.93</td>
 <td align="right">-2.4240518</td>
 <td align="right">11.858425</td>
@@ -2412,8 +2434,9 @@ paper for now.
 </tr>
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
-<td align="right">8710.859</td>
-<td align="right">76350.81</td>
+<td align="right">HWSA</td>
+<td align="right"><span style="background-color:LightGreen">8710.85874215872</span></td>
+<td align="right"><span style="background-color:LightGreen">76350.8064264007</span></td>
 <td align="right">61147.93</td>
 <td align="right">-0.2519017</td>
 <td align="right">8.973478</td>
@@ -2422,8 +2445,9 @@ paper for now.
 </tr>
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
-<td align="right">6211.726</td>
-<td align="right">83390.08</td>
+<td align="right">HWSM</td>
+<td align="right"><span style="background-color:LightGreen">6211.72593543445</span></td>
+<td align="right"><span style="background-color:LightGreen">83390.079343758</span></td>
 <td align="right">64171.99</td>
 <td align="right">-0.6174998</td>
 <td align="right">9.086466</td>

@@ -47,31 +47,46 @@ hw_2MLESplit<-unlist(strsplit(hw_2MLE[24], split=" "))
 
 
 ModelMLE<- rbind(
-                 cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
-                 cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
-                 cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
-                 cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
-                 cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
-                 cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
-                 cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
+                 cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
+                 cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
+                 cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
+                 cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
+                 cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
+                 cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
+                 cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
                 )
 row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
-names(ModelMLE)<-c("ModelType","AIC", "AICc", "BIC")
+names(ModelMLE)<-c("ModelType","ModelTypeAbbr","AIC", "AICc", "BIC")
 formattable(ModelMLE)
 
 # ---- ComputeModelError ----
   ## Compute Error Values for All Models
 ModelError<- rbind(
-                   cbind(ModelType = "Simple Exponential Smoothing",                 as.data.frame(accuracy(Model_ses))),
-                   cbind(ModelType = "Holt's Linear Trend",                          as.data.frame(accuracy(Model_holt_1))),
-                   cbind(ModelType = "Holt's Exponential Trend",                     as.data.frame(accuracy(Model_holt_2))),
-                   cbind(ModelType = "Holt's Damped Linear Trend",                   as.data.frame(accuracy(Model_holt_3))),
-                   cbind(ModelType = "Holt's Damped Exponential Trend",              as.data.frame(accuracy(Model_holt_4))),
-                   cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(accuracy(Model_hw_1))),
-                   cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(accuracy(Model_hw_2)))
+                   cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(accuracy(Model_ses))),
+                   cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(accuracy(Model_holt_1))),
+                   cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(accuracy(Model_holt_2))),
+                   cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(accuracy(Model_holt_3))),
+                   cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(accuracy(Model_holt_4))),
+                   cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(accuracy(Model_hw_1))),
+                   cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(accuracy(Model_hw_2)))
                   )
 row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
-formattable(ModelError)
+
+MEFORMAT<-formatter("span", style = ~ ifelse(ME < 10000, "background-color:LightGreen", NA))
+RMSEFORMAT<-formatter("span", style = ~ ifelse(RMSE < 100000, "background-color:LightGreen", NA))
+
+formattable(ModelError,list(ME=MEFORMAT, RMSE=RMSEFORMAT))       
+
+
+# ---- PlotModelMLE ----
+
+ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.name="MLEType",value.name = "MLEValue")
+formattable(ModelMLEMelt)
+
+ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=MLEValue, fill = MLEType)) +
+geom_bar(stat="identity" ,position=position_dodge())+
+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
 
 # ---- SimpleExponential ----
 plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")

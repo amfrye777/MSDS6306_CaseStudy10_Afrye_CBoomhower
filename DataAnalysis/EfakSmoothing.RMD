@@ -15,6 +15,9 @@ knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
 ```{r ComputeModelMLE}
 ```
 
+```{r plotModelMLE}
+```
+
 ```{r ComputeModelError}
 ```
 
