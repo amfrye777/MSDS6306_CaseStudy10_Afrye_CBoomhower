@@ -5,13 +5,13 @@ date: "July 20, 2016"
 output: md_document
 ---
 
-```{r read_chunk_LoadIndicators, cache=FALSE}
+```{r read_chunk_LoadIndicators, cache=FALSE, include = FALSE}
 knitr::read_chunk(paste0(DataLoad,'/LoadIndicators.R'))
 ```
 
 Finally, the third data set loaded is the Chulwar external indicator data. Again, the data set has been sourced from the SMU 2DS platform Unit 10.2 Overview page:
 
-```{r LoadIndicators}
+```{r LoadIndicators, include = FALSE}
 ```
 
 Reviewing the external indicator data post-import confirms successful loading.

@@ -46,12 +46,8 @@ files. These files are:
 
 ### AsIs Chulwalar Data
 
-    knitr::read_chunk(paste0(DataLoad,'/LoadAsIs.R'))
-
 To start, we need to load our As Is Chulwar Data. This data has been
 sourced from the SMU 2DS platform Unit 10.2 Overview page.
-
-    AsIsChulwar<-read.csv(paste0(DataLoad,"/ImportedAsIsDataChulwalar.csv"), header = FALSE,sep = ";")
 
 With our data loaded, we reviewed the structure and a small subset of
 the data to confirm successful import.
@@ -66,12 +62,8 @@ structure that is easier to analyze.
 
 ### Plan Chulwalar Data
 
-    knitr::read_chunk(paste0(DataLoad,'/LoadPlan.R'))
-
 Similarly, the second data set loaded is the planned export data. These
 data are also obtained from SMU 2DS and loaded as follows:
-
-    CWplan <- read.csv(paste0(DataLoad, "/ImportedPlanDataChulwalar.csv"), header = FALSE, sep = ";")
 
 Once again, the data structure and subset rows were reviewed to confirm
 succesful import.
@@ -85,13 +77,9 @@ analysis.
 
 ### External Indicator Chulwalar Data
 
-    knitr::read_chunk(paste0(DataLoad,'/LoadIndicators.R'))
-
 Finally, the third data set loaded is the Chulwar external indicator
 data. Again, the data set has been sourced from the SMU 2DS platform
 Unit 10.2 Overview page:
-
-    ImportedIndicators <-read.csv(paste0(DataLoad,"/ImportedIndicatorsChulwalar.csv"), header = FALSE,sep = ";")
 
 Reviewing the external indicator data post-import confirms successful
 loading.
@@ -116,8 +104,6 @@ walk through cleaning the data to prep for analysis.
 
 ### AsIs Data Cleanup
 
-    knitr::read_chunk(paste0(DataCleanup,'/CleanAsIs.R'))
-
 To clean our as-is Chulwar data, we first separate each export group
 (e.g. TotalAsIs, Efak, Wuge, etc.) into individual vectors. Following
 this, we convert each new vector into a time series. Finally, we review
@@ -125,370 +111,18 @@ each time series output to ensure they match our expectations.
 
 ### Plan Data Cleanup
 
-    knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
-
 To clean our planned Chulwar data, we once again separate each planned
 export group into individual vectors. After this, we convert each new
 vector into a time series and then review each time series output to
 ensure they match our expectations. The time series output was as
 expected.
 
-    PlanVector <-
-      c(
-        CWplan[2:13, 2],
-        CWplan[2:13, 3],
-        CWplan[2:13, 4],
-        CWplan[2:13, 5],
-        CWplan[2:13, 6],
-        CWplan[2:13, 7]
-      )
-    EfakPlanVector <-
-      c(
-        CWplan[16:27, 2],
-        CWplan[16:27, 3],
-        CWplan[16:27, 4],
-        CWplan[16:27, 5],
-        CWplan[16:27, 6],
-        CWplan[16:27, 7]
-      )
-    WugePlanVector <-
-      c(
-        CWplan[30:41, 2],
-        CWplan[30:41, 3],
-        CWplan[30:41, 4],
-        CWplan[30:41, 5],
-        CWplan[30:41, 6],
-        CWplan[30:41, 7]
-      )
-    TotalEtelPlanVector <-
-      c(
-        CWplan[44:55, 2],
-        CWplan[44:55, 3],
-        CWplan[44:55, 4],
-        CWplan[44:55, 5],
-        CWplan[44:55, 6],
-        CWplan[44:55, 7]
-      )
-    BlueEtelPlanVector <-
-      c(
-        CWplan[58:69, 2],
-        CWplan[58:69, 3],
-        CWplan[58:69, 4],
-        CWplan[58:69, 5],
-        CWplan[58:69, 6],
-        CWplan[58:69, 7]
-      )
-    RedEtelPlanVector <-
-      c(
-        CWplan[72:83, 2],
-        CWplan[72:83, 3],
-        CWplan[72:83, 4],
-        CWplan[72:83, 5],
-        CWplan[72:83, 6],
-        CWplan[72:83, 7]
-      )
-    YearPlanVector <-
-      c(
-        CWplan[86, 2],
-        CWplan[86, 3],
-        CWplan[86, 4],
-        CWplan[86, 5],
-        CWplan[86, 6],
-        CWplan[86, 7]
-      )
-    PlanVector_2014 <- c(CWplan[2:13, 8])
-
-    TotalPlan <-
-      ts(
-        PlanVector ,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    EfakPlan <-
-      ts(
-        EfakPlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    WugePlan <-
-      ts(
-        WugePlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    TotalEtelPlan <-
-      ts(
-        TotalEtelPlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    BlueEtelPlan <-
-      ts(
-        BlueEtelPlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    RedEtelPlan <-
-      ts(
-        RedEtelPlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    YearPlan <-
-      ts(
-        YearPlanVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    TotalPlan_2014 <-
-      ts(
-        PlanVector_2014,
-        start = c(2014, 1),
-        end = c(2014, 12),
-        frequency = 12
-      )
-
 ### External Indicators Data Cleanup
-
-    knitr::read_chunk(paste0(DataCleanup,'/CleanIndicators.R'))
 
 Finally, to clean the external indicators data, we separate each
 indicator group into individual vectors. Then, as done previously, we
 convert each new vector into a time series. Lastly, we review each time
 series output to ensure they match what we expect to see.
-
-    CEPIVector <-
-      c(
-        ImportedIndicators[2:13, 2],
-        ImportedIndicators[2:13, 3],
-        ImportedIndicators[2:13, 4],
-        ImportedIndicators[2:13, 5],
-        ImportedIndicators[2:13, 6],
-        ImportedIndicators[2:13, 7]
-      )
-    SIGovVector <-
-      c(
-        ImportedIndicators[16:27, 2],
-        ImportedIndicators[16:27, 3],
-        ImportedIndicators[16:27, 4],
-        ImportedIndicators[16:27, 5],
-        ImportedIndicators[16:27, 6],
-        ImportedIndicators[16:27, 7]
-      )
-    TemperatureVector <-
-      c(
-        ImportedIndicators[30:41, 2],
-        ImportedIndicators[30:41, 3],
-        ImportedIndicators[30:41, 4],
-        ImportedIndicators[30:41, 5],
-        ImportedIndicators[30:41, 6],
-        ImportedIndicators[30:41, 7]
-      )
-    BirthsVector <-
-      c(
-        ImportedIndicators[44:55, 2],
-        ImportedIndicators[44:55, 3],
-        ImportedIndicators[44:55, 4],
-        ImportedIndicators[44:55, 5],
-        ImportedIndicators[44:55, 6],
-        ImportedIndicators[44:55, 7]
-      )
-    SIExternVector <-
-      c(
-        ImportedIndicators[58:69, 2],
-        ImportedIndicators[58:69, 3],
-        ImportedIndicators[58:69, 4],
-        ImportedIndicators[58:69, 5],
-        ImportedIndicators[58:69, 6],
-        ImportedIndicators[58:69, 7]
-      )
-    UrbanoExportsVector <-
-      c(
-        ImportedIndicators[72:83, 2],
-        ImportedIndicators[72:83, 3],
-        ImportedIndicators[72:83, 4],
-        ImportedIndicators[72:83, 5],
-        ImportedIndicators[72:83, 6],
-        ImportedIndicators[72:83, 7]
-      )
-    GlobalisationPartyMembersVector <-
-      c(
-        ImportedIndicators[86:97, 2],
-        ImportedIndicators[86:97, 3],
-        ImportedIndicators[86:97, 4],
-        ImportedIndicators[86:97, 5],
-        ImportedIndicators[86:97, 6],
-        ImportedIndicators[86:97, 7]
-      )
-    AEPIVector <-
-      c(
-        ImportedIndicators[100:111, 2],
-        ImportedIndicators[100:111, 3],
-        ImportedIndicators[100:111, 4],
-        ImportedIndicators[100:111, 5],
-        ImportedIndicators[100:111, 6],
-        ImportedIndicators[100:111, 7]
-      )
-    PPIEtelVector <-
-      c(
-        ImportedIndicators[114:125, 2],
-        ImportedIndicators[114:125, 3],
-        ImportedIndicators[114:125, 4],
-        ImportedIndicators[114:125, 5],
-        ImportedIndicators[114:125, 6],
-        ImportedIndicators[114:125, 7]
-      )
-    NationalHolidaysVector <-
-      c(
-        ImportedIndicators[170:181, 2],
-        ImportedIndicators[170:181, 3],
-        ImportedIndicators[170:181, 4],
-        ImportedIndicators[170:181, 5],
-        ImportedIndicators[170:181, 6],
-        ImportedIndicators[170:181, 7]
-      )
-    ChulwalarIndexVector <-
-      c(
-        ImportedIndicators[128:139, 2],
-        ImportedIndicators[128:139, 3],
-        ImportedIndicators[128:139, 4],
-        ImportedIndicators[128:139, 5],
-        ImportedIndicators[128:139, 6],
-        ImportedIndicators[128:139, 7]
-      )
-    InflationVector <-
-      c(
-        ImportedIndicators[142:153, 2],
-        ImportedIndicators[142:153, 3],
-        ImportedIndicators[142:153, 4],
-        ImportedIndicators[142:153, 5],
-        ImportedIndicators[142:153, 6],
-        ImportedIndicators[142:153, 7]
-      )
-    IndependenceDayPresentsVector <-
-      c(
-        ImportedIndicators[156:167, 2],
-        ImportedIndicators[156:167, 3],
-        ImportedIndicators[156:167, 4],
-        ImportedIndicators[156:167, 5],
-        ImportedIndicators[156:167, 6],
-        ImportedIndicators[156:167, 7]
-      )
-    InfluenceNationalHolidaysVector <-
-      c(
-        ImportedIndicators[184:195, 2],
-        ImportedIndicators[184:195, 3],
-        ImportedIndicators[184:195, 4],
-        ImportedIndicators[184:195, 5],
-        ImportedIndicators[184:195, 6],
-        ImportedIndicators[184:195, 7]
-      )
-
-    CEPI <-
-      ts(
-        CEPIVector ,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    SIGov <-
-      ts(
-        SIGovVector ,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    Temperature <-
-      ts(
-        TemperatureVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    Births <-
-      ts(
-        BirthsVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    SIExtern <-
-      ts(
-        SIExternVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    UrbanoExports <-
-      ts(
-        UrbanoExportsVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    GlobalisationPartyMembers <-
-      ts(
-        GlobalisationPartyMembersVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    AEPI <-
-      ts(
-        AEPIVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    PPIEtel <-
-      ts(
-        PPIEtelVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    NationalHolidays <-
-      ts(
-        NationalHolidaysVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    ChulwalarIndex <-
-      ts(
-        ChulwalarIndexVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    Inflation <-
-      ts(
-        InflationVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    IndependenceDayPresents <-
-      ts(
-        IndependenceDayPresentsVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
-    InfluenceNationalHolidays <-
-      ts(
-        InfluenceNationalHolidaysVector,
-        start = c(2008, 1),
-        end = c(2013, 12),
-        frequency = 12
-      )
 
 Data Analysis
 =============
@@ -500,8 +134,6 @@ potential trends, seasonal fluctuation, and the strength of various
 correlations.
 
 ### Efak Correlation
-
-    knitr::read_chunk(paste0(DataAnalysis,'/EfakCorrelation.R'))
 
 The first approach to EDA is to review historical exports against
 Chulwalar's planned exports. This correlation will validate the prime
@@ -516,7 +148,7 @@ though extreme adjustments were made between 2011 and 2012 to realign
 plans with true exports. The plots suggest adjustments were too extreme,
 resulting in some oscillations through the end of 2013.
 
-    par(mfrow=c(2,1))
+    par(mfrow=c(1,2))
 
     plot(EfakAsIs , col="red",main="EfakAsIs")
     plot(EfakPlan , col="red",main="EfakPlan")

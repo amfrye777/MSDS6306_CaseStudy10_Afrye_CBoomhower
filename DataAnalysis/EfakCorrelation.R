@@ -1,5 +1,5 @@
 # ---- EfakCor_Business ----
-par(mfrow=c(2,1))
+par(mfrow=c(1,2))
 
 plot(EfakAsIs , col="red",main="EfakAsIs")
 plot(EfakPlan , col="red",main="EfakPlan")

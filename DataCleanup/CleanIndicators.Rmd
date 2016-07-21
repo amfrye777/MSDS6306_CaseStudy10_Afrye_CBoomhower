@@ -5,14 +5,14 @@ date: "July 20, 2016"
 output: md_document
 ---
 
-```{r read_chunk_CleanIndicators, cache=FALSE}
+```{r read_chunk_CleanIndicators, cache=FALSE, include = FALSE}
 knitr::read_chunk(paste0(DataCleanup,'/CleanIndicators.R'))
 ```
 
 Finally, to clean the external indicators data, we separate each indicator group into individual vectors. Then, as done previously, we convert each new vector into a time series. Lastly, we review each time series output to ensure they match what we expect to see.
 
-```{r CleanIndicators_toVector}
+```{r CleanIndicators_toVector, include = FALSE}
 ```
 
-```{r CleanIndicators_toTS}
+```{r CleanIndicators_toTS, include = FALSE}
 ```
