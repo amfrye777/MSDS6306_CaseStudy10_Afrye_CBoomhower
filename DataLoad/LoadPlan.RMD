@@ -5,13 +5,13 @@ date: "July 16, 2016"
 output: md_document
 ---
 
-```{r read_chunk_LoadPlan, cache=FALSE}
+```{r read_chunk_LoadPlan, cache=FALSE, include = FALSE}
 knitr::read_chunk(paste0(DataLoad,'/LoadPlan.R'))
 ```
 
 Similarly, the second data set loaded is the planned export data. These data are also obtained from SMU 2DS and loaded as follows:
 
-```{r LoadPlan}
+```{r LoadPlan, include = FALSE}
 ```
 
 Once again, the data structure and subset rows were reviewed to confirm succesful import.

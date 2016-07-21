@@ -5,13 +5,13 @@ date: "July 16, 2016"
 output: md_document
 ---
 
-```{r read_chunk_LoadAsIs, cache=FALSE}
+```{r read_chunk_LoadAsIs, cache=FALSE, include = FALSE}
 knitr::read_chunk(paste0(DataLoad,'/LoadAsIs.R'))
 ```
 
 To start, we need to load our As Is Chulwar Data. This data has been sourced from the SMU 2DS platform Unit 10.2 Overview page.
 
-```{R LoadAsIs}
+```{R LoadAsIs, include = FALSE}
 ```
 
 With our data loaded, we reviewed the structure and a small subset of the data to confirm successful import.

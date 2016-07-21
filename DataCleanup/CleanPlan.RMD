@@ -5,14 +5,14 @@ date: "July 16, 2016"
 output: md_document
 ---
 
-```{r read_chunk_CleanPlan, cache=FALSE}
+```{r read_chunk_CleanPlan, cache=FALSE, include = FALSE}
 knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
 ```
 
 To clean our planned Chulwar data, we once again separate each planned export group into individual vectors. After this, we convert each new vector into a time series and then review each time series output to ensure they match our expectations. The time series output was as expected.
 
-```{r CleanPlan_Vectors}
+```{r CleanPlan_Vectors, include = FALSE}
 ```
 
-```{r CleanPlan_TimeSeries}
+```{r CleanPlan_TimeSeries, include = FALSE}
 ```
