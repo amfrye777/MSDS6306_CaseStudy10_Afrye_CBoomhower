@@ -55,7 +55,7 @@ ModelMLE<- rbind(
                  cbind(ModelType = "Holt Winters' Seasonal Additive Model",        as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
                  cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
                 )
-row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
+row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
 names(ModelMLE)<-c("ModelType","AIC", "AICc", "BIC")
 formattable(ModelMLE)
 
