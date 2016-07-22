@@ -34,7 +34,7 @@ Minimum AIC/AICc/BIC values are highlighted in green, representing the best good
 
 To further illustrate the difference in MLE measures, the AIC/AICc/BIC values are plotted for each model type. As indicted in the previous table, the Holt-Winters' Seasonal Additive and Simple Exponential Smoothing models depict the smallest measures. It is worth noting that the Holt-Winters' Seasonal Additive model has the second smallest BIC value and that while its multiplicative version has the second smallest AIC/AICc values, the multiplicative model portrays the largest BIC value. For these reasons, it is important to consider all available measures holistically as will be done further momentarily.
 
-```{r plotModelMLE}
+```{r PlotModelMLE}
 ```
 
 Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy exist in the form of error values. The error measures used in this analysis are:
@@ -52,7 +52,7 @@ Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy 
 ```{r ComputeModelError, include=FALSE}
 ```
 
-```{r ComputeModelErrorTable}
+```{r ComputeModelErrorTable, echo=FALSE}
 ```
 
 ```{r SimpleExponential}

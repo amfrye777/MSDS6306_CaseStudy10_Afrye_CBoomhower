@@ -444,6 +444,15 @@ AIC/AICc values, the multiplicative model portrays the largest BIC
 value. For these reasons, it is important to consider all available
 measures holistically as will be done further momentarily.
 
+    ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.name="MLEType",value.name = "MLEValue")
+    #formattable(ModelMLEMelt)
+
+    ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=MLEValue, fill = MLEType)) +
+    geom_bar(stat="identity" ,position=position_dodge())+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/PlotModelMLE-1.png)<!-- -->
+
 Similar to AIC/AICc/BIC measures, various summary measures of forecast
 accuracy exist in the form of error values. The error measures used in
 this analysis are:
@@ -455,34 +464,6 @@ this analysis are:
 -   Mean Absolute Percentage Error (MAPE)
 -   Mean Absolute Scaled Error (MASE)
 -   Autocorrelation of Errors at Lag 1 (ACF1)
-
-<!-- -->
-
-    MEMinVal   <- min(ModelError$ME)
-    RMSEMinVal <- min(ModelError$RMSE)
-    MAEMinVal  <- min(ModelError$MAE)
-    MPEMinVal  <- min(ModelError$MPE)
-    MAPEMinVal <- min(ModelError$MAPE)
-    MASEMinVal <- min(ModelError$MASE)
-    ACF1MinVal <- min(ModelError$ACF1)
-
-    MEFORMAT   <- formatter("span", style = ~ ifelse(ME   == MEMinVal,   "background-color:LightGreen", NA))
-    RMSEFORMAT <- formatter("span", style = ~ ifelse(RMSE == RMSEMinVal, "background-color:LightGreen", NA))
-    MAEFORMAT  <- formatter("span", style = ~ ifelse(MAE  == MAEMinVal,  "background-color:LightGreen", NA))
-    MPEFORMAT  <- formatter("span", style = ~ ifelse(MPE  == MPEMinVal,  "background-color:LightGreen", NA))
-    MAPEFORMAT <- formatter("span", style = ~ ifelse(MAPE == MAPEMinVal, "background-color:LightGreen", NA))
-    MASEFORMAT <- formatter("span", style = ~ ifelse(MASE == MASEMinVal, "background-color:LightGreen", NA))
-    ACF1FORMAT <- formatter("span", style = ~ ifelse(ACF1 == ACF1MinVal, "background-color:LightGreen", NA))
-
-    formattable(ModelError, list(
-                                 ME   = MEFORMAT,
-                                 RMSE = RMSEFORMAT,
-                                 MAE  = MAEFORMAT,
-                                 MPE  = MPEFORMAT,
-                                 MAPE = MAPEFORMAT,
-                                 MASE = MASEFORMAT,
-                                 ACF1 = ACF1FORMAT
-                                ))
 
 <table style="width:739%;">
 <colgroup>
