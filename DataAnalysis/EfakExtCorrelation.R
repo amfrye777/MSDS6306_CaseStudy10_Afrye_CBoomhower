@@ -1,10 +1,13 @@
 # ---- EfakExtCorrelation_CEPI ----
 # Monthly Change in Export Price Index (CEPI)
 plot(CEPI, main="CEPI")
-
 cor(EfakAsIs , CEPI)
 
-# The CEPI correlates very well with the efak exports.
+# ---- EfakExtCorrelation_CEPI_seasonal ----
+par(mfrow=c(2,1))
+CEPI_stl <- stl(CEPI , s.window=9)
+plot(CEPI_stl$time.series[,"seasonal"], col="black", ylab = "CEPI", main = "Seasonal CEPI")
+plot(EfakAsIs_stl$time.series[,"seasonal"], col="black", ylab = "Exports", main = "Seasonal Efak Exports")
 
 # ---- EfakExtCorrelation_SI ----
 # Monthly Satisfaction Index (SI) government based data
@@ -17,9 +20,17 @@ cor(EfakAsIs , SIGov)
 
 # ---- EfakExtCorrelation_Temp ----
 # Average monthly temperatures in Chulwalar
-plot(Temperature, main="Temperature")
-
 cor(EfakAsIs , Temperature)
+
+# ---- EfakExtCorrelation_Temp_STL ----
+par(mfrow=c(1,1))
+Temperature_stl <- stl(Temperature , s.window=9)
+plot(Temperature_stl, main = "Temperature_STL")
+
+# ---- EfakExtCorrelation_Temp_Seasonal ----
+par(mfrow=c(2,1))
+plot(Temperature, main="Temperature")
+plot(EfakAsIs_stl$time.series[,"seasonal"], col="black", ylab = "Exports", main = "Seasonal Efak Exports")
 
 # The temperatures have a negative correlation, exports                      
 # increase in the colder months. However, the relationship is only stronger 

@@ -9,7 +9,7 @@ output: md_document
 knitr::read_chunk(paste0(DataAnalysis,'/EfakSeasonal.R'))
 ```
 
-*Discuss and extract comments*
+To further clarify the seasonal trend observed for our data, the seasonality component is plotted by month. The plot below confirms our previous observations that exports are high around the month of March, fluctuate between April and May, and then consistently drop during the Summer months. This monthly plot also shows the gradual increase in exports from July through the end of the year. It is worth mentioning a sharp decrease in September exports is observed between 2008-2013. Similarly, a substantial increase in exports is observed for the month of November. Since the September drop in exports is alarming, it is worth notifying the Chulwalar Prime Minister so that improvements can be made.
 
 ```{r EfakSeasonal_Monthly}
 ```

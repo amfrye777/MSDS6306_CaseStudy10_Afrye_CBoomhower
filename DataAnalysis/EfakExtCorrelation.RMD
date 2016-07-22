@@ -9,4 +9,29 @@ output: md_document
 knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
 ```
 
+After extensive EDA on several external indicator factors, two indicators have been identified as noteworthy. The first indicator is monthly change in export price index (CEPI) and the second is climate temperature.
 
+The CEPI plot below indicates a strong, nearly linear, increase in price index between 2008 and 2013. This results in a strong Pearson's r value of `0.93`, representing significant association with increase in exports.
+
+```{r EfakExtCorrelation_CEPI}
+```
+
+Because strong correlation is observed, it is beneficial to also compare the seasonal component from CEPI and Efak Exports. Based on the following plots, it is apparent that prices are highest during months when Efak exports are lowest and vice-versa. Modifications to export pricing strategies may mitigate the effects of seasonal oscillations throughout the year.
+
+```{r EfakExtCorrelation_CEPI_seasonal}
+```
+
+The second indicator of interest is temperature. One would expect changes in temperature throughout the year to play a significant role in flower yields and thus impact the number of exports. In reviewing the correlation between temparature and Efak exports, a Pearson's r of `-0.08` is produced. This is rather surprising given our aforementioned assumption.
+
+```{r EfakExtCorrelation_Temp}
+```
+
+Further investigation yields the following STL plots. The raw data and seasonal component follow the same pattern as expected and there is no observable increase in temperature over the years. The steady temperature trend is likely great cause for our low Pearson's r value.
+
+```{r EfakExtCorrelation_Temp_STL}
+```
+
+Because of the seasonal nature of the export and temperature data, it makes sense to compare the seasonal component for Efak exports to the changing temperature. The following plots confirm our original assumptions that temperature likely has a negative impact on exports during high temperature months.
+
+```{r EfakExtCorrelation_Temp_Seasonal}
+```

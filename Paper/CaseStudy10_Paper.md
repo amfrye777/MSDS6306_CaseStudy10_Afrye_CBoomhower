@@ -198,129 +198,43 @@ planned and as-is exports is not equal to 0.
 
 ### Efak STL
 
-    knitr::read_chunk(paste0(DataAnalysis,'/EfakSTL.R'))
+Now having a clearer understanding of the association between as-is and
+planned Efak export, the next step is to review the as-is export trend,
+seasonality, and remaining coincidential componenents. Utilizing the STL
+function, we are able to seperate these components and plot them one
+after the other.
 
-*Discuss STL plot and extract comments from .R code chunk*
-
-    # The time series can be analysed using the stl function in order to seperate
-    # the trend, seasonality and remainder (remaining coincidential) components from
-    # one another.
+Refering to the trend segment below, it is clear there is a nearly
+linear increase in exports over time. The seasonality component
+indicates a large number of exports toward the beginning of each year.
+There appears to be a consistent decrease in exports during the Summer
+months before steadily increasing again each year. Finally, the
+remainder plot displays anomalies beyond observed Efak export trend and
+seasonal behaviors.
 
     EfakAsIs_stl <- stl(EfakAsIs , s.window=9)
 
-    # Thus the individual time series can be shown graphically and tabularly.
-
-    # The trend of the total exports is almost linear. A relatively uniform 
-    # seaonality can be seen.
-
-    par(mfrow=c(3,2))
+    par(mfrow=c(1,1))
 
     plot(EfakAsIs_stl, col="black", main="EfakAsIs_stl")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSTL_toSTL-1.png)<!-- -->
 
-    EfakAsIs_stl
-
-    ##  Call:
-    ##  stl(x = EfakAsIs, s.window = 9)
-    ## 
-    ## Components
-    ##              seasonal     trend   remainder
-    ## Jan 2008  -24764.2935  424215.0   17138.327
-    ## Feb 2008   15831.0144  428674.2   28059.806
-    ## Mar 2008  130207.7627  433133.4  -96802.155
-    ## Apr 2008  -89604.2059  437592.6   22785.601
-    ## May 2008   53655.4937  441695.6  -37610.070
-    ## Jun 2008  -28168.2633  445798.5  -32813.285
-    ## Jul 2008  -85516.1259  449901.5  100116.605
-    ## Aug 2008  -60069.0943  454145.5   -5063.426
-    ## Sep 2008    7943.2490  458389.5   42037.232
-    ## Oct 2008   -7071.1329  462633.5   40035.615
-    ## Nov 2008   68795.5412  467722.8   -7327.353
-    ## Dec 2008   16445.8636  472812.1  -47712.969
-    ## Jan 2009  -24517.4534  477901.4  -23328.946
-    ## Feb 2009   15030.7380  483130.9  -29974.653
-    ## Mar 2009  130489.6277  488360.4   29731.942
-    ## Apr 2009  -86832.2848  493589.9    8232.339
-    ## May 2009   57869.0651  500738.5  -92278.532
-    ## Jun 2009  -27027.1196  507887.0  -15084.868
-    ## Jul 2009  -90206.2474  515035.5    6158.739
-    ## Aug 2009  -59589.5620  522438.5   39650.014
-    ## Sep 2009     851.7679  529841.6   54289.645
-    ## Oct 2009   -6909.8449  537244.6  -23457.782
-    ## Nov 2009   73045.0669  543205.7  -22545.787
-    ## Dec 2009   14833.5303  549166.8   77581.656
-    ## Jan 2010  -24755.0398  555127.9  -22195.867
-    ## Feb 2010   13032.2054  561076.6   27006.164
-    ## Mar 2010  134008.6158  567025.4   74962.029
-    ## Apr 2010  -82897.5582  572974.1 -166544.521
-    ## May 2010   64095.2734  583594.9   24320.793
-    ## Jun 2010  -24238.1669  594215.8   19917.379
-    ## Jul 2010  -99942.9436  604836.6  -66553.698
-    ## Aug 2010  -57381.4168  624421.3  -83676.912
-    ## Sep 2010  -10865.7682  644006.0   -3076.248
-    ## Oct 2010   -6769.0932  663590.7  -47879.610
-    ## Nov 2010   81404.4940  687749.1  -81098.578
-    ## Dec 2010   15859.6431  711907.5  -34709.109
-    ## Jan 2011  -20725.1613  736065.8   63302.314
-    ## Feb 2011    4640.5850  758789.4  -37175.952
-    ## Mar 2011  126506.6073  781512.9   35254.505
-    ## Apr 2011  -71671.1699  804236.4  112570.762
-    ## May 2011   72609.2532  823426.4  134361.369
-    ## Jun 2011  -29542.5598  842616.3   16124.211
-    ## Jul 2011 -106957.2985  861806.3  -12868.021
-    ## Aug 2011  -56180.8353  874743.3    1822.494
-    ## Sep 2011  -34706.0440  887680.4   -1546.319
-    ## Oct 2011    2834.9631  900617.4  -29557.348
-    ## Nov 2011  102441.1450  909955.8  -15780.975
-    ## Dec 2011   24243.0806  919294.3   -1926.356
-    ## Jan 2012  -18009.0673  928632.7  -61214.654
-    ## Feb 2012   -3670.4398  940136.7   85007.773
-    ## Mar 2012  113699.8439  951640.6  -31315.457
-    ## Apr 2012  -63397.5364  963144.6    4701.978
-    ## May 2012   73612.6954  973444.0  -60604.672
-    ## Jun 2012  -38582.2807  983743.4   66325.886
-    ## Jul 2012 -103993.5049  994042.8  -27810.308
-    ## Aug 2012  -57435.0433 1001328.7   82463.345
-    ## Sep 2012  -44905.1318 1008614.6  -64817.451
-    ## Oct 2012    9879.7360 1015900.5   54213.796
-    ## Nov 2012  111936.5697 1022987.5  124805.940
-    ## Dec 2012   29331.9995 1030074.5  -72444.513
-    ## Jan 2013  -18049.2165 1037161.5   45984.680
-    ## Feb 2013   -6901.6162 1048193.9  -89097.308
-    ## Mar 2013  106628.4564 1059226.3 -102962.768
-    ## Apr 2013  -58865.3148 1070258.7   46594.616
-    ## May 2013   73499.4031 1082162.2  -27729.613
-    ## Jun 2013  -41914.5970 1094065.7 -118786.124
-    ## Jul 2013 -103470.7481 1105969.2   67368.515
-    ## Aug 2013  -56721.4519 1118541.3  -41741.860
-    ## Sep 2013  -51170.4991 1131113.4  -29972.893
-    ## Oct 2013   13783.1826 1143685.5   39983.346
-    ## Nov 2013  118472.3596 1157162.1    8335.554
-    ## Dec 2013   30102.5772 1170638.7   80093.721
-
-    # It is interesting to note that the almost linear trend is not seen in the 
-    # individual segments. The individual trends run partially in opposite 
-    # directions in the middle of the time scale, which causes the linear trend 
-    # in the total As Is data.
-
-*Discuss Trend*
-
-    par(mfrow=c(1,1))
-
-    plot(EfakAsIs_stl$time.series[,"trend"], col="red")
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSTL_Trend-1.png)<!-- -->
-
 ### Efak Monthly Seasonal
 
     knitr::read_chunk(paste0(DataAnalysis,'/EfakSeasonal.R'))
 
-*Discuss and extract comments*
-
-    # The modification of the seasonlity component can also be changed into a
-    # monthly view. It only makes sense to do this if the seasonality componant as
-    # the trend looks almost identical and the remainder is then randomly spread. 
+To further clarify the seasonal trend observed for our data, the
+seasonality component is plotted by month. The plot below confirms our
+previous observations that exports are high around the month of March,
+fluctuate between April and May, and then consistently drop during the
+Summer months. This monthly plot also shows the gradual increase in
+exports from July through the end of the year. It is worth mentioning a
+sharp decrease in September exports is observed between 2008-2013.
+Similarly, a substantial increase in exports is observed for the month
+of November. Since the September drop in exports is alarming, it is
+worth notifying the Chulwalar Prime Minister so that improvements can be
+made.
 
     monthplot(EfakAsIs_stl$time.series[,"seasonal"], main="", ylab="Seasonal")
 
@@ -329,6 +243,78 @@ planned and as-is exports is not equal to 0.
 ### Efak External Indicator Correlation
 
     knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
+
+After extensive EDA on several external indicator factors, two
+indicators have been identified as noteworthy. The first indicator is
+monthly change in export price index (CEPI) and the second is climate
+temperature.
+
+The CEPI plot below indicates a strong, nearly linear, increase in price
+index between 2008 and 2013. This results in a strong Pearson's r value
+of `0.93`, representing significant association with increase in
+exports.
+
+    # Monthly Change in Export Price Index (CEPI)
+    plot(CEPI, main="CEPI")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakExtCorrelation_CEPI-1.png)<!-- -->
+
+    cor(EfakAsIs , CEPI)
+
+    ## [1] 0.9303543
+
+Because strong correlation is observed, it is beneficial to also compare
+the seasonal component from CEPI and Efak Exports. Based on the
+following plots, it is apparent that prices are highest during months
+when Efak exports are lowest and vice-versa. Modifications to export
+pricing strategies may mitigate the effects of seasonal oscillations
+throughout the year.
+
+    par(mfrow=c(2,1))
+    CEPI_stl <- stl(CEPI , s.window=9)
+    plot(CEPI_stl$time.series[,"seasonal"], col="black", ylab = "CEPI", main = "Seasonal CEPI")
+    plot(EfakAsIs_stl$time.series[,"seasonal"], col="black", ylab = "Exports", main = "Seasonal Efak Exports")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakExtCorrelation_CEPI_seasonal-1.png)<!-- -->
+
+The second indicator of interest is temperature. One would expect
+changes in temperature throughout the year to play a significant role in
+flower yields and thus impact the number of exports. In reviewing the
+correlation between temparature and Efak exports, a Pearson's r of
+`-0.08` is produced. This is rather surprising given our aforementioned
+assumption.
+
+    # Average monthly temperatures in Chulwalar
+    cor(EfakAsIs , Temperature)
+
+    ## [1] -0.07951179
+
+Further investigation yields the following STL plots. The raw data and
+seasonal component follow the same pattern as expected and there is no
+observable increase in temperature over the years. The steady
+temperature trend is likely great cause for our low Pearson's r value.
+
+    par(mfrow=c(1,1))
+    Temperature_stl <- stl(Temperature , s.window=9)
+    plot(Temperature_stl, main = "Temperature_STL")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakExtCorrelation_Temp_STL-1.png)<!-- -->
+
+Because of the seasonal nature of the export and temperature data, it
+makes sense to compare the seasonal component for Efak exports to the
+changing temperature. The following plots confirm our original
+assumptions that temperature likely has a negative impact on exports
+during high temperature months.
+
+    par(mfrow=c(2,1))
+    plot(Temperature, main="Temperature")
+    plot(EfakAsIs_stl$time.series[,"seasonal"], col="black", ylab = "Exports", main = "Seasonal Efak Exports")
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/EfakExtCorrelation_Temp_Seasonal-1.png)<!-- -->
+
+    # The temperatures have a negative correlation, exports                      
+    # increase in the colder months. However, the relationship is only stronger 
+    # with blue Etels.
 
 ### Forecasting Efak models with smoothing and related approaches
 

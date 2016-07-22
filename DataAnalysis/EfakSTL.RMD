@@ -5,15 +5,13 @@ date: "July 19, 2016"
 output: md_document
 ---
 
-```{r read_chunk_DataAnalysis, cache=FALSE}
+```{r read_chunk_DataAnalysis, cache=FALSE, include=FALSE}
 knitr::read_chunk(paste0(DataAnalysis,'/EfakSTL.R'))
 ```
 
-*Discuss STL plot and extract comments from .R code chunk*
+Now having a clearer understanding of the association between as-is and planned Efak export, the next step is to review the as-is export trend, seasonality, and remaining coincidential componenents. Utilizing the STL function, we are able to seperate these components and plot them one after the other.
+
+Refering to the trend segment below, it is clear there is a nearly linear increase in exports over time. The seasonality component indicates a large number of exports toward the beginning of each year. There appears to be a consistent decrease in exports during the Summer months before steadily increasing again each year. Finally, the remainder plot displays anomalies beyond observed Efak export trend and seasonal behaviors.
 
 ```{r EfakSTL_toSTL}
 ```
-
-*Discuss Trend*
-
-```{r EfakSTL_Trend}
