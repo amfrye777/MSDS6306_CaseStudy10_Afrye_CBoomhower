@@ -57,6 +57,8 @@ ModelMLE<- rbind(
                 )
 row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
 names(ModelMLE)<-c("ModelType","ModelTypeAbbr","AIC", "AICc", "BIC")
+
+# ---- ComputeModelMLEtable ----
 formattable(ModelMLE)
 
 # ---- ComputeModelError ----

@@ -5,15 +5,32 @@ date: "July 19, 2016"
 output: md_document
 ---
 
-```{r read_chunk_EfakSmoothing, cache=FALSE}
+```{r read_chunk_EfakSmoothing, cache=FALSE, include=FALSE}
 knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
 ```
+
+Now that all EDA steps are complete, we are ready to run our forecast models. Several models are available for time series forecasting. The models used in this analysis are:
+
+* Simple Exponential Smoothing (SES)
+* Holt's Linear Trend (HLT)
+* Holt's Exponential Trend (HET)
+* Holt's Damped Linear Trend (HDLT)
+* Holt's Damped Exponential Trend (HDET)
+* Holt-Winters' Seasonal Additive Model (HWSA)
+* Holt-Winters' Seasonal Multiplicative Model (HWSM)
 
 ```{r ExecAllSmooth}
 ```
 
-```{r ComputeModelMLE}
+Because the Akaike’s Information Criterion (AIC), Akaike's Information Criterion Corrected (AICc), and Bayesian Information Criterion (BIC) are important measures of goodness of fit, these values are extracted from each model's summary output and assigned to a data frame for later analysis. The resulting data frame is as follows.
+
+```{r ComputeModelMLE, include=FALSE}
 ```
+
+```{r ComputeModelMLEtable}
+```
+
+
 
 ```{r plotModelMLE}
 ```
