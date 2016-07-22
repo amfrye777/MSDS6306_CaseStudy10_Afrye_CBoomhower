@@ -55,24 +55,12 @@ Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy 
 ```{r ComputeModelErrorTable, echo=FALSE}
 ```
 
+```{r PlotSES_HWSA}
+```
+
 ```{r SimpleExponential}
 ```
 
-```{r HoltLinear}
-```
-
-```{r HoltExponential}
-```
-
-```{r HoltDampedLinear}
-```
-
-```{r HoltDampedExponential}
-```
-
 ```{r HoltWinterSeasonalAdd}
-```
-
-```{r HoltWinterSeasonalMult}
 ```
 

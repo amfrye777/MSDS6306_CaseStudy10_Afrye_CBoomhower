@@ -571,6 +571,14 @@ this analysis are:
 </tbody>
 </table>
 
+    plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
+    lines(fitted(Model_ses), col="purple", type="o")
+    lines(fitted(Model_hw_1), col="red", type="o")
+    legend("topleft",lty=1, col=c(1,"purple","red"), c("data", "SES","Holt Winters' Additive"),pch=1)
+
+![](CaseStudy10_Paper_files/figure-markdown_strict/PlotSES_HWSA-1.png)<!-- -->
+
+    par(mfrow=c(1,1))
     plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")
     lines(fitted(Model_ses), col="green", type="o")
     lines(Model_ses$mean, col="blue", type="o")
@@ -578,29 +586,9 @@ this analysis are:
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/SimpleExponential-1.png)<!-- -->
 
-    plot(Model_holt_1)
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/HoltLinear-1.png)<!-- -->
-
-    plot(Model_holt_2)
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/HoltExponential-1.png)<!-- -->
-
-    plot(Model_holt_3)
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/HoltDampedLinear-1.png)<!-- -->
-
-    plot(Model_holt_4)
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/HoltDampedExponential-1.png)<!-- -->
-
     plot(Model_hw_1)
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalAdd-1.png)<!-- -->
-
-    plot(Model_hw_2)
-
-![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalMult-1.png)<!-- -->
 
 Conclusion
 ==========
