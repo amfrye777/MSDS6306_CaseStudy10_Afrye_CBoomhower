@@ -118,7 +118,7 @@ formattable(ModelError, list(
 # ---- PlotModelMLE ----
 
 ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.name="MLEType",value.name = "MLEValue")
-formattable(ModelMLEMelt)
+#formattable(ModelMLEMelt)
 
 ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=MLEValue, fill = MLEType)) +
 geom_bar(stat="identity" ,position=position_dodge())+
