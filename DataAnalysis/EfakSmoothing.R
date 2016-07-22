@@ -47,19 +47,31 @@ hw_2MLESplit<-unlist(strsplit(hw_2MLE[24], split=" "))
 
 
 ModelMLE<- rbind(
-                 cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
-                 cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
-                 cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
-                 cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
-                 cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
-                 cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
-                 cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
+                 cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(cbind(as.numeric(SESMLESplit[1]),as.numeric(SESMLESplit[2]),as.numeric(SESMLESplit[3])))),
+                 cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(cbind(as.numeric(Holt_1MLESplit[1]),as.numeric(Holt_1MLESplit[2]),as.numeric(Holt_1MLESplit[3])))),
+                 cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(cbind(as.numeric(Holt_2MLESplit[1]),as.numeric(Holt_2MLESplit[2]),as.numeric(Holt_2MLESplit[3])))),
+                 cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(cbind(as.numeric(Holt_3MLESplit[1]),as.numeric(Holt_3MLESplit[2]),as.numeric(Holt_3MLESplit[3])))),
+                 cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(cbind(as.numeric(Holt_4MLESplit[1]),as.numeric(Holt_4MLESplit[2]),as.numeric(Holt_4MLESplit[3])))),
+                 cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(cbind(as.numeric(hw_1MLESplit[1]),as.numeric(hw_1MLESplit[2]),as.numeric(hw_1MLESplit[3])))),
+                 cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(cbind(as.numeric(hw_2MLESplit[1]),as.numeric(hw_2MLESplit[2]),as.numeric(hw_2MLESplit[3]))))
                 )
 row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
 names(ModelMLE)<-c("ModelType","ModelTypeAbbr","AIC", "AICc", "BIC")
 
 # ---- ComputeModelMLEtable ----
-formattable(ModelMLE)
+AICMinVal  <- min(ModelMLE$AIC)
+AICcMinVal <- min(ModelMLE$AICc)
+BICMinVal  <- min(ModelMLE$BIC)
+
+AICFORMAT  <- formatter("span", style = ~ ifelse(AIC  == AICMinVal,  "background-color:LightGreen", NA))
+AICcFORMAT <- formatter("span", style = ~ ifelse(AICc == AICcMinVal, "background-color:LightGreen", NA))
+BICFORMAT  <- formatter("span", style = ~ ifelse(BIC  == BICMinVal,  "background-color:LightGreen", NA))
+
+formattable(ModelMLE, list(
+                           AIC  = AICFORMAT, 
+                           AICc = AICcFORMAT, 
+                           BIC  = BICFORMAT
+                          ))
 
 # ---- ComputeModelError ----
   ## Compute Error Values for All Models
@@ -74,10 +86,33 @@ ModelError<- rbind(
                   )
 row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
 
-MEFORMAT<-formatter("span", style = ~ ifelse(ME < 10000, "background-color:LightGreen", NA))
-RMSEFORMAT<-formatter("span", style = ~ ifelse(RMSE < 100000, "background-color:LightGreen", NA))
+# ---- ComputeModelErrorTable ----
 
-formattable(ModelError,list(ME=MEFORMAT, RMSE=RMSEFORMAT))       
+MEMinVal   <- min(ModelError$ME)
+RMSEMinVal <- min(ModelError$RMSE)
+MAEMinVal  <- min(ModelError$MAE)
+MPEMinVal  <- min(ModelError$MPE)
+MAPEMinVal <- min(ModelError$MAPE)
+MASEMinVal <- min(ModelError$MASE)
+ACF1MinVal <- min(ModelError$ACF1)
+
+MEFORMAT   <- formatter("span", style = ~ ifelse(ME   == MEMinVal,   "background-color:LightGreen", NA))
+RMSEFORMAT <- formatter("span", style = ~ ifelse(RMSE == RMSEMinVal, "background-color:LightGreen", NA))
+MAEFORMAT  <- formatter("span", style = ~ ifelse(MAE  == MAEMinVal,  "background-color:LightGreen", NA))
+MPEFORMAT  <- formatter("span", style = ~ ifelse(MPE  == MPEMinVal,  "background-color:LightGreen", NA))
+MAPEFORMAT <- formatter("span", style = ~ ifelse(MAPE == MAPEMinVal, "background-color:LightGreen", NA))
+MASEFORMAT <- formatter("span", style = ~ ifelse(MASE == MASEMinVal, "background-color:LightGreen", NA))
+ACF1FORMAT <- formatter("span", style = ~ ifelse(ACF1 == ACF1MinVal, "background-color:LightGreen", NA))
+
+formattable(ModelError, list(
+                             ME   = MEFORMAT,
+                             RMSE = RMSEFORMAT,
+                             MAE  = MAEFORMAT,
+                             MPE  = MPEFORMAT,
+                             MAPE = MAPEFORMAT,
+                             MASE = MASEFORMAT,
+                             ACF1 = ACF1FORMAT
+                            ))
 
 
 # ---- PlotModelMLE ----
