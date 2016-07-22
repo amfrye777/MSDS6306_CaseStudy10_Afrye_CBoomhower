@@ -458,17 +458,137 @@ this analysis are:
 
 <!-- -->
 
-      ## Compute Error Values for All Models
-    ModelError<- rbind(
-                       cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(accuracy(Model_ses))),
-                       cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(accuracy(Model_holt_1))),
-                       cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(accuracy(Model_holt_2))),
-                       cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(accuracy(Model_holt_3))),
-                       cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(accuracy(Model_holt_4))),
-                       cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(accuracy(Model_hw_1))),
-                       cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(accuracy(Model_hw_2)))
-                      )
-    row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
+    MEMinVal   <- min(ModelError$ME)
+    RMSEMinVal <- min(ModelError$RMSE)
+    MAEMinVal  <- min(ModelError$MAE)
+    MPEMinVal  <- min(ModelError$MPE)
+    MAPEMinVal <- min(ModelError$MAPE)
+    MASEMinVal <- min(ModelError$MASE)
+    ACF1MinVal <- min(ModelError$ACF1)
+
+    MEFORMAT   <- formatter("span", style = ~ ifelse(ME   == MEMinVal,   "background-color:LightGreen", NA))
+    RMSEFORMAT <- formatter("span", style = ~ ifelse(RMSE == RMSEMinVal, "background-color:LightGreen", NA))
+    MAEFORMAT  <- formatter("span", style = ~ ifelse(MAE  == MAEMinVal,  "background-color:LightGreen", NA))
+    MPEFORMAT  <- formatter("span", style = ~ ifelse(MPE  == MPEMinVal,  "background-color:LightGreen", NA))
+    MAPEFORMAT <- formatter("span", style = ~ ifelse(MAPE == MAPEMinVal, "background-color:LightGreen", NA))
+    MASEFORMAT <- formatter("span", style = ~ ifelse(MASE == MASEMinVal, "background-color:LightGreen", NA))
+    ACF1FORMAT <- formatter("span", style = ~ ifelse(ACF1 == ACF1MinVal, "background-color:LightGreen", NA))
+
+    formattable(ModelError, list(
+                                 ME   = MEFORMAT,
+                                 RMSE = RMSEFORMAT,
+                                 MAE  = MAEFORMAT,
+                                 MPE  = MPEFORMAT,
+                                 MAPE = MAPEFORMAT,
+                                 MASE = MASEFORMAT,
+                                 ACF1 = ACF1FORMAT
+                                ))
+
+<table style="width:739%;">
+<colgroup>
+<col width="62%" />
+<col width="20%" />
+<col width="93%" />
+<col width="93%" />
+<col width="91%" />
+<col width="94%" />
+<col width="93%" />
+<col width="94%" />
+<col width="95%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">ModelType</th>
+<th align="right">ModelTypeAbbr</th>
+<th align="right">ME</th>
+<th align="right">RMSE</th>
+<th align="right">MAE</th>
+<th align="right">MPE</th>
+<th align="right">MAPE</th>
+<th align="right">MASE</th>
+<th align="right">ACF1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Simple Exponential Smoothing</td>
+<td align="right">SES</td>
+<td align="right"><span>28255.5686974526</span></td>
+<td align="right"><span>105746.360129531</span></td>
+<td align="right"><span>83785.2828519739</span></td>
+<td align="right"><span>1.61853223242804</span></td>
+<td align="right"><span>12.2407144998748</span></td>
+<td align="right"><span>0.598707285768049</span></td>
+<td align="right"><span style="background-color:LightGreen">-0.164414062556709</span></td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Linear Trend</td>
+<td align="right">HLT</td>
+<td align="right"><span>12981.2433596182</span></td>
+<td align="right"><span>101278.188624904</span></td>
+<td align="right"><span>78180.9067417175</span></td>
+<td align="right"><span>-0.340566842511862</span></td>
+<td align="right"><span>11.6237898894443</span></td>
+<td align="right"><span>0.558659908768404</span></td>
+<td align="right"><span>-0.0379500852132754</span></td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Exponential Trend</td>
+<td align="right">HET</td>
+<td align="right"><span style="background-color:LightGreen">1027.78652647737</span></td>
+<td align="right"><span>99625.5017561852</span></td>
+<td align="right"><span>76933.689013667</span></td>
+<td align="right"><span>-2.06954107376868</span></td>
+<td align="right"><span>11.5652854141542</span></td>
+<td align="right"><span>0.549747623516087</span></td>
+<td align="right"><span>-0.0136902011690765</span></td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Damped Linear Trend</td>
+<td align="right">HDLT</td>
+<td align="right"><span>15606.5778392227</span></td>
+<td align="right"><span>102291.450636505</span></td>
+<td align="right"><span>78689.5495981111</span></td>
+<td align="right"><span>0.0337457920377457</span></td>
+<td align="right"><span>11.6622569377417</span></td>
+<td align="right"><span>0.562294534965403</span></td>
+<td align="right"><span>-0.034193021653491</span></td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">HDET</td>
+<td align="right"><span>3135.94744889523</span></td>
+<td align="right"><span>101334.425371825</span></td>
+<td align="right"><span>77773.9332302407</span></td>
+<td align="right"><span style="background-color:LightGreen">-2.42405176641859</span></td>
+<td align="right"><span>11.8584251152619</span></td>
+<td align="right"><span>0.555751784595019</span></td>
+<td align="right"><span>-0.0744258265861801</span></td>
+</tr>
+<tr class="even">
+<td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">HWSA</td>
+<td align="right"><span>8710.85874215872</span></td>
+<td align="right"><span style="background-color:LightGreen">76350.8064264007</span></td>
+<td align="right"><span style="background-color:LightGreen">61147.927199533</span></td>
+<td align="right"><span>-0.25190171993221</span></td>
+<td align="right"><span style="background-color:LightGreen">8.97347766008185</span></td>
+<td align="right"><span style="background-color:LightGreen">0.436946779646901</span></td>
+<td align="right"><span>-0.0912664298887648</span></td>
+</tr>
+<tr class="odd">
+<td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">HWSM</td>
+<td align="right"><span>6211.72593543445</span></td>
+<td align="right"><span>83390.079343758</span></td>
+<td align="right"><span>64171.9936778028</span></td>
+<td align="right"><span>-0.617499794149056</span></td>
+<td align="right"><span>9.08646625528757</span></td>
+<td align="right"><span>0.458555952183631</span></td>
+<td align="right"><span>-0.138172386373136</span></td>
+</tr>
+</tbody>
+</table>
 
     plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")
     lines(fitted(Model_ses), col="green", type="o")

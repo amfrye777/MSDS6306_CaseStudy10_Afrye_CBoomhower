@@ -49,7 +49,10 @@ Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy 
 
 
 
-```{r ComputeModelError}
+```{r ComputeModelError, include=FALSE}
+```
+
+```{r ComputeModelErrorTable}
 ```
 
 ```{r SimpleExponential}
