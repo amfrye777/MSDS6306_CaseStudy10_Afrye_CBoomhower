@@ -222,8 +222,6 @@ seasonal behaviors.
 
 ### Efak Monthly Seasonal
 
-    knitr::read_chunk(paste0(DataAnalysis,'/EfakSeasonal.R'))
-
 To further clarify the seasonal trend observed for our data, the
 seasonality component is plotted by month. The plot below confirms our
 previous observations that exports are high around the month of March,
@@ -241,8 +239,6 @@ made.
 ![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSeasonal_Monthly-1.png)<!-- -->
 
 ### Efak External Indicator Correlation
-
-    knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
 
 After extensive EDA on several external indicator factors, two
 indicators have been identified as noteworthy. The first indicator is
@@ -318,7 +314,19 @@ during high temperature months.
 
 ### Forecasting Efak models with smoothing and related approaches
 
-    knitr::read_chunk(paste0(DataAnalysis,'/EfakSmoothing.R'))
+Now that all EDA steps are complete, we are ready to run our forecast
+models. Several models are available for time series forecasting. The
+models used in this analysis are:
+
+-   Simple Exponential Smoothing (SES)
+-   Holt's Linear Trend (HLT)
+-   Holt's Exponential Trend (HET)
+-   Holt's Damped Linear Trend (HDLT)
+-   Holt's Damped Exponential Trend (HDET)
+-   Holt-Winters' Seasonal Additive Model (HWSA)
+-   Holt-Winters' Seasonal Multiplicative Model (HWSM)
+
+<!-- -->
 
       # Simple Exponential Smoothing
     Model_ses <- ses(EfakAsIs, h=12)
@@ -341,52 +349,28 @@ during high temperature months.
       # Holt Winters' Seasonal Multiplicative Model
     Model_hw_2 <- hw(EfakAsIs ,seasonal="multiplicative",h=12)
 
-      ## Compute Maximum Likelihood Estimation (AIC/AICc/BIC) Values for All Models
-    SESMLE<-capture.output(summary(Model_ses))
-    SESMLESplit<-unlist(strsplit(SESMLE[19], split=" "))
+The Akaike’s Information Criterion (AIC), Akaike's Information Criterion
+Corrected (AICc), and Bayesian Information Criterion (BIC) are Maximum
+Likelihood Estimators (MLE). These are important measures of goodness of
+fit, and as such, their values are extracted from each model's summary
+output and assigned to a data frame for later analysis. The resulting
+data frame is as follows.
 
-    Holt_1MLE<-capture.output(summary(Model_holt_1))
-    Holt_1MLESplit<-unlist(strsplit(Holt_1MLE[21], split=" "))
+Minimum AIC/AICc/BIC values are highlighted in green, representing the
+best goodness of fit for the corresponding models. The Holt-Winters'
+Seasonal Additive Model contains the lowest AIC and AICc values whereas
+the Simple Exponential Smoothing model has the lowest value for BIC.
+Given that the Holt-Winters' Seasonal Additive and Simple Exponential
+Smoothing models have the smallest values, this is an early indicator
+that these models may be the best fit for Efak as-is data.
 
-    Holt_2MLE<-capture.output(summary(Model_holt_2))
-    Holt_2MLESplit<-unlist(strsplit(Holt_2MLE[21], split=" "))
-
-    Holt_3MLE<-capture.output(summary(Model_holt_3))
-    Holt_3MLESplit<-unlist(strsplit(Holt_3MLE[22], split=" "))
-
-    Holt_4MLE<-capture.output(summary(Model_holt_4))
-    Holt_4MLESplit<-unlist(strsplit(Holt_4MLE[22], split=" "))
-    Holt_4MLESplit
-
-    ## [1] "1978.710" "1979.619" "1990.093"
-
-    hw_1MLE<-capture.output(summary(Model_hw_1))
-    hw_1MLESplit<-unlist(strsplit(hw_1MLE[24], split=" "))
-
-    hw_2MLE<-capture.output(summary(Model_hw_2))
-    hw_2MLESplit<-unlist(strsplit(hw_2MLE[24], split=" "))
-
-
-    ModelMLE<- rbind(
-                     cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(cbind(SESMLESplit[1],SESMLESplit[2],SESMLESplit[3]))),
-                     cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(cbind(Holt_1MLESplit[1],Holt_1MLESplit[2],Holt_1MLESplit[3]))),
-                     cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(cbind(Holt_2MLESplit[1],Holt_2MLESplit[2],Holt_2MLESplit[3]))),
-                     cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(cbind(Holt_3MLESplit[1],Holt_3MLESplit[2],Holt_3MLESplit[3]))),
-                     cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(cbind(Holt_4MLESplit[1],Holt_4MLESplit[2],Holt_4MLESplit[3]))),
-                     cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(cbind(hw_1MLESplit[1],hw_1MLESplit[2],hw_1MLESplit[3]))),
-                     cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(cbind(hw_2MLESplit[1],hw_2MLESplit[2],hw_2MLESplit[3])))
-                    )
-    row.names(ModelMLE)<-NULL #reset row.names, so they will not display in formattable output
-    names(ModelMLE)<-c("ModelType","ModelTypeAbbr","AIC", "AICc", "BIC")
-    formattable(ModelMLE)
-
-<table style="width:125%;">
+<table style="width:328%;">
 <colgroup>
 <col width="62%" />
 <col width="20%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col width="81%" />
+<col width="81%" />
+<col width="80%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -401,83 +385,97 @@ during high temperature months.
 <tr class="odd">
 <td align="right">Simple Exponential Smoothing</td>
 <td align="right">SES</td>
-<td align="right">1977.827</td>
-<td align="right">1978.001</td>
-<td align="right">1982.380</td>
+<td align="right"><span>1977.827</span></td>
+<td align="right"><span>1978.001</span></td>
+<td align="right"><span style="background-color:LightGreen">1982.38</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
 <td align="right">HLT</td>
-<td align="right">1975.610</td>
-<td align="right">1976.207</td>
-<td align="right">1984.717</td>
+<td align="right"><span>1975.61</span></td>
+<td align="right"><span>1976.207</span></td>
+<td align="right"><span>1984.717</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
 <td align="right">HET</td>
-<td align="right">1975.029</td>
-<td align="right">1975.626</td>
-<td align="right">1984.136</td>
+<td align="right"><span>1975.029</span></td>
+<td align="right"><span>1975.626</span></td>
+<td align="right"><span>1984.136</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
 <td align="right">HDLT</td>
-<td align="right">1979.044</td>
-<td align="right">1979.953</td>
-<td align="right">1990.427</td>
+<td align="right"><span>1979.044</span></td>
+<td align="right"><span>1979.953</span></td>
+<td align="right"><span>1990.427</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
 <td align="right">HDET</td>
-<td align="right">1978.710</td>
-<td align="right">1979.619</td>
-<td align="right">1990.093</td>
+<td align="right"><span>1978.71</span></td>
+<td align="right"><span>1979.619</span></td>
+<td align="right"><span>1990.093</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
 <td align="right">HWSA</td>
-<td align="right">1958.925</td>
-<td align="right">1968.816</td>
-<td align="right">1995.352</td>
+<td align="right"><span style="background-color:LightGreen">1958.925</span></td>
+<td align="right"><span style="background-color:LightGreen">1968.816</span></td>
+<td align="right"><span>1995.352</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
 <td align="right">HWSM</td>
-<td align="right">1964.418</td>
-<td align="right">1974.309</td>
-<td align="right">2000.844</td>
+<td align="right"><span>1964.418</span></td>
+<td align="right"><span>1974.309</span></td>
+<td align="right"><span>2000.844</span></td>
 </tr>
 </tbody>
 </table>
 
-      ## Compute Error Values for All Models
-    ModelError<- rbind(
-                       cbind(ModelType = "Simple Exponential Smoothing",                 ModelTypeAbbr = "SES",       as.data.frame(accuracy(Model_ses))),
-                       cbind(ModelType = "Holt's Linear Trend",                          ModelTypeAbbr = "HLT",       as.data.frame(accuracy(Model_holt_1))),
-                       cbind(ModelType = "Holt's Exponential Trend",                     ModelTypeAbbr = "HET",       as.data.frame(accuracy(Model_holt_2))),
-                       cbind(ModelType = "Holt's Damped Linear Trend",                   ModelTypeAbbr = "HDLT",      as.data.frame(accuracy(Model_holt_3))),
-                       cbind(ModelType = "Holt's Damped Exponential Trend",              ModelTypeAbbr = "HDET",      as.data.frame(accuracy(Model_holt_4))),
-                       cbind(ModelType = "Holt Winters' Seasonal Additive Model",        ModelTypeAbbr = "HWSA",      as.data.frame(accuracy(Model_hw_1))),
-                       cbind(ModelType = "Holt Winters' Seasonal Multiplicative Model",  ModelTypeAbbr = "HWSM",      as.data.frame(accuracy(Model_hw_2)))
-                      )
-    row.names(ModelError)<-NULL #reset row.names, so they will not display in formattable output
+To further illustrate the difference in MLE measures, the AIC/AICc/BIC
+values are plotted for each model type. As indicted in the previous
+table, the Holt-Winters' Seasonal Additive and Simple Exponential
+Smoothing models depict the smallest measures. It is worth noting that
+the Holt-Winters' Seasonal Additive model has the second smallest BIC
+value and that while its multiplicative version has the second smallest
+AIC/AICc values, the multiplicative model portrays the largest BIC
+value. For these reasons, it is important to consider all available
+measures holistically as will be done further momentarily.
 
-    MEFORMAT<-formatter("span", style = ~ ifelse(ME < 10000, "background-color:LightGreen", NA))
-    RMSEFORMAT<-formatter("span", style = ~ ifelse(RMSE < 100000, "background-color:LightGreen", NA))
+    ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.name="MLEType",value.name = "MLEValue")
+    #formattable(ModelMLEMelt)
 
-    formattable(ModelError,list(ME=MEFORMAT, RMSE=RMSEFORMAT))       
+    ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=as.factor(MLEValue), fill = MLEType)) +
+    geom_bar(stat="identity" ,position=position_dodge()) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-<table style="width:347%;">
+![](CaseStudy10_Paper_files/figure-markdown_strict/PlotModelMLE-1.png)<!-- -->
+
+Similar to AIC/AICc/BIC measures, various summary measures of forecast
+accuracy exist in the form of error values. The error measures used in
+this analysis are:
+
+-   Mean Error (ME)
+-   Root Mean Squared Error (RMSE)
+-   Mean Absolute Error (MAE)
+-   Mean Percentage Error (MPE)
+-   Mean Absolute Percentage Error (MAPE)
+-   Mean Absolute Scaled Error (MASE)
+-   Autocorrelation of Errors at Lag 1 (ACF1)
+
+<table style="width:739%;">
 <colgroup>
 <col width="62%" />
 <col width="20%" />
 <col width="93%" />
 <col width="93%" />
-<col width="13%" />
-<col width="16%" />
-<col width="15%" />
-<col width="15%" />
-<col width="16%" />
+<col width="91%" />
+<col width="94%" />
+<col width="93%" />
+<col width="94%" />
+<col width="95%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -498,77 +496,77 @@ during high temperature months.
 <td align="right">SES</td>
 <td align="right"><span>28255.5686974526</span></td>
 <td align="right"><span>105746.360129531</span></td>
-<td align="right">83785.28</td>
-<td align="right">1.6185322</td>
-<td align="right">12.240714</td>
-<td align="right">0.5987073</td>
-<td align="right">-0.1644141</td>
+<td align="right"><span>83785.2828519739</span></td>
+<td align="right"><span>1.61853223242804</span></td>
+<td align="right"><span>12.2407144998748</span></td>
+<td align="right"><span>0.598707285768049</span></td>
+<td align="right"><span style="background-color:LightGreen">-0.164414062556709</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
 <td align="right">HLT</td>
 <td align="right"><span>12981.2433596182</span></td>
 <td align="right"><span>101278.188624904</span></td>
-<td align="right">78180.91</td>
-<td align="right">-0.3405668</td>
-<td align="right">11.623790</td>
-<td align="right">0.5586599</td>
-<td align="right">-0.0379501</td>
+<td align="right"><span>78180.9067417175</span></td>
+<td align="right"><span>-0.340566842511862</span></td>
+<td align="right"><span>11.6237898894443</span></td>
+<td align="right"><span>0.558659908768404</span></td>
+<td align="right"><span>-0.0379500852132754</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
 <td align="right">HET</td>
 <td align="right"><span style="background-color:LightGreen">1027.78652647737</span></td>
-<td align="right"><span style="background-color:LightGreen">99625.5017561852</span></td>
-<td align="right">76933.69</td>
-<td align="right">-2.0695411</td>
-<td align="right">11.565285</td>
-<td align="right">0.5497476</td>
-<td align="right">-0.0136902</td>
+<td align="right"><span>99625.5017561852</span></td>
+<td align="right"><span>76933.689013667</span></td>
+<td align="right"><span>-2.06954107376868</span></td>
+<td align="right"><span>11.5652854141542</span></td>
+<td align="right"><span>0.549747623516087</span></td>
+<td align="right"><span>-0.0136902011690765</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
 <td align="right">HDLT</td>
 <td align="right"><span>15606.5778392227</span></td>
 <td align="right"><span>102291.450636505</span></td>
-<td align="right">78689.55</td>
-<td align="right">0.0337458</td>
-<td align="right">11.662257</td>
-<td align="right">0.5622945</td>
-<td align="right">-0.0341930</td>
+<td align="right"><span>78689.5495981111</span></td>
+<td align="right"><span>0.0337457920377457</span></td>
+<td align="right"><span>11.6622569377417</span></td>
+<td align="right"><span>0.562294534965403</span></td>
+<td align="right"><span>-0.034193021653491</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
 <td align="right">HDET</td>
-<td align="right"><span style="background-color:LightGreen">3135.94744889523</span></td>
+<td align="right"><span>3135.94744889523</span></td>
 <td align="right"><span>101334.425371825</span></td>
-<td align="right">77773.93</td>
-<td align="right">-2.4240518</td>
-<td align="right">11.858425</td>
-<td align="right">0.5557518</td>
-<td align="right">-0.0744258</td>
+<td align="right"><span>77773.9332302407</span></td>
+<td align="right"><span style="background-color:LightGreen">-2.42405176641859</span></td>
+<td align="right"><span>11.8584251152619</span></td>
+<td align="right"><span>0.555751784595019</span></td>
+<td align="right"><span>-0.0744258265861801</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
 <td align="right">HWSA</td>
-<td align="right"><span style="background-color:LightGreen">8710.85874215872</span></td>
+<td align="right"><span>8710.85874215872</span></td>
 <td align="right"><span style="background-color:LightGreen">76350.8064264007</span></td>
-<td align="right">61147.93</td>
-<td align="right">-0.2519017</td>
-<td align="right">8.973478</td>
-<td align="right">0.4369468</td>
-<td align="right">-0.0912664</td>
+<td align="right"><span style="background-color:LightGreen">61147.927199533</span></td>
+<td align="right"><span>-0.25190171993221</span></td>
+<td align="right"><span style="background-color:LightGreen">8.97347766008185</span></td>
+<td align="right"><span style="background-color:LightGreen">0.436946779646901</span></td>
+<td align="right"><span>-0.0912664298887648</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
 <td align="right">HWSM</td>
-<td align="right"><span style="background-color:LightGreen">6211.72593543445</span></td>
-<td align="right"><span style="background-color:LightGreen">83390.079343758</span></td>
-<td align="right">64171.99</td>
-<td align="right">-0.6174998</td>
-<td align="right">9.086466</td>
-<td align="right">0.4585560</td>
-<td align="right">-0.1381724</td>
+<td align="right"><span>6211.72593543445</span></td>
+<td align="right"><span>83390.079343758</span></td>
+<td align="right"><span>64171.9936778028</span></td>
+<td align="right"><span>-0.617499794149056</span></td>
+<td align="right"><span>9.08646625528757</span></td>
+<td align="right"><span>0.458555952183631</span></td>
+<td align="right"><span>-0.138172386373136</span></td>
 </tr>
 </tbody>
 </table>
