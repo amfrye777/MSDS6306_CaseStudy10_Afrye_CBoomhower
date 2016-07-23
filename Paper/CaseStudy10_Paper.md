@@ -445,10 +445,155 @@ value. For these reasons, it is important to consider all available
 measures holistically as will be done further momentarily.
 
     ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.name="MLEType",value.name = "MLEValue")
-    #formattable(ModelMLEMelt)
+    formattable(ModelMLEMelt)
 
-    ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=as.factor(MLEValue), fill = MLEType)) +
-    geom_bar(stat="identity" ,position=position_dodge()) +
+<table style="width:110%;">
+<colgroup>
+<col width="62%" />
+<col width="20%" />
+<col width="12%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">ModelType</th>
+<th align="right">ModelTypeAbbr</th>
+<th align="right">MLEType</th>
+<th align="right">MLEValue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Simple Exponential Smoothing</td>
+<td align="right">SES</td>
+<td align="right">AIC</td>
+<td align="right">1977.827</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Linear Trend</td>
+<td align="right">HLT</td>
+<td align="right">AIC</td>
+<td align="right">1975.610</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Exponential Trend</td>
+<td align="right">HET</td>
+<td align="right">AIC</td>
+<td align="right">1975.029</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Damped Linear Trend</td>
+<td align="right">HDLT</td>
+<td align="right">AIC</td>
+<td align="right">1979.044</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">HDET</td>
+<td align="right">AIC</td>
+<td align="right">1978.710</td>
+</tr>
+<tr class="even">
+<td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">HWSA</td>
+<td align="right">AIC</td>
+<td align="right">1958.925</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">HWSM</td>
+<td align="right">AIC</td>
+<td align="right">1964.418</td>
+</tr>
+<tr class="even">
+<td align="right">Simple Exponential Smoothing</td>
+<td align="right">SES</td>
+<td align="right">AICc</td>
+<td align="right">1978.001</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Linear Trend</td>
+<td align="right">HLT</td>
+<td align="right">AICc</td>
+<td align="right">1976.207</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Exponential Trend</td>
+<td align="right">HET</td>
+<td align="right">AICc</td>
+<td align="right">1975.626</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Damped Linear Trend</td>
+<td align="right">HDLT</td>
+<td align="right">AICc</td>
+<td align="right">1979.953</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">HDET</td>
+<td align="right">AICc</td>
+<td align="right">1979.619</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">HWSA</td>
+<td align="right">AICc</td>
+<td align="right">1968.816</td>
+</tr>
+<tr class="even">
+<td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">HWSM</td>
+<td align="right">AICc</td>
+<td align="right">1974.309</td>
+</tr>
+<tr class="odd">
+<td align="right">Simple Exponential Smoothing</td>
+<td align="right">SES</td>
+<td align="right">BIC</td>
+<td align="right">1982.380</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Linear Trend</td>
+<td align="right">HLT</td>
+<td align="right">BIC</td>
+<td align="right">1984.717</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Exponential Trend</td>
+<td align="right">HET</td>
+<td align="right">BIC</td>
+<td align="right">1984.136</td>
+</tr>
+<tr class="even">
+<td align="right">Holt's Damped Linear Trend</td>
+<td align="right">HDLT</td>
+<td align="right">BIC</td>
+<td align="right">1990.427</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt's Damped Exponential Trend</td>
+<td align="right">HDET</td>
+<td align="right">BIC</td>
+<td align="right">1990.093</td>
+</tr>
+<tr class="even">
+<td align="right">Holt Winters' Seasonal Additive Model</td>
+<td align="right">HWSA</td>
+<td align="right">BIC</td>
+<td align="right">1995.352</td>
+</tr>
+<tr class="odd">
+<td align="right">Holt Winters' Seasonal Multiplicative Model</td>
+<td align="right">HWSM</td>
+<td align="right">BIC</td>
+<td align="right">2000.844</td>
+</tr>
+</tbody>
+</table>
+
+    ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=MLEValue, fill = MLEType)) +
+    geom_bar(stat="identity" ,position=position_dodge())+
     theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/PlotModelMLE-1.png)<!-- -->
@@ -465,11 +610,11 @@ this analysis are:
 -   Mean Absolute Scaled Error (MASE)
 -   Autocorrelation of Errors at Lag 1 (ACF1)
 
-<table style="width:739%;">
+<table style="width:808%;">
 <colgroup>
 <col width="62%" />
 <col width="20%" />
-<col width="93%" />
+<col width="162%" />
 <col width="93%" />
 <col width="91%" />
 <col width="94%" />
@@ -494,7 +639,7 @@ this analysis are:
 <tr class="odd">
 <td align="right">Simple Exponential Smoothing</td>
 <td align="right">SES</td>
-<td align="right"><span>28255.5686974526</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff0000">28255.5686974526</span></td>
 <td align="right"><span>105746.360129531</span></td>
 <td align="right"><span>83785.2828519739</span></td>
 <td align="right"><span>1.61853223242804</span></td>
@@ -505,7 +650,7 @@ this analysis are:
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
 <td align="right">HLT</td>
-<td align="right"><span>12981.2433596182</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff8f8f">12981.2433596182</span></td>
 <td align="right"><span>101278.188624904</span></td>
 <td align="right"><span>78180.9067417175</span></td>
 <td align="right"><span>-0.340566842511862</span></td>
@@ -516,7 +661,7 @@ this analysis are:
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
 <td align="right">HET</td>
-<td align="right"><span style="background-color:LightGreen">1027.78652647737</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1027.78652647737</span></td>
 <td align="right"><span>99625.5017561852</span></td>
 <td align="right"><span>76933.689013667</span></td>
 <td align="right"><span>-2.06954107376868</span></td>
@@ -527,7 +672,7 @@ this analysis are:
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
 <td align="right">HDLT</td>
-<td align="right"><span>15606.5778392227</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff7676">15606.5778392227</span></td>
 <td align="right"><span>102291.450636505</span></td>
 <td align="right"><span>78689.5495981111</span></td>
 <td align="right"><span>0.0337457920377457</span></td>
@@ -538,7 +683,7 @@ this analysis are:
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
 <td align="right">HDET</td>
-<td align="right"><span>3135.94744889523</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffebeb">3135.94744889523</span></td>
 <td align="right"><span>101334.425371825</span></td>
 <td align="right"><span>77773.9332302407</span></td>
 <td align="right"><span style="background-color:LightGreen">-2.42405176641859</span></td>
@@ -549,7 +694,7 @@ this analysis are:
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
 <td align="right">HWSA</td>
-<td align="right"><span>8710.85874215872</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffb7b7">8710.85874215872</span></td>
 <td align="right"><span style="background-color:LightGreen">76350.8064264007</span></td>
 <td align="right"><span style="background-color:LightGreen">61147.927199533</span></td>
 <td align="right"><span>-0.25190171993221</span></td>
@@ -560,7 +705,7 @@ this analysis are:
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
 <td align="right">HWSM</td>
-<td align="right"><span>6211.72593543445</span></td>
+<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffcece">6211.72593543445</span></td>
 <td align="right"><span>83390.079343758</span></td>
 <td align="right"><span>64171.9936778028</span></td>
 <td align="right"><span>-0.617499794149056</span></td>
