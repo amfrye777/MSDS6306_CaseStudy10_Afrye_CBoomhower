@@ -2,7 +2,7 @@
 title: "CaseStudy10_Paper"
 author: "Alex Frye, Chris Boomhower"
 date: "July 16 2016"
-output: md_document
+output: html_document
 ---
 
 ```{r DefineDirectory, include=FALSE}
