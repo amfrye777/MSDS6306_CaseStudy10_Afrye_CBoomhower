@@ -63,9 +63,9 @@ AICMinVal  <- min(ModelMLE$AIC)
 AICcMinVal <- min(ModelMLE$AICc)
 BICMinVal  <- min(ModelMLE$BIC)
 
-AICFORMAT  <- formatter("span", style = x ~ ifelse(x == AICMinVal, style(color = "green", font.weight = "bold"), NA))
-AICcFORMAT <- formatter("span", style = x ~ ifelse(x == AICcMinVal, style(color = "green", font.weight = "bold"), NA))
-BICFORMAT  <- formatter("span", style = x ~ ifelse(x == BICMinVal, style(color = "green", font.weight = "bold"), NA))
+AICFORMAT  <- formatter("span", style = ~ ifelse(AIC   == AICMinVal,   "background-color:LightGreen", NA))
+AICcFORMAT <- formatter("span", style = ~ ifelse(AICc   == AICcMinVal,   "background-color:LightGreen", NA))
+BICFORMAT  <- formatter("span", style = ~ ifelse(BIC   == BICMinVal,   "background-color:LightGreen", NA))
 
 formattable(ModelMLE, list(
                            AIC  = AICFORMAT,

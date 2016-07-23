@@ -12,7 +12,7 @@ output: md_document
 
 ###"C:\\Users\\Owner\\Documents\\GitHub\\MSDS_6306\\MSDS6306_CaseStudy10_Afrye_CBoomhower"
 
-DefaultDir<-"C:\\Users\\Owner\\Documents\\GitHub\\MSDS_6306\\MSDS6306_CaseStudy10_Afrye_CBoomhower"
+DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
 DataAnalysis<-paste(DefaultDir,"/DataAnalysis",sep = "")
