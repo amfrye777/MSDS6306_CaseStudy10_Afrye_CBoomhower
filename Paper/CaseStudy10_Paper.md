@@ -364,13 +364,13 @@ Given that the Holt-Winters' Seasonal Additive and Simple Exponential
 Smoothing models have the smallest values, this is an early indicator
 that these models may be the best fit for Efak as-is data.
 
-<table style="width:474%;">
+<table style="width:344%;">
 <colgroup>
 <col width="62%" />
 <col width="20%" />
 <col width="87%" />
-<col width="151%" />
-<col width="151%" />
+<col width="87%" />
+<col width="86%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -386,50 +386,50 @@ that these models may be the best fit for Efak as-is data.
 <td align="right">Simple Exponential Smoothing</td>
 <td align="right">SES</td>
 <td align="right"><span>1977.827</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ebfceb">1978.001</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">1982.38</span></td>
+<td align="right"><span>1978.001</span></td>
+<td align="right"><span style="color: green; font-weight: bold">1982.38</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Linear Trend</td>
 <td align="right">HLT</td>
 <td align="right"><span>1975.61</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d9f9d9">1976.207</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #9ef09e">1984.717</span></td>
+<td align="right"><span>1976.207</span></td>
+<td align="right"><span>1984.717</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Exponential Trend</td>
 <td align="right">HET</td>
 <td align="right"><span>1975.029</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d3f8d3">1975.626</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #9aef9a">1984.136</span></td>
+<td align="right"><span>1975.626</span></td>
+<td align="right"><span>1984.136</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt's Damped Linear Trend</td>
 <td align="right">HDLT</td>
 <td align="right"><span>1979.044</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1979.953</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c0f5c0">1990.427</span></td>
+<td align="right"><span>1979.953</span></td>
+<td align="right"><span>1990.427</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt's Damped Exponential Trend</td>
 <td align="right">HDET</td>
 <td align="right"><span>1978.71</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fbfefb">1979.619</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bef5be">1990.093</span></td>
+<td align="right"><span>1979.619</span></td>
+<td align="right"><span>1990.093</span></td>
 </tr>
 <tr class="even">
 <td align="right">Holt Winters' Seasonal Additive Model</td>
 <td align="right">HWSA</td>
 <td align="right"><span style="color: green; font-weight: bold">1958.925</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90">1968.816</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ddf9dd">1995.352</span></td>
+<td align="right"><span style="color: green; font-weight: bold">1968.816</span></td>
+<td align="right"><span>1995.352</span></td>
 </tr>
 <tr class="odd">
 <td align="right">Holt Winters' Seasonal Multiplicative Model</td>
 <td align="right">HWSM</td>
 <td align="right"><span>1964.418</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c6f6c6">1974.309</span></td>
-<td align="right"><span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">2000.844</span></td>
+<td align="right"><span>1974.309</span></td>
+<td align="right"><span>2000.844</span></td>
 </tr>
 </tbody>
 </table>

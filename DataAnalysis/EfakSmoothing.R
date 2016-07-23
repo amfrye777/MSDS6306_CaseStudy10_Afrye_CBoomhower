@@ -64,13 +64,13 @@ AICcMinVal <- min(ModelMLE$AICc)
 BICMinVal  <- min(ModelMLE$BIC)
 
 AICFORMAT  <- formatter("span", style = x ~ ifelse(x == AICMinVal, style(color = "green", font.weight = "bold"), NA))
-AICcFORMAT <- formatter("span", style = ~ ifelse(AICc == AICcMinVal, "background-color:LightGreen", NA))
-BICFORMAT  <- formatter("span", style = ~ ifelse(BIC  == BICMinVal,  "background-color:LightGreen", NA))
+AICcFORMAT <- formatter("span", style = x ~ ifelse(x == AICcMinVal, style(color = "green", font.weight = "bold"), NA))
+BICFORMAT  <- formatter("span", style = x ~ ifelse(x == BICMinVal, style(color = "green", font.weight = "bold"), NA))
 
 formattable(ModelMLE, list(
                            AIC  = AICFORMAT,
-                           AICc = color_tile("lightgreen", "white"), 
-                           BIC  = color_tile("lightgreen", "white")
+                           AICc = AICcFORMAT, 
+                           BIC  = BICFORMAT 
                           ))
 
 # ---- ComputeModelError ----
