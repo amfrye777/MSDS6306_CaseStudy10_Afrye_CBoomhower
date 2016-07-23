@@ -32,10 +32,6 @@ par(mfrow=c(2,1))
 plot(Temperature, main="Temperature")
 plot(EfakAsIs_stl$time.series[,"seasonal"], col="black", ylab = "Exports", main = "Seasonal Efak Exports")
 
-# The temperatures have a negative correlation, exports                      
-# increase in the colder months. However, the relationship is only stronger 
-# with blue Etels.
-
 # ---- EfakExtCorrelation_Births ----
 # Monthly births in Chulwalar 
 plot(Births, main="Births")

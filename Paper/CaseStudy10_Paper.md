@@ -308,10 +308,6 @@ during high temperature months.
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/EfakExtCorrelation_Temp_Seasonal-1.png)<!-- -->
 
-    # The temperatures have a negative correlation, exports                      
-    # increase in the colder months. However, the relationship is only stronger 
-    # with blue Etels.
-
 ### Forecasting Efak models with smoothing and related approaches
 
 Now that all EDA steps are complete, we are ready to run our forecast
