@@ -47,13 +47,15 @@ Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy 
 * Mean Absolute Scaled Error (MASE)
 * Autocorrelation of Errors at Lag 1 (ACF1)
 
-
+The below table provides a summary of all error measures with the smallest model error highlighted for each error type. Since the Holt-Winters' Seasonal Additive model has the smallest AIC/AICc values as discussed in our MLE review above, the fact that this additive model portrays four of the smallest error values seems rather significant. Of additional note, the Simple Exponential Smoothing model depicts at least one of the smallest error measures. For these reasons, the Holt-Winters' Seasonal Additive and Simple Exponential Smoothing models will be chosen for Chulwalar Efak export forecasting analysis.
 
 ```{r ComputeModelError, include=FALSE}
 ```
 
 ```{r ComputeModelErrorTable, echo=FALSE}
 ```
+
+
 
 ```{r PlotSES_HWSA}
 ```
