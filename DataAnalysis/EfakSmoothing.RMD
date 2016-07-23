@@ -51,7 +51,7 @@ Similar to AIC/AICc/BIC measures, various summary measures of forecast accuracy 
 ```{r ComputeModelError, include=FALSE}
 ```
 
-![Error Values by Model Type](CaseStudy10_Paper_files/ModelError.png)
+![Error Values by Model Type](CaseStudy10_Paper_files/ModelErrors.png)
 
 ```{r PlotSES_HWSA}
 ```

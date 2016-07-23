@@ -397,7 +397,7 @@ this analysis are:
 -   Mean Absolute Scaled Error (MASE)
 -   Autocorrelation of Errors at Lag 1 (ACF1)
 
-![Error Values by Model Type](CaseStudy10_Paper_files/ModelError.png)
+![Error Values by Model Type](CaseStudy10_Paper_files/ModelErrors.png)
 
     plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
     lines(fitted(Model_ses), col="purple", type="o")
