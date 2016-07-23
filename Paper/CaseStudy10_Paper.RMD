@@ -12,7 +12,7 @@ output: md_document
 
 ###"C:\\Users\\Owner\\Documents\\GitHub\\MSDS_6306\\MSDS6306_CaseStudy10_Afrye_CBoomhower"
 
-DefaultDir<-"D:/Documents/School/SMU/2016 Summer/MSDS 6306 - Into to Data Science/Assignments/Week 10/MSDS6306_CaseStudy10_Afrye_CBoomhower"
+DefaultDir<-"C:\\Users\\Owner\\Documents\\GitHub\\MSDS_6306\\MSDS6306_CaseStudy10_Afrye_CBoomhower"
 DataLoad<-paste(DefaultDir,"/DataLoad",sep = "")
 DataCleanup<-paste(DefaultDir,"/DataCleanup",sep = "")
 DataAnalysis<-paste(DefaultDir,"/DataAnalysis",sep = "")
@@ -23,7 +23,7 @@ RResources<-paste(DefaultDir,"/RResources",sep = "")
 
 #Introduction
 
-Our client, the prime minister of Chulwalar has recruited our small team of SMU data scientists to assist in forecasting Efak (A beautiful flower unique to the region of Chulwalar) exports from his country. He has provided us with historical, as-is flower export data, planned export data, and external key indicators unique to Chulwalar (All historical data provided by month from 2008-2013). It is our duty to best forecast Chulwalar Efak exports in the upcoming year (2014) based on existing export data.
+Our client, the Prime Minister of Chulwalar has recruited our small team of SMU data scientists to assist in forecasting Efak (A beautiful flower unique to the region of Chulwalar) exports from his country. He has provided us with historical, as-is flower export data, planned export data, and external key indicators unique to Chulwalar (All historical data provided by month from 2008-2013). It is our duty to best forecast Chulwalar Efak exports in the upcoming year (2014) based on existing export data.
 
 There are several steps needed to accomplish this task. These steps are summarized as follows:
 
@@ -32,7 +32,7 @@ There are several steps needed to accomplish this task. These steps are summariz
 * Observe correlation between as-is and planned exports
 * Plot seasonal and trend decomposition using Loess (STL) for as-is export data
 * Plot seasonal trends by month
-* Perform exploratory data analysis (EDA) to better understand effects of external indictors
+* Perform exploratory data analysis (EDA) to better understand effects of external indicators
 * Utilize smoothing techniques to forecast future exports
 
 ###Required Packages
@@ -79,7 +79,7 @@ As this analysis consists of historical export data, planned data, and external 
 
 #Data Cleanup
 
-Data cleanup is imperative to any data analysis. In our precursory view into header/footer records, we can tell there are several items needing to be cleaned across the three datasets. The following sections will walk through cleaning the data to prep for analysis.
+Data cleanup is imperative to any data analysis. In our precursory view into header/footer records, we can tell there are several items needing to be cleaned across the three data sets. The following sections will walk through cleaning the data to prep for analysis.
 
 ###AsIs Data Cleanup
 ``` {r data, child = paste(DataCleanup,"/CleanAsIs.rmd",sep = "")}
@@ -119,4 +119,8 @@ With the data cleaned, we are ready to proceed with our analysis. To recap, whil
 
 #Conclusion
 
-Conclusion Text Goes Here....
+The Prime Minister of Chulwalar requires assistance forecasting Efak exports based on historical as-is data. He has provided not only historical as-is data but also historical export plans and Chulwalar external indicators of interest. Throughout the EDA process in preparation for export forecasting, we've identified additional insightful information beyond a forecast model alone. As-is vs. planned export data has been reviewed as well as seasonal and trend decomposition using Loess for as-is data. Seasonal trend review was extended to a month-by-month comparison across all years (2008-2013), and the effects of external indicators, CEPI and Temperature, were analyzed in particular detail.
+
+EDA produced several insights as mentioned. The first is in regards to correlation between as-is vs. planned Efak exports. The Pearson's r is `0.906`, indicating a strong, positive correlation between as-is and planned exports. This correlation value provides a good baseline for measuring our forecasts at the end of 2014. The second step of analyzing as-is export STL components provided significant insight toward the seasonal behavior surrounding exports. This led to digging deeper into the seasonal trends for as-is exports, resulting in step three. In the third step, month-by-month review confirmed consistency in the seasonal trend across the years (primarily a spike early each year followed by a dip during the Summer). Finally, the fourth step provides insight into the association between Efak exports and external indicators. After reviewing all external indicators, the monthly Change in Export Price Index (CEPI) and climate temperatures yielded the most interesting results. Like Efak exports, CEPI exhibits a strong positive trend between 2008 and 2014, and it was identified that price index is highest when Efak exports are lowest and vice-versa. Though the Pearson's r (`-0.08`) for the association between Efak exports and temperature is non-indicative of a strong correlation, the seasonal components for exports and temperature confirm our original assumptions that temperature has a negative impact on exports during high temperature months. The reason for a small Pearson's r value is likely caused by a steady mean temperature over the years.
+
+With EDA complete, efforts shift to identify an appropriate forecast model. Various time-series models were analyzed, maximum likelihood estimators, and error measures were compared holistically across all models to assess potential best fit. It was identified that Simple Exponential Smoothing and Holt-Winters' Seasonal Additive models consistently contain lowest values from both MLE and error measures. These indicators led to further analysis of these models. Plotting each model with historical as-is data provides visual insight to not only forecasted values but also model performance as measured against historical exports. Between the Simple Exponential Smoothing and Holt-Winters' Seasonal Additive models, the additive model encompasses the positive correlation and seasonal trends observed in the Chulwalar as-is Efak export data. Due to these factors, the forecast model of choice is the Holt-Winters' Seasonal Additive model. A consultation has been scheduled with the Prime Minister in December of 2014 to assess the accuracy of this forecast and to discuss future forecasting for 2015.

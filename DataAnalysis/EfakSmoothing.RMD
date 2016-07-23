@@ -53,14 +53,19 @@ The below table provides a summary of all error measures with the smallest model
 
 ![Error Values by Model Type](CaseStudy10_Paper_files/ModelErrors.png)
 
-
+Before any forecasts are made, it is important to visualize model fit for as-is historical data. The following plot provides an overlayed view of raw as-is data and model fit lines. The Holt-Winters' Seasonal Additive model is more representative of seasonal changes in the raw data whereas the Simple Exponential Smoothing model provides a clearer summary of mean trend behavior.
 
 ```{r PlotSES_HWSA}
 ```
 
+The Simple Exponential Smoothing model is again plotted below with the raw as-is historical data. While this model does not appear to be sensitive to seasonal fluctuations in exports, it does provide a good representation of overall trend. The extent to which seasonal fluctuations are smoothed is dependent on the smoothing parameter, or alpha. This smoothing parameter operates as a weighted average in which older values are less influential on model forecasts.
+
+The model's export forecast is indicated by the blue line for the year 2014. Since this model calculates a single forecasting constant which remains for all of 2014, it does not account for the positive trends observed among historical data. This, along with the loss of a seasonal component when forecasting, is the Simple Exponential Smoothing model's biggest weakness.
+
 ```{r SimpleExponential}
 ```
 
+When reviewing the Holt-Winters' Seasonal Additive forecast with raw historical data below, it is clear this model not only depicts the export positive trend in the future, but it also accounts for the effects of seasonality. The model parameter gamma incorporates seasonal smoothing into the model calculation. In this case, gamma is set to a default estimated value. These additional components provide evidence to suggest the Holt-Winters' Seasonal Additive model is a better fit for forecasting as-is to future export data.
+
 ```{r HoltWinterSeasonalAdd}
 ```
-

@@ -127,7 +127,7 @@ theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 # ---- SimpleExponential ----
 par(mfrow=c(1,1))
-plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")
+plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
 lines(fitted(Model_ses), col="green", type="o")
 lines(Model_ses$mean, col="blue", type="o")
 legend("topleft",lty=1, col=c(1,"green"), c("data", expression(alpha == 0.671)),pch=1)
@@ -145,7 +145,7 @@ plot(Model_holt_3)
 plot(Model_holt_4)
 
 # ---- HoltWinterSeasonalAdd ----
-plot(Model_hw_1)
+plot(Model_hw_1, type = "o")
 
 # ---- HoltWinterSeasonalMult ----
 plot(Model_hw_2)

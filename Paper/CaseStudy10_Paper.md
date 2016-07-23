@@ -1,7 +1,7 @@
 Introduction
 ============
 
-Our client, the prime minister of Chulwalar has recruited our small team
+Our client, the Prime Minister of Chulwalar has recruited our small team
 of SMU data scientists to assist in forecasting Efak (A beautiful flower
 unique to the region of Chulwalar) exports from his country. He has
 provided us with historical, as-is flower export data, planned export
@@ -21,7 +21,7 @@ summarized as follows:
     export data
 -   Plot seasonal trends by month
 -   Perform exploratory data analysis (EDA) to better understand effects
-    of external indictors
+    of external indicators
 -   Utilize smoothing techniques to forecast future exports
 
 ### Required Packages
@@ -99,7 +99,7 @@ Data Cleanup
 
 Data cleanup is imperative to any data analysis. In our precursory view
 into header/footer records, we can tell there are several items needing
-to be cleaned across the three datasets. The following sections will
+to be cleaned across the three data sets. The following sections will
 walk through cleaning the data to prep for analysis.
 
 ### AsIs Data Cleanup
@@ -397,7 +397,24 @@ this analysis are:
 -   Mean Absolute Scaled Error (MASE)
 -   Autocorrelation of Errors at Lag 1 (ACF1)
 
+The below table provides a summary of all error measures with the
+smallest model error highlighted for each error type. Since the
+Holt-Winters' Seasonal Additive model has the smallest AIC/AICc values
+as discussed in our MLE review above, the fact that this additive model
+portrays four of the smallest error values seems rather significant. Of
+additional note, the Simple Exponential Smoothing model depicts at least
+one of the smallest error measures. For these reasons, the Holt-Winters'
+Seasonal Additive and Simple Exponential Smoothing models will be chosen
+for Chulwalar Efak export forecasting analysis.
+
 ![Error Values by Model Type](CaseStudy10_Paper_files/ModelErrors.png)
+
+Before any forecasts are made, it is important to visualize model fit
+for as-is historical data. The following plot provides an overlayed view
+of raw as-is data and model fit lines. The Holt-Winters' Seasonal
+Additive model is more representative of seasonal changes in the raw
+data whereas the Simple Exponential Smoothing model provides a clearer
+summary of mean trend behavior.
 
     plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
     lines(fitted(Model_ses), col="purple", type="o")
@@ -406,19 +423,94 @@ this analysis are:
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/PlotSES_HWSA-1.png)<!-- -->
 
+The Simple Exponential Smoothing model is again plotted below with the
+raw as-is historical data. While this model does not appear to be
+sensitive to seasonal fluctuations in exports, it does provide a good
+representation of overall trend. The extent to which seasonal
+fluctuations are smoothed is dependent on the smoothing parameter, or
+alpha. This smoothing parameter operates as a weighted average in which
+older values are less influential on model forecasts.
+
+The model's export forecast is indicated by the blue line for the year
+2014. Since this model calculates a single forecasting constant which
+remains for all of 2014, it does not account for the positive trends
+observed among historical data. This, along with the loss of a seasonal
+component when forecasting, is the Simple Exponential Smoothing model's
+biggest weakness.
+
     par(mfrow=c(1,1))
-    plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar  )", xlab="Year", main="", fcol="white", type="o")
+    plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
     lines(fitted(Model_ses), col="green", type="o")
     lines(Model_ses$mean, col="blue", type="o")
     legend("topleft",lty=1, col=c(1,"green"), c("data", expression(alpha == 0.671)),pch=1)
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/SimpleExponential-1.png)<!-- -->
 
-    plot(Model_hw_1)
+When reviewing the Holt-Winters' Seasonal Additive forecast with raw
+historical data below, it is clear this model not only depicts the
+export positive trend in the future, but it also accounts for the
+effects of seasonality. The model parameter gamma incorporates seasonal
+smoothing into the model calculation. In this case, gamma is set to a
+default estimated value. These additional components provide evidence to
+suggest the Holt-Winters' Seasonal Additive model is a better fit for
+forecasting as-is to future export data.
+
+    plot(Model_hw_1, type = "o")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalAdd-1.png)<!-- -->
 
 Conclusion
 ==========
 
-Conclusion Text Goes Here....
+The Prime Minister of Chulwalar requires assistance forecasting Efak
+exports based on historical as-is data. He has provided not only
+historical as-is data but also historical export plans and Chulwalar
+external indicators of interest. Throughout the EDA process in
+preparation for export forecasting, we've identified additional
+insightful information beyond a forecast model alone. As-is vs. planned
+export data has been reviewed as well as seasonal and trend
+decomposition using Loess for as-is data. Seasonal trend review was
+extended to a month-by-month comparison across all years (2008-2013),
+and the effects of external indicators, CEPI and Temperature, were
+analyzed in particular detail.
+
+EDA produced several insights as mentioned. The first is in regards to
+correlation between as-is vs. planned Efak exports. The Pearson's r is
+`0.906`, indicating a strong, positive correlation between as-is and
+planned exports. This correlation value provides a good baseline for
+measuring our forecasts at the end of 2014. The second step of analyzing
+as-is export STL components provided significant insight toward the
+seasonal behavior surrounding exports. This led to digging deeper into
+the seasonal trends for as-is exports, resulting in step three. In the
+third step, month-by-month review confirmed consistency in the seasonal
+trend across the years (primarily a spike early each year followed by a
+dip during the Summer). Finally, the fourth step provides insight into
+the association between Efak exports and external indicators. After
+reviewing all external indicators, the monthly Change in Export Price
+Index (CEPI) and climate temperatures yielded the most interesting
+results. Like Efak exports, CEPI exhibits a strong positive trend
+between 2008 and 2014, and it was identified that price index is highest
+when Efak exports are lowest and vice-versa. Though the Pearson's r
+(`-0.08`) for the association between Efak exports and temperature is
+non-indicative of a strong correlation, the seasonal components for
+exports and temperature confirm our original assumptions that
+temperature has a negative impact on exports during high temperature
+months. The reason for a small Pearson's r value is likely caused by a
+steady mean temperature over the years.
+
+With EDA complete, efforts shift to identify an appropriate forecast
+model. Various time-series models were analyzed, maximum likelihood
+estimators, and error measures were compared holistically across all
+models to assess potential best fit. It was identified that Simple
+Exponential Smoothing and Holt-Winters' Seasonal Additive models
+consistently contain lowest values from both MLE and error measures.
+These indicators led to further analysis of these models. Plotting each
+model with historical as-is data provides visual insight to not only
+forecasted values but also model performance as measured against
+historical exports. Between the Simple Exponential Smoothing and
+Holt-Winters' Seasonal Additive models, the additive model encompasses
+the positive correlation and seasonal trends observed in the Chulwalar
+as-is Efak export data. Due to these factors, the forecast model of
+choice is the Holt-Winters' Seasonal Additive model. A consultation has
+been scheduled with the Prime Minister in December of 2014 to assess the
+accuracy of this forecast and to discuss future forecasting for 2015.
