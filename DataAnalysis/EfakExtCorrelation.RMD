@@ -9,7 +9,7 @@ output: md_document
 knitr::read_chunk(paste0(DataAnalysis,'/EfakExtCorrelation.R'))
 ```
 
-After extensive EDA on several external indicator factors, two indicators have been identified as noteworthy. The first indicator is monthly change in export price index (CEPI) and the second is climate temperature.
+After extensive EDA on several external indicator factors, two indicators are identified as noteworthy. The first indicator is monthly change in export price index (CEPI) and the second is climate temperature.
 
 The CEPI plot below indicates a strong, nearly linear, increase in price index between 2008 and 2013. This results in a strong Pearson's r value of `0.93`, representing significant association with increase in exports.
 
@@ -21,7 +21,7 @@ Because strong correlation is observed, it is beneficial to also compare the sea
 ```{r EfakExtCorrelation_CEPI_seasonal}
 ```
 
-The second indicator of interest is temperature. One would expect changes in temperature throughout the year to play a significant role in flower yields and thus impact the number of exports. In reviewing the correlation between temparature and Efak exports, a Pearson's r of `-0.08` is produced. This is rather surprising given our aforementioned assumption.
+The second indicator of interest is temperature. One would expect changes in temperature throughout the year to play a significant role in flower yields and thus impact the number of exports. In reviewing the correlation between temperature and Efak exports, a Pearson's r of `-0.08` is produced. This is rather surprising given our aforementioned assumption.
 
 ```{r EfakExtCorrelation_Temp}
 ```

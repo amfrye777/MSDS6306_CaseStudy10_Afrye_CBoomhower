@@ -3,7 +3,7 @@ EfakAsIs_stl <- stl(EfakAsIs , s.window=9)
 
 par(mfrow=c(1,1))
 
-plot(EfakAsIs_stl, col="black", main="EfakAsIs_stl")
+plot(EfakAsIs_stl, col="black", main="EfakAsIs_STL")
 
 # ----
 EfakAsIs_stl

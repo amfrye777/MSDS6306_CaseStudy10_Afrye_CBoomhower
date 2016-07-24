@@ -14,6 +14,6 @@ Similarly, the second data set loaded is the planned export data. These data are
 ```{r LoadPlan, include = FALSE}
 ```
 
-Once again, the data structure and subset rows were reviewed to confirm succesful import.
+Once again, the data structure and subset rows were reviewed to confirm successful import.
 
 Similar to the as-is data set, structure and subset row review indicates there are multiple groups (TotalPlan, Efak, Wuge, TotalEtel, BlueEtel, RedEtel, YearPlan, and TotalPlan_2014) of data within the single CSV file that need divided accordingly. In order to do so, these data will need parsed during cleanup and assigned to a data frame for efficient analysis.

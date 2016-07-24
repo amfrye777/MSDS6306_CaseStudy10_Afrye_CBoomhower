@@ -122,12 +122,14 @@ ModelMLEMelt<-melt(ModelMLE, id.vars = c("ModelType","ModelTypeAbbr"),variable.n
 
 ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=as.factor(MLEValue), fill = MLEType)) +
 geom_bar(stat="identity" ,position=position_dodge()) +
-theme(axis.text.x = element_text(angle = 90, hjust = 1))
+theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+ggtitle("MLE Values by Model Type") +
+ylab("MLE Value")
 
 
 # ---- SimpleExponential ----
 par(mfrow=c(1,1))
-plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
+plot(Model_ses, plot.conf=FALSE, ylab="Efak Exports", xlab="Year", main="SES Model Forecast with As-is Data", fcol="white", type="o")
 lines(fitted(Model_ses), col="green", type="o")
 lines(Model_ses$mean, col="blue", type="o")
 legend("topleft",lty=1, col=c(1,"green"), c("data", expression(alpha == 0.671)),pch=1)
@@ -145,14 +147,14 @@ plot(Model_holt_3)
 plot(Model_holt_4)
 
 # ---- HoltWinterSeasonalAdd ----
-plot(Model_hw_1, type = "o")
+plot(Model_hw_1, main = "Forecasts from Holt-Winters' Additive Method", xlab = "Year", ylab = "Efak Exports", type = "o")
 
 # ---- HoltWinterSeasonalMult ----
 plot(Model_hw_2)
 
 # ---- PlotSES_HWSA ----
 
-plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
+plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="SES and HWSA Models with As-is Data", fcol="white", type="o")
 lines(fitted(Model_ses), col="purple", type="o")
 lines(fitted(Model_hw_1), col="red", type="o")
 legend("topleft",lty=1, col=c(1,"purple","red"), c("data", "SES","Holt Winters' Additive"),pch=1)

@@ -9,7 +9,7 @@ output: md_document
 knitr::read_chunk(paste0(DataCleanup,'/CleanPlan.R'))
 ```
 
-To clean our planned Chulwar data, we once again separate each planned export group into individual vectors. After this, we convert each new vector into a time series and then review each time series output to ensure they match our expectations. The time series output was as expected.
+To clean our planned Chulwar data, we once again separate each planned export group into individual vectors. After this, we convert each new vector into a time series and then review each time series output to ensure they match our expectations. The time series output appears as expected.
 
 ```{r CleanPlan_Vectors, include = FALSE}
 ```

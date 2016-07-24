@@ -36,7 +36,7 @@ This RMD requires the following R packages to run:
 Data Load
 =========
 
-As this analysis consists of historical export data, planned data, and
+As this analysis consists of historical export data, plan data, and
 external indicator data, each data set is stored in one of three CSV
 files. These files are:
 
@@ -54,7 +54,7 @@ the data to confirm successful import.
 
 After reviewing this subset of data, we discovered we have some cleanup
 to do. It appears we have loaded one column for each year of data by
-month(row). All export group information (TotalAsIs, Efak, Wuge,
+month (row). All export group information (TotalAsIs, Efak, Wuge,
 TotalEtel, BlueEtel, RedEtel, and TotalYearly) has also been combined
 into a list by repeating month/year data for each export group in
 subsequent rows. We will need to parse this data to create a data
@@ -66,7 +66,7 @@ Similarly, the second data set loaded is the planned export data. These
 data are also obtained from SMU 2DS and loaded as follows:
 
 Once again, the data structure and subset rows were reviewed to confirm
-succesful import.
+successful import.
 
 Similar to the as-is data set, structure and subset row review indicates
 there are multiple groups (TotalPlan, Efak, Wuge, TotalEtel, BlueEtel,
@@ -99,8 +99,8 @@ Data Cleanup
 
 Data cleanup is imperative to any data analysis. In our precursory view
 into header/footer records, we can tell there are several items needing
-to be cleaned across the three data sets. The following sections will
-walk through cleaning the data to prep for analysis.
+to be cleaned across the three data sets. The following sections walk
+through cleaning the data to prep for analysis.
 
 ### AsIs Data Cleanup
 
@@ -114,7 +114,7 @@ each time series output to ensure they match our expectations.
 To clean our planned Chulwar data, we once again separate each planned
 export group into individual vectors. After this, we convert each new
 vector into a time series and then review each time series output to
-ensure they match our expectations. The time series output was as
+ensure they match our expectations. The time series output appears as
 expected.
 
 ### External Indicators Data Cleanup
@@ -136,8 +136,8 @@ correlations.
 ### Efak Correlation
 
 The first approach to EDA is to review historical exports against
-Chulwalar's planned exports. This correlation will validate the prime
-minister's planning committee estimates for previous years, identify
+Chulwalar's planned exports. This correlation will validate the Prime
+Minister's planning committee estimates for previous years, identify
 gaps in planning efforts, and will help us to better forecast 2014
 exports. This will essentially provide a baseline by which we may
 measure our own estimate accuracy.
@@ -158,7 +158,7 @@ resulting in some oscillations through the end of 2013.
 The next step is to observe the association between planned and as-is
 exports. Pearson's r is therefore calculated and the resulting r value
 is `0.906`. This indicates there is a strong, positive correlation
-between both types of Efak exports. We aknowledge that `0.906`, though
+between both types of Efak exports. We acknowledge that `0.906`, though
 strong, presents some room for improvement.
 
     cor(EfakAsIs , EfakPlan, method = "pearson")
@@ -166,8 +166,8 @@ strong, presents some room for improvement.
     ## [1] 0.9055081
 
 Though Pearson's r does suggest a strong association between planned and
-as-is exports, a hypostheses test provides added insight into the
-correlation's statistical significance. Our null hypotheis is that the
+as-is exports, a hypotheses test provides added insight into the
+correlation's statistical significance. Our null hypothesis is that the
 slope of our linear model is 0, whereas our alternative hypothesis is
 that it is not 0. Based on the results presented below, the p-value is
 equal to &lt;2e-16, meaning we reject the null hypothesis. There is
@@ -199,12 +199,12 @@ planned and as-is exports is not equal to 0.
 ### Efak STL
 
 Now having a clearer understanding of the association between as-is and
-planned Efak export, the next step is to review the as-is export trend,
-seasonality, and remaining coincidential componenents. Utilizing the STL
-function, we are able to seperate these components and plot them one
+planned Efak exports, the next step is to review the as-is export trend,
+seasonality, and remaining coincidental components. Utilizing the STL
+function, we are able to separate these components and plot them one
 after the other.
 
-Refering to the trend segment below, it is clear there is a nearly
+Referring to the trend segment below, it is clear there is a nearly
 linear increase in exports over time. The seasonality component
 indicates a large number of exports toward the beginning of each year.
 There appears to be a consistent decrease in exports during the Summer
@@ -216,7 +216,7 @@ seasonal behaviors.
 
     par(mfrow=c(1,1))
 
-    plot(EfakAsIs_stl, col="black", main="EfakAsIs_stl")
+    plot(EfakAsIs_stl, col="black", main="EfakAsIs_STL")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSTL_toSTL-1.png)<!-- -->
 
@@ -234,15 +234,15 @@ of November. Since the September drop in exports is alarming, it is
 worth notifying the Chulwalar Prime Minister so that improvements can be
 made.
 
-    monthplot(EfakAsIs_stl$time.series[,"seasonal"], main="", ylab="Seasonal")
+    monthplot(EfakAsIs_stl$time.series[,"seasonal"], main="Monthly Seasonal Data", ylab="Seasonal Exports", xlab = "Month")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/EfakSeasonal_Monthly-1.png)<!-- -->
 
 ### Efak External Indicator Correlation
 
 After extensive EDA on several external indicator factors, two
-indicators have been identified as noteworthy. The first indicator is
-monthly change in export price index (CEPI) and the second is climate
+indicators are identified as noteworthy. The first indicator is monthly
+change in export price index (CEPI) and the second is climate
 temperature.
 
 The CEPI plot below indicates a strong, nearly linear, increase in price
@@ -276,7 +276,7 @@ throughout the year.
 The second indicator of interest is temperature. One would expect
 changes in temperature throughout the year to play a significant role in
 flower yields and thus impact the number of exports. In reviewing the
-correlation between temparature and Efak exports, a Pearson's r of
+correlation between temperature and Efak exports, a Pearson's r of
 `-0.08` is produced. This is rather surprising given our aforementioned
 assumption.
 
@@ -366,7 +366,7 @@ To further illustrate the difference in MLE measures, the AIC/AICc/BIC
 values are plotted for each model type. As indicted in the previous
 table, the Holt-Winters' Seasonal Additive and Simple Exponential
 Smoothing models depict the smallest measures. It is worth noting that
-the Holt-Winters' Seasonal Additive model has the second smallest BIC
+the Holt-Winters' Seasonal Additive model has the second largest BIC
 value and that while its multiplicative version has the second smallest
 AIC/AICc values, the multiplicative model portrays the largest BIC
 value. For these reasons, it is important to consider all available
@@ -377,7 +377,9 @@ measures holistically as will be done further momentarily.
 
     ggplot(ModelMLEMelt, aes(x = ModelTypeAbbr,y=as.factor(MLEValue), fill = MLEType)) +
     geom_bar(stat="identity" ,position=position_dodge()) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    ggtitle("MLE Values by Model Type") +
+    ylab("MLE Value")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/PlotModelMLE-1.png)<!-- -->
 
@@ -406,13 +408,13 @@ for Chulwalar Efak export forecasting analysis.
 ![Error Values by Model Type](CaseStudy10_Paper_files/ModelErrors.png)
 
 Before any forecasts are made, it is important to visualize model fit
-for as-is historical data. The following plot provides an overlayed view
+for as-is historical data. The following plot provides an overlay view
 of raw as-is data and model fit lines. The Holt-Winters' Seasonal
 Additive model is more representative of seasonal changes in the raw
 data whereas the Simple Exponential Smoothing model provides a clearer
 summary of mean trend behavior.
 
-    plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
+    plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="SES and HWSA Models with As-is Data", fcol="white", type="o")
     lines(fitted(Model_ses), col="purple", type="o")
     lines(fitted(Model_hw_1), col="red", type="o")
     legend("topleft",lty=1, col=c(1,"purple","red"), c("data", "SES","Holt Winters' Additive"),pch=1)
@@ -435,7 +437,7 @@ component when forecasting, is the Simple Exponential Smoothing model's
 biggest weakness.
 
     par(mfrow=c(1,1))
-    plot(Model_ses, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white", type="o")
+    plot(Model_ses, plot.conf=FALSE, ylab="Efak Exports", xlab="Year", main="SES Model Forecast with As-is Data", fcol="white", type="o")
     lines(fitted(Model_ses), col="green", type="o")
     lines(Model_ses$mean, col="blue", type="o")
     legend("topleft",lty=1, col=c(1,"green"), c("data", expression(alpha == 0.671)),pch=1)
@@ -451,7 +453,7 @@ default estimated value. These additional components provide evidence to
 suggest the Holt-Winters' Seasonal Additive model is a better fit for
 forecasting as-is to future export data.
 
-    plot(Model_hw_1, type = "o")
+    plot(Model_hw_1, main = "Forecasts from Holt-Winters' Additive Method", xlab = "Year", ylab = "Efak Exports", type = "o")
 
 ![](CaseStudy10_Paper_files/figure-markdown_strict/HoltWinterSeasonalAdd-1.png)<!-- -->
 
@@ -475,17 +477,17 @@ correlation between as-is vs. planned Efak exports. The Pearson's r is
 `0.906`, indicating a strong, positive correlation between as-is and
 planned exports. This correlation value provides a good baseline for
 measuring our forecasts at the end of 2014. The second step of analyzing
-as-is export STL components provided significant insight toward the
+as-is export STL components provides significant insight toward the
 seasonal behavior surrounding exports. This led to digging deeper into
 the seasonal trends for as-is exports, resulting in step three. In the
-third step, month-by-month review confirmed consistency in the seasonal
+third step, month-by-month review confirms consistency in the seasonal
 trend across the years (primarily a spike early each year followed by a
 dip during the Summer). Finally, the fourth step provides insight into
 the association between Efak exports and external indicators. After
 reviewing all external indicators, the monthly Change in Export Price
-Index (CEPI) and climate temperatures yielded the most interesting
+Index (CEPI) and climate temperatures yield the most interesting
 results. Like Efak exports, CEPI exhibits a strong positive trend
-between 2008 and 2014, and it was identified that price index is highest
+between 2008 and 2014, and it is identified that price index is highest
 when Efak exports are lowest and vice-versa. Though the Pearson's r
 (`-0.08`) for the association between Efak exports and temperature is
 non-indicative of a strong correlation, the seasonal components for
@@ -497,7 +499,7 @@ steady mean temperature over the years.
 With EDA complete, efforts shift to identify an appropriate forecast
 model. Various time-series models were analyzed, maximum likelihood
 estimators, and error measures were compared holistically across all
-models to assess potential best fit. It was identified that Simple
+models to assess potential best fit. It is identified that Simple
 Exponential Smoothing and Holt-Winters' Seasonal Additive models
 consistently contain lowest values from both MLE and error measures.
 These indicators led to further analysis of these models. Plotting each
