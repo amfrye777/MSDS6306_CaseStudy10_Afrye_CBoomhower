@@ -154,7 +154,7 @@ plot(Model_hw_2)
 
 # ---- PlotSES_HWSA ----
 
-plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="SES and HWSA Models with As-is Data", fcol="white", type="o")
+plot(Model_holt_1, plot.conf=FALSE, ylab="Efak Exports", xlab="Year", main="SES and HWSA Models with As-is Data", fcol="white", type="o")
 lines(fitted(Model_ses), col="purple", type="o")
 lines(fitted(Model_hw_1), col="red", type="o")
 legend("topleft",lty=1, col=c(1,"purple","red"), c("data", "SES","Holt Winters' Additive"),pch=1)
