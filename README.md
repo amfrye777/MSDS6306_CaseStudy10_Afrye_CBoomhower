@@ -1,20 +1,20 @@
 Assignment Definition
 ---------------------
 
-The prime minister of Chulwalhar has asked us to help him in forecasting
+The prime minister of Chulwalar has asked us to help him in forecasting
 exports from his country. In order to do this we have been given as-is
 data, which is the original or observed data, and planned data, which is
-what Chulwalhar would like to export. We also have a list of indicators
+what Chulwalar would like to export. We also have a list of indicators
 that may affect exports. Our job is to find out the best way to forecast
-Chulwalhar’s exports in 2014 based on data collected before this year.
-In other words, we want to create a credible statistical model.
+Chulwalar’s exports in 2014 based on data collected before this year. In
+other words, we want to create a credible statistical model.
 
-The export data for Chulwalhar are in two CSV files. One contains the
+The export data for Chulwalar are in two CSV files. One contains the
 as-is data and the other one contains the planned data. These data sets
 are also composed of other data sets: monthly and yearly for both
 groups. Your task is to take all of these data sets, import them into R,
 and develop a model to forecast the exports of these particular products
-for the prime minister of Chulwalhar.
+for the prime minister of Chulwalar.
 
 Submit an R markdown document with the code necessary to download clean
 and analyze the data. Interpretations of the code and analysis should be
@@ -89,7 +89,7 @@ PROJECT REPRODUCIBILITY INSTRUCTIONS
     -   Modify DefaultDir input to your Project's Root Directory Path
     -   Knit README.Rmd
 
-2.  Regenerate AFrye\_Week6CaseStudy.MD
+2.  Regenerate CaseStudy10\_Paper.MD
     -   Open CaseStudy10\_Paper.RMD
     -   Modify DefaultDir input to your Project's Root Directory Path
     -   Ensure all required R Packages are installed on your machine.
